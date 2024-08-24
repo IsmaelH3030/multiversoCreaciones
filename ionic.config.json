@@ -1,0 +1,7 @@
+{
+  "name": "multiversoCreaciones",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
