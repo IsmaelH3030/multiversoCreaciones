@@ -26,8 +26,7 @@
     <div class="d-flex-center">
       <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="ion-text-center">
 
-        <app-custom-input autocomplete="email" [control]="form.controls.email" type="email" label="Correo"
-          icon="mail-outline"></app-custom-input>
+        <app-custom-input autocomplete="email" [control]="form.controls.email" type="email" label="Correo" icon="mail-outline"></app-custom-input>
         <div class="validators espacio" *ngIf="form.controls.email.errors && form.controls.email.dirty">
           <div *ngIf="form.controls.email.errors?.['required']">Ingresa tu email</div>
           <div *ngIf="form.controls.email.errors?.['email']">Ingresa un email valido</div>
@@ -40,11 +39,13 @@
           <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div>
         </div>
 
-        <br><br>
         <ion-button color="tertiary" class="ion-margin-vertical" [disabled]="form.invalid" type="submit" shape="round">
           Acceder
           <ion-icon slot="end" name="log-in-outline"></ion-icon>
         </ion-button>
+        <br><br>
+        <div>¿Olvidaste tu contraseña?</div>
+        <br>
         <div><a routerLink="recuperar-password">Recuperar contraseña</a></div>
         <br>
         <div>¿No estas registrado?</div>
