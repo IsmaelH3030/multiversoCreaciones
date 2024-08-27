@@ -1,0 +1,9 @@
+// centrar texto
+.ion {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    flex-direction: column;  /* Alinea los elementos verticalmente */
+    height: 100vh;           /* Asegura que ocupe toda la altura de la pantalla */
+    text-align: center;      /* Centra el texto dentro de los <h1> */
+  }

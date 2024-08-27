@@ -1,0 +1,26 @@
+ion-menu::part(backdrop) {
+  background-color: rgba(69, 69, 69, 0.748);
+}
+
+ion-menu::part(container) {
+  border-radius: 0 20px 20px 0;
+  box-shadow: 1px 0px 16px rgba(60, 55, 55, 0.852);
+}
+
+.color-toolbar{
+  --background:#3c10cb;
+  --color:#ffffffff ;
+}
+
+
+.inicio-logo{
+  display: flex; 
+  align-items: center; 
+  width: 50px;  
+}
+
+.toggle{
+margin: 10px 10px 10px 10px;
+padding: 0px 0px 1000px 0px;
+}
+

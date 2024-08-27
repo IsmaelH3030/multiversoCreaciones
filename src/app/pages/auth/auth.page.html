@@ -1,0 +1,68 @@
+<ion-app>
+
+<ion-split-pane>
+
+<ion-content>
+
+
+    <!-- Encabezado de inicio -->
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+          <div class="logo-principal">
+            <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
+          </div>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <!-- Fin encabezado de inicio -->
+
+    <br><br>
+  <h2 class="ion-text-center ion-no-margin">Login</h2>
+  <div class="content">
+    <div class="d-flex-center">
+      <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="ion-text-center">
+
+        <app-custom-input autocomplete="email" [control]="form.controls.email" type="email" label="Correo"
+          icon="mail-outline"></app-custom-input>
+        <div class="validators espacio" *ngIf="form.controls.email.errors && form.controls.email.dirty">
+          <div *ngIf="form.controls.email.errors?.['required']">Ingresa tu email</div>
+          <div *ngIf="form.controls.email.errors?.['email']">Ingresa un email valido</div>
+
+        </div>
+        <app-custom-input [control]="form.controls.password" type="password" label="Contraseña"
+          icon="lock-closed-outline"></app-custom-input>
+
+        <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.dirty">
+          <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div>
+        </div>
+
+        <br><br>
+        <ion-button color="tertiary" class="ion-margin-vertical" [disabled]="form.invalid" type="submit" shape="round">
+          Acceder
+          <ion-icon slot="end" name="log-in-outline"></ion-icon>
+        </ion-button>
+        <div><a routerLink="recuperar-password">Recuperar contraseña</a></div>
+        <br>
+        <div>¿No estas registrado?</div>
+
+          <ion-button color="tertiary" routerLink="sign-up" class="ion-margin-vertical" shape="round">
+            Registrate
+            <ion-icon slot="end" name="person-add-outline"></ion-icon>
+          </ion-button>
+
+
+      </form>
+    </div>
+
+
+  </div>
+
+
+</ion-content>
+
+</ion-split-pane>
+</ion-app>

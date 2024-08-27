@@ -1,0 +1,6 @@
+<ion-item class="ion-margin-vertical">
+  <ion-icon *ngIf= "icon" slot="start" [name]= "icon"></ion-icon>
+  <ion-label position= "floating" >{{label}}</ion-label>
+  <ion-input debounce="500" [autocomplete]= "autocomplete" [type]= "type" [formControl]= "control"></ion-input>
+
+</ion-item>
