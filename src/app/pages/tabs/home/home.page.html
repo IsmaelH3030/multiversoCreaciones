@@ -21,7 +21,9 @@
 
 <br>
     <ion-content class="ion">
-  <h2>Bienvenido {{user.name}}</h2>
+  <h2>Multiverso Creaciones</h2>
+  <h2>Bienvenido <!--{{user.name}}--></h2>
+  <h2 *ngIf="isAuthenticated" >{{user.name}}</h2> 
 </ion-content>
 
 </ion-content>

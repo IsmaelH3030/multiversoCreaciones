@@ -10,7 +10,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class HomePage implements OnInit {
 
-  user = {} as User
+  public user: User = {} as User; // Asegúrate de que sea "public"
+  public isAuthenticated: boolean = false;
 
   constructor(
     private firebaseSvc: FirebaseService,
@@ -18,6 +19,13 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Suscripción al estado de autenticación
+    this.firebaseSvc.getAuthState().subscribe(user => {
+      this.isAuthenticated = !!user; // Si hay un usuario, se establece como true
+      if (this.isAuthenticated) {
+        this.getUser(); // Cargar datos del usuario si está autenticado
+      }
+    });
   }
 
   ionViewWillEnter() {
