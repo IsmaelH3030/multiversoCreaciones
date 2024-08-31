@@ -22,8 +22,50 @@
       <br>
       <ion-content class="ion">
         <h2>Multiverso Creaciones</h2>
-        <h2>Bienvenido <!--{{user.name}}--></h2>
-        <h2 *ngIf="isAuthenticated">{{user.name}}</h2>
+
+        <div class="nombreUsuario">
+          <h2>Bienvenido <!--{{user.name}}--></h2>
+          <h2  *ngIf="isAuthenticated">{{user.name}}</h2>
+        </div>
+
+
+
+        <div class="container carrusel">
+
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="3000">
+                  <img src="assets\icon\162019xsscx0149690.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                  <img src="assets\icon\162019xsscx0149690.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                  <img src="assets\icon\162019xsscx0149690.png" class="d-block w-100" alt="...">
+                </div>
+              </div>
+
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+            <br>
+        <div class="nombreUsuario">
+          <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, necessitatibus perferendis esse deserunt provident asperiores neque sit tempora cupiditate consequuntur ex amet exercitationem aut inventore dicta tenetur! Ipsum, voluptas vero!</h2>
+        </div>
+
+
+    
+        </div><!-- container -->
+
+
+
       </ion-content>
 
     </ion-content>

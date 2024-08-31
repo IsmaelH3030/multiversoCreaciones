@@ -1,9 +1,41 @@
 // centrar texto
 .ion {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    flex-direction: column;  /* Alinea los elementos verticalmente */
-    height: 100vh;           /* Asegura que ocupe toda la altura de la pantalla */
-    text-align: center;      /* Centra el texto dentro de los <h1> */
-  }
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  flex-direction: column;  /* Alinea los elementos verticalmente */
+  height: 100vh;           /* Asegura que ocupe toda la altura de la pantalla */
+  text-align: center;      /* Centra el texto dentro de los <h1> */
+}
+
+.card{
+  margin: 10px 10px 10px 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.container{
+  margin-bottom: 20vh;
+}
+
+.tarjetas{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card img{
+  width: 200px;
+}
+
+.nombreUsuario{
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  text-align: center;      /* Centra el texto dentro de los <h1> */
+  gap: 8px;
+}
+
+.carrusel{
+  margin-top: 25px;
+}

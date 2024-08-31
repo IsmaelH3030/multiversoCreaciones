@@ -15,9 +15,6 @@
   }
 
   .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 20vh;
   }
 
@@ -25,4 +22,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .card img{
+    width: 200px;
   }
