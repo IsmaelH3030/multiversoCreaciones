@@ -7,3 +7,22 @@
     height: 100vh;           /* Asegura que ocupe toda la altura de la pantalla */
     text-align: center;      /* Centra el texto dentro de los <h1> */
   }
+
+  .card{
+    margin: 10px 10px 10px 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20vh;
+  }
+
+  .tarjetas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
