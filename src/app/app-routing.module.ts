@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { NoAuthGuard } from './guards/no-auth.guard';
 import { AuthGuard } from './guards/auth.guard';
-
+import { TShirtComponent } from './t-shirt/t-shirt.component'; // Importa el componente TShirt
 
 const routes: Routes = [
-
   {
     path: '',
     redirectTo: 'auth',
@@ -13,11 +12,16 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./pages/auth/auth.module').then( m => m.AuthPageModule)//, canActivate: [NoAuthGuard]  //para bloquear acciones si la persona no esta con la cuenta iniciada
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthPageModule), // Puedes agregar canActivate aquí si es necesario
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)//, canActivate: [AuthGuard] //cuando tenga la cuenta iniciada te mandara a la ruta que se define 
+    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule), // Puedes agregar canActivate aquí si es necesario
+  },
+  {
+    path: 't-shirts', // Ruta para las poleras
+    component: TShirtComponent,
+    canActivate: [AuthGuard] // Proteger la ruta para que solo usuarios autenticados puedan acceder
   },
 ];
 

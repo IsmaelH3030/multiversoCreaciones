@@ -25,6 +25,9 @@
       
       <!-- Mostrar solo si el usuario ESTÁ autenticado -->
       <ion-button *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary" (click)="signOut()">Cerrar sesión</ion-button>
+      
+            <!-- Mostrar solo si el usuario ESTÁ autenticado -->
+            <ion-button [routerLink]="['./t-shirts']" *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary">CRUD POLERAS</ion-button>
     </ion-menu-toggle>
   </ion-menu>
   

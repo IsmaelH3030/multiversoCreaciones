@@ -1,0 +1,15 @@
+<div>
+  <form (ngSubmit)="createOrUpdateTShirt()">
+    <input type="text" [(ngModel)]="selectedTShirt.material" name="material" placeholder="Material" required />
+    <input type="text" [(ngModel)]="selectedTShirt.size" name="size" placeholder="Talla" required />
+    <button type="submit">{{ selectedTShirt.id ? 'Actualizar' : 'Crear' }}</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let tshirt of tshirts">
+      {{ tshirt.material }} - {{ tshirt.size }}
+      <button (click)="editTShirt(tshirt)">Editar</button>
+      <button (click)="deleteTShirt(tshirt.id)">Eliminar</button>
+    </li>
+  </ul>
+</div>
