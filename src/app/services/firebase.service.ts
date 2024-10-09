@@ -16,6 +16,11 @@ export class FirebaseService {
     private utilsSvc: UtilsService,
   ) { }
 
+  //Método para agregar usuario a Firestore
+  async addUserToFirestore(user: User) {
+    return await this.db.collection('users').doc(user.uid).set(user);
+  }
+
   //====== Autenticacion =========
 
   login(user: User) {
