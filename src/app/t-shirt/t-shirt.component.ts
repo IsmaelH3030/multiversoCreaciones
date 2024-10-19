@@ -77,34 +77,45 @@ export class TShirtComponent implements OnInit {
     this.uploadPercent = undefined; // Reiniciar el porcentaje de carga
   }
 
-  // Método para subir la imagen a Firebase Storage y guardar la camiseta
-  uploadImageAndSaveTShirt(tshirt: TShirt, file: File) {
-    const id = this.tShirtService.createId(); // Crear un nuevo ID para la camiseta
-    const filePath = `tshirts/${id}`; // Define la ruta de la imagen en Firebase Storage
-    const fileRef = this.storage.ref(filePath); // Referencia al archivo en Firebase Storage
-    const task = this.storage.upload(filePath, file); // Sube el archivo a Firebase Storage
+// Método para subir la imagen a Firebase Storage y guardar la camiseta
+uploadImageAndSaveTShirt(tshirt: TShirt, file: File): Promise<void> {
+  return new Promise((resolve, reject) => {
+      const id = this.tShirtService.createId(); // Crear un nuevo ID para la camiseta
+      const filePath = `tshirts/${id}`; // Define la ruta de la imagen en Firebase Storage
+      const fileRef = this.storage.ref(filePath); // Referencia al archivo en Firebase Storage
+      const task = this.storage.upload(filePath, file); // Sube el archivo a Firebase Storage
 
-    // Observar el progreso de la subida
-    task.percentageChanges().subscribe((percentage) => {
-      this.uploadPercent = percentage!;
-    });
+      // Observar el progreso de la subida
+      task.percentageChanges().subscribe((percentage) => {
+          this.uploadPercent = Math.floor(percentage!); // Redondea el porcentaje a un entero
+      }, (error) => {
+          console.error('Error al obtener el porcentaje de subida:', error);
+          reject(error); // Rechaza la promesa en caso de error
+      });
 
-    // Después de subir la imagen, obtener la URL y guardar la camiseta
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe(url => {
-          tshirt.imageUrl = url; // Asigna la URL de la imagen al objeto TShirt
-          // Crear el nuevo objeto en Firestore
-          this.tShirtService.createTShirt({ ...tshirt, id }).then(() => {
-            this.resetForm();
-          }).catch(error => {
-            console.error('Error al crear la camiseta:', error);
-            alert('Ocurrió un error al crear la camiseta.');
-          });
-        });
-      })
-    ).subscribe();
-  }
+      // Después de subir la imagen, obtener la URL y guardar la camiseta
+      task.snapshotChanges().pipe(
+          finalize(() => {
+              fileRef.getDownloadURL().subscribe(url => {
+                  tshirt.imageUrl = url; // Asigna la URL de la imagen al objeto TShirt
+                  // Crear el nuevo objeto en Firestore
+                  this.tShirtService.createTShirt({ ...tshirt, id }).then(() => {
+                      this.resetForm(); // Limpia el formulario
+                      resolve(); // Resuelve la promesa
+                  }).catch(error => {
+                      console.error('Error al crear la camiseta:', error);
+                      alert('Ocurrió un error al crear la camiseta.');
+                      reject(error); // Rechaza la promesa en caso de error
+                  });
+              }, (error) => {
+                  console.error('Error al obtener la URL de la imagen:', error);
+                  alert('Ocurrió un error al obtener la URL de la imagen.');
+                  reject(error); // Rechaza la promesa en caso de error
+              });
+          })
+      ).subscribe();
+  });
+}
 
   // Método para manejar la selección de imagen
   uploadImage(event: any) {

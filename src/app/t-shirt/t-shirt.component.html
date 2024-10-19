@@ -1,30 +1,63 @@
-<div>
-  <form (ngSubmit)="createOrUpdateTShirt()">
-    <input type="text" [(ngModel)]="selectedTShirt.material" name="material" placeholder="Material" required />
-    <input type="text" [(ngModel)]="selectedTShirt.size" name="size" placeholder="Talla" required />
-    <textarea [(ngModel)]="selectedTShirt.description" name="description" placeholder="Descripción" required></textarea>
 
-    <!-- Input para subir imagen -->
-    <input type="file" (change)="uploadImage($event)" title="Selecciona una imagen para subir" />
 
-    <!-- Mostrar el progreso de la subida si existe -->
-    <div *ngIf="uploadPercent as percent">Progreso de subida: {{ percent }}%</div>
 
-    <!-- Mostrar la imagen subida si está disponible -->
-    <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa de la imagen" width="150" />
+<ion-app>
 
-    <button type="submit">{{ selectedTShirt.id ? 'Actualizar' : 'Crear' }}</button>
-  </form>
+  <ion-split-pane>
 
-  <ul>
-    <li *ngFor="let tshirt of tshirts">
-      {{ tshirt.material }} - {{ tshirt.size }} - {{ tshirt.description }}
+    <ion-content [fullscreen]="true" class="ion">
+
+      <!-- Encabezado de inicio -->
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            <div class="logo-principal">
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
+            </div>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <!-- Fin encabezado de inicio -->
+
+      <div>
+        <form (ngSubmit)="createOrUpdateTShirt()">
+          <input type="text" [(ngModel)]="selectedTShirt.material" name="material" placeholder="Material" required />
+          <input type="text" [(ngModel)]="selectedTShirt.size" name="size" placeholder="Talla" required />
+          <textarea [(ngModel)]="selectedTShirt.description" name="description" placeholder="Descripción" required></textarea>
       
-      <!-- Mostrar la imagen de Firebase si está disponible -->
-      <img *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" alt="Imagen de camiseta" width="100" />
+          <!-- Input para subir imagen -->
+          <input type="file" (change)="uploadImage($event)" title="Selecciona una imagen para subir" />
+      
+          <!-- Mostrar el progreso de la subida si existe -->
+          <div *ngIf="uploadPercent as percent">Progreso de subida: {{ percent }}%</div>
+      
+          <!-- Mostrar la imagen subida si está disponible -->
+          <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa de la imagen" width="150" />
+      
+          <button type="submit">{{ selectedTShirt.id ? 'Actualizar' : 'Crear' }}</button>
+        </form>
+      
+        <ul>
+          <li *ngFor="let tshirt of tshirts">
+            {{ tshirt.material }} - {{ tshirt.size }} - {{ tshirt.description }}
+            
+            <!-- Mostrar la imagen de Firebase si está disponible -->
+            <img *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" alt="Imagen de camiseta" width="100" />
+      
+            <button (click)="editTShirt(tshirt)">Editar</button>
+            <button (click)="deleteTShirt(tshirt)">Eliminar</button>
+          </li>
+        </ul>
+      </div>
 
-      <button (click)="editTShirt(tshirt)">Editar</button>
-      <button (click)="deleteTShirt(tshirt)">Eliminar</button>
-    </li>
-  </ul>
-</div>
+
+
+
+
+    </ion-content>
+
+  </ion-split-pane>
+</ion-app>
