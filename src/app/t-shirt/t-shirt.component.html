@@ -2,12 +2,30 @@
   <form (ngSubmit)="createOrUpdateTShirt()">
     <input type="text" [(ngModel)]="selectedTShirt.material" name="material" placeholder="Material" required />
     <input type="text" [(ngModel)]="selectedTShirt.size" name="size" placeholder="Talla" required />
+    
+    <!-- Campo para la descripción -->
+    <textarea [(ngModel)]="selectedTShirt.description" name="description" placeholder="Descripción" required></textarea>
+
+    <!-- Input para subir imagen -->
+    <input type="file" (change)="uploadImage($event)" title="Selecciona una imagen para subir" />
+    <!-- O -->
+
+    <!-- Mostrar el progreso de la subida si existe -->
+    <div *ngIf="uploadPercent as percent">Progreso de subida: {{ percent }}%</div>
+
+    <!-- Mostrar la imagen subida si está disponible -->
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa de la imagen" width="150" />
+
     <button type="submit">{{ selectedTShirt.id ? 'Actualizar' : 'Crear' }}</button>
   </form>
 
   <ul>
     <li *ngFor="let tshirt of tshirts">
-      {{ tshirt.material }} - {{ tshirt.size }}
+      {{ tshirt.material }} - {{ tshirt.size }} - {{ tshirt.description }}
+      
+      <!-- Mostrar la imagen de Firebase si está disponible -->
+      <img *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" alt="Imagen de camiseta" width="100" />
+
       <button (click)="editTShirt(tshirt)">Editar</button>
       <button (click)="deleteTShirt(tshirt.id)">Eliminar</button>
     </li>
