@@ -9,27 +9,41 @@ import { finalize } from 'rxjs/operators'; // Para completar el observable de su
   providedIn: 'root'
 })
 export class TShirtService {
-  private collectionName = 'tshirts'; // Nombre de la colección en Firestore
+    public collectionName: string = 'tshirts'; // Cambia a public
+    public db: AngularFirestore; // Cambia a public
 
-  constructor(private db: AngularFirestore, private storage: AngularFireStorage) { } // Inyecta AngularFireStorage
+    constructor(private storage: AngularFireStorage, db: AngularFirestore) {
+        this.db = db; // Inicializa db
+    }
+
+    // Método para crear un ID único
+    createId(): string {
+        return this.db.createId(); // Genera y devuelve un ID único
+    }
+
 
   // Crear polera con subida de imagen
-  uploadImageAndSaveTShirt(file: File, tshirt: TShirt): void {
-    const id = this.db.createId(); // Genera un ID único
-    const filePath = `tshirts/${id}`; // Define la ruta de la imagen en Firebase Storage
-    const fileRef = this.storage.ref(filePath); // Referencia al archivo en Firebase Storage
-    const task = this.storage.upload(filePath, file); // Sube el archivo a Firebase Storage
+  uploadImageAndSaveTShirt(tshirt: TShirt, file: File): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const id = this.db.createId(); // Genera un ID único
+      const filePath = `tshirts/${id}`; // Define la ruta de la imagen en Firebase Storage
+      const fileRef = this.storage.ref(filePath); // Referencia al archivo en Firebase Storage
+      const task = this.storage.upload(filePath, file); // Sube el archivo a Firebase Storage
 
-    // Después de subir la imagen, obtener la URL y guardar la camiseta
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe(url => {
-          tshirt.imageUrl = url; // Asigna la URL de la imagen al objeto TShirt
-          this.db.collection(this.collectionName).doc(id).set({ ...tshirt, id }); // Guarda la camiseta en Firestore con la URL de la imagen
-        });
-      })
-    ).subscribe();
+      // Después de subir la imagen, obtener la URL y guardar la camiseta
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(url => {
+            tshirt.imageUrl = url; // Asigna la URL de la imagen al objeto TShirt
+            this.db.collection(this.collectionName).doc(id).set({ ...tshirt, id }) // Guarda la camiseta en Firestore con la URL de la imagen
+              .then(() => resolve()) // Resuelve la promesa
+              .catch(error => reject(error)); // Rechaza la promesa en caso de error
+          }, error => reject(error)); // Rechaza la promesa si hay un error al obtener la URL
+        })
+      ).subscribe();
+    });
   }
+
 
   // Crear polera sin imagen
   createTShirt(tshirt: TShirt): Promise<void> {

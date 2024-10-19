@@ -28,10 +28,6 @@ export class TShirtComponent implements OnInit {
   }
 
   createOrUpdateTShirt() {
-    if (this.imageUrl) {
-      this.selectedTShirt.imageUrl = this.imageUrl; // Agregar la URL de la imagen subida
-    }
-
     if (this.selectedTShirt.id) {
       this.tShirtService.updateTShirt(this.selectedTShirt).then(() => {
         this.resetForm();
@@ -62,22 +58,28 @@ export class TShirtComponent implements OnInit {
   uploadImage(event: any) {
     const file = event.target.files[0];
     if (file) {
+      this.imageUrl = file; // Guardar el archivo seleccionado
       const filePath = `tshirts/${Date.now()}_${file.name}`;
       const fileRef = this.storage.ref(filePath);
       const task = this.storage.upload(filePath, file);
-
+  
       // Observar el progreso de la subida
       task.percentageChanges().subscribe((percentage) => {
         this.uploadPercent = percentage!;
       });
-
+  
       task.snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
-            this.imageUrl = url; // Guardar la URL de la imagen
+            // Guardar la URL de la imagen
+            this.selectedTShirt.imageUrl = url; // Asigna la URL al objeto seleccionado
+  
+            // Llamar al método para crear o actualizar la camiseta
+            this.createOrUpdateTShirt();
           });
         })
       ).subscribe();
     }
   }
 }
+  

@@ -2,13 +2,10 @@
   <form (ngSubmit)="createOrUpdateTShirt()">
     <input type="text" [(ngModel)]="selectedTShirt.material" name="material" placeholder="Material" required />
     <input type="text" [(ngModel)]="selectedTShirt.size" name="size" placeholder="Talla" required />
-    
-    <!-- Campo para la descripción -->
     <textarea [(ngModel)]="selectedTShirt.description" name="description" placeholder="Descripción" required></textarea>
 
     <!-- Input para subir imagen -->
     <input type="file" (change)="uploadImage($event)" title="Selecciona una imagen para subir" />
-    <!-- O -->
 
     <!-- Mostrar el progreso de la subida si existe -->
     <div *ngIf="uploadPercent as percent">Progreso de subida: {{ percent }}%</div>

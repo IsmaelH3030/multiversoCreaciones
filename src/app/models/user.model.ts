@@ -6,9 +6,9 @@ export interface User{
 }
 
 export interface TShirt {
-    id?: string;
+    id?: string; // Opcional para Firestore
     material: string;
     size: string;
-    description?: string; // Agrega una descripción opcional
-    imageUrl?: string;    // URL de la imagen subida
+    description?: string; // Si necesitas un campo de descripción
+    imageUrl?: string; // Asegúrate de incluir este campo
   }
