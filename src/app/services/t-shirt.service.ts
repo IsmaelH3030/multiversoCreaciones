@@ -9,17 +9,17 @@ import { finalize } from 'rxjs/operators'; // Para completar el observable de su
   providedIn: 'root'
 })
 export class TShirtService {
-    public collectionName: string = 'tshirts'; // Cambia a public
-    public db: AngularFirestore; // Cambia a public
+  public collectionName: string = 'tshirts'; // Cambia a public
+  public db: AngularFirestore; // Cambia a public
 
-    constructor(private storage: AngularFireStorage, db: AngularFirestore) {
-        this.db = db; // Inicializa db
-    }
+  constructor(private storage: AngularFireStorage, db: AngularFirestore) {
+    this.db = db; // Inicializa db
+  }
 
-    // Método para crear un ID único
-    createId(): string {
-        return this.db.createId(); // Genera y devuelve un ID único
-    }
+  // Método para crear un ID único
+  createId(): string {
+    return this.db.createId(); // Genera y devuelve un ID único
+  }
 
 
   // Crear polera con subida de imagen
@@ -66,8 +66,18 @@ export class TShirtService {
     return this.db.collection(this.collectionName).doc(tshirt.id).update(tshirt);
   }
 
-  // Eliminar polera
-  deleteTShirt(id: string): Promise<void> {
-    return this.db.collection(this.collectionName).doc(id).delete();
+  // Método para eliminar la imagen del Storage
+  deleteImage(filePath: string): Promise<void> {
+    return this.storage.ref(filePath).delete().toPromise();
+  }
+
+  // Modificar el método deleteTShirt
+  deleteTShirt(id: string, imageUrl: string): Promise<void> {
+    // Primero elimina la imagen del Storage
+    const fileRef = this.storage.refFromURL(imageUrl); // Obtener referencia del archivo
+    return fileRef.delete().toPromise().then(() => {
+      // Después elimina el documento de Firestore
+      return this.db.collection(this.collectionName).doc(id).delete();
+    });
   }
 }
