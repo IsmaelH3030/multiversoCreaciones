@@ -1,12 +1,6 @@
-
-
-
 <ion-app>
-
   <ion-split-pane>
-
     <ion-content [fullscreen]="true" class="ion">
-
       <!-- Encabezado de inicio -->
       <ion-header>
         <ion-toolbar>
@@ -40,24 +34,24 @@
           <button type="submit">{{ selectedTShirt.id ? 'Actualizar' : 'Crear' }}</button>
         </form>
       
-        <ul>
-          <li *ngFor="let tshirt of tshirts">
-            {{ tshirt.material }} - {{ tshirt.size }} - {{ tshirt.description }}
-            
-            <!-- Mostrar la imagen de Firebase si está disponible -->
-            <img *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" alt="Imagen de camiseta" width="100" />
+        <div class="card-container">
+          <div class="card" *ngFor="let tshirt of tshirts">
+              <img class="card-img" *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" alt="Imagen de camiseta" />
+              <div class="card-body">
+                  <h3>{{ tshirt.material }}</h3>
+                  <p>Talla: {{ tshirt.size }}</p>
+                  <p>{{ tshirt.description }}</p>
+                  <div class="button-container">
+                      <button (click)="editTShirt(tshirt)">Editar</button>
+                      <button (click)="deleteTShirt(tshirt)">Eliminar</button>
+                  </div>
+              </div>
+          </div>
+      </div>
       
-            <button (click)="editTShirt(tshirt)">Editar</button>
-            <button (click)="deleteTShirt(tshirt)">Eliminar</button>
-          </li>
-        </ul>
       </div>
 
-
-
-
-
+      
     </ion-content>
-
   </ion-split-pane>
 </ion-app>

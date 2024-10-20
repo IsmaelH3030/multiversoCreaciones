@@ -1,0 +1,111 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.ion-content {
+    padding: 16px;
+}
+
+/* Formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px; /* Margen uniforme en todos los lados */
+}
+
+input[type="text"],
+textarea {
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="file"] {
+    margin: 8px 0;
+}
+
+button {
+    padding: 10px;
+    background-color: #6f42c1; /* Color morado */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px; /* Espacio superior para los botones */
+}
+
+button:hover {
+    background-color: #5a32a1; /* Color morado más oscuro al pasar el mouse */
+}
+
+/* Contenedor de tarjetas */
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten en múltiples filas */
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    margin: 10px; /* Margen uniforme en todos los lados */
+}
+
+/* Estilos para las tarjetas */
+.card {
+    width: calc(24% - 15px); /* Ancho de las tarjetas para que quepan 4 en una fila */
+    max-width: 250px; /* Puedes ajustar el ancho máximo según tu diseño */
+    margin: 10px; /* Espacio entre tarjetas */
+    display: flex;
+    flex-direction: column; /* Coloca la imagen y el contenido en columna */
+    border-radius: 4px; /* Bordes redondeados */
+    background-color: #ffffff; /* Color de fondo de las tarjetas */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    transition: transform 0.2s; /* Efecto suave al pasar el mouse */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Aumenta ligeramente la tarjeta al pasar el mouse */
+}
+
+/* Imagen de la tarjeta */
+.card-img {
+    width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
+    height: auto; /* Mantiene la proporción de la imagen */
+    max-height: 150px; /* Altura máxima para la imagen */
+    object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+    border-top-left-radius: 4px; /* Bordes redondeados en la parte superior */
+    border-top-right-radius: 4px; /* Bordes redondeados en la parte superior */
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+    padding: 10px; /* Espacio interno para el cuerpo de la tarjeta */
+}
+
+/* Contenedor de botones en la tarjeta */
+.button-container {
+    display: flex; /* Flex para alinear botones */
+    justify-content: space-between; /* Espacio entre botones */
+    margin: 15px 30px 15px 30px;
+    
+}
+
+/* Responsividad */
+@media (max-width: 576px) {
+    .card {
+        width: 100%; /* Tarjetas ocupan todo el ancho en pantallas pequeñas */
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .card {
+        width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
+    }
+}
+
+@media (min-width: 768px) {
+    .card {
+        width: calc(33.33% - 20px); /* Tres tarjetas por fila en pantallas grandes */
+    }
+}

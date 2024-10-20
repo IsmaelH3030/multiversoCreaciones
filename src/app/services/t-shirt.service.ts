@@ -56,6 +56,8 @@ export class TShirtService {
     return this.db.collection<TShirt>(this.collectionName).valueChanges();
   }
 
+
+  
   // Leer polera por ID
   getTShirt(id: string): Observable<TShirt | undefined> {
     return this.db.collection(this.collectionName).doc<TShirt>(id).valueChanges();
