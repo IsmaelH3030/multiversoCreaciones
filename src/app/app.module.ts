@@ -16,6 +16,11 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule
 
 import { TShirtComponent } from './t-shirt/t-shirt.component'; // Asegúrate de ajustar la ruta según sea necesario
 
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es'; // Importar el locale español
+
+registerLocaleData(localeEs, 'es'); // Registrar el locale español
+
 @NgModule({
   declarations: [
     AppComponent,

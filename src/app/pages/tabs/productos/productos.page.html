@@ -28,6 +28,8 @@
                 <h5 class="card-title">{{ producto.description }}</h5>
                 <p class="card-text">Material: {{ producto.material }}</p>
                 <p class="card-text">Tamaño: {{ producto.size }}</p>
+                <p class="card-text">Precio: {{ producto.price | currency:'CLP':'symbol':'1.0-0':'es' }}</p> <!-- Formato sin decimales y con punto -->
+
                 <a href="#" class="btn btn-primary">AGREGAR AL CARRITO</a>
               </div>
             </div>

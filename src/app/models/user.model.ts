@@ -11,4 +11,5 @@ export interface TShirt {
     size: string;
     description?: string;
     imageUrl?: string;
-  }
+    price?: number; // Nuevo campo para el precio
+}
