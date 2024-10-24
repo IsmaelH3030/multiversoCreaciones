@@ -1,12 +1,12 @@
-/* Estilos generales */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-.ion-content {
-    padding: 16px;
-}
+.ion {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: flex-start; /* Alinea al inicio verticalmente */
+    flex-direction: column;  /* Alinea los elementos verticalmente */
+    height: auto;           /* Cambia a auto para ajustar según el contenido */
+    text-align: center;      /* Centra el texto dentro de los <h1> */
+    padding: 16px
+  }
 
 /* Formulario */
 form {
@@ -43,6 +43,7 @@ button:hover {
     background-color: #5a32a1; /* Color morado más oscuro al pasar el mouse */
 }
 
+
 /* Contenedor de tarjetas */
 .card-container {
     display: flex;
@@ -56,11 +57,7 @@ button:hover {
     width: calc(24% - 15px); /* Ancho de las tarjetas para que quepan 4 en una fila */
     max-width: 250px; /* Puedes ajustar el ancho máximo según tu diseño */
     margin: 10px; /* Espacio entre tarjetas */
-    display: flex;
-    flex-direction: column; /* Coloca la imagen y el contenido en columna */
-    border-radius: 4px; /* Bordes redondeados */
-    background-color: #ffffff; /* Color de fondo de las tarjetas */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    border-radius: 10px; /* Bordes redondeados */
     transition: transform 0.2s; /* Efecto suave al pasar el mouse */
 }
 
@@ -72,15 +69,9 @@ button:hover {
 .card-img {
     width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
     height: auto; /* Mantiene la proporción de la imagen */
-    max-height: 150px; /* Altura máxima para la imagen */
+    max-height: 100%; /* Altura máxima para la imagen */
     object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
-    border-top-left-radius: 4px; /* Bordes redondeados en la parte superior */
-    border-top-right-radius: 4px; /* Bordes redondeados en la parte superior */
-}
 
-/* Cuerpo de la tarjeta */
-.card-body {
-    padding: 10px; /* Espacio interno para el cuerpo de la tarjeta */
 }
 
 /* Contenedor de botones en la tarjeta */

@@ -16,34 +16,30 @@
   display: flex;
   justify-content: center; /* Centra las tarjetas horizontalmente */
   flex-wrap: wrap; /* Permite que las tarjetas se ajusten en múltiples filas */
-  margin: 0 auto; /* Centra el contenedor de tarjetas en la pantalla */
   max-width: 1200px; /* Ancho máximo del contenedor (ajusta según tu diseño) */
-  padding: 0px;
 }
 
+/* Estilos para las tarjetas */
 .card {
-  margin: 10px; /* Espacio alrededor de cada tarjeta */
-  width: calc(24% - 20px); /* Ancho para que quepan 4 tarjetas en una fila */
-  border: 1px solid #e0e0e0; /* Borde de la tarjeta */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para un efecto de elevación */
-  transition: transform 0.3s; /* Transición suave al hacer hover */
-  overflow: hidden; /* Oculta el contenido que desborda */
+  width: calc(24% - 15px); /* Ancho de las tarjetas para que quepan 4 en una fila */
+  max-width: 250px; /* Puedes ajustar el ancho máximo según tu diseño */
+  margin: 10px; /* Espacio entre tarjetas */
+  border-radius: 10px; /* Bordes redondeados */
+  transition: transform 0.2s; /* Efecto suave al pasar el mouse */
 }
 
 .card:hover {
   transform: scale(1.05); /* Aumenta el tamaño de la tarjeta al pasar el mouse */
 }
 
-.card img {
-  width: 100%; /* Ajusta la imagen al ancho de la tarjeta */
-  height: 200px; /* Altura fija para la imagen */
-  object-fit: cover; /* Asegura que la imagen cubra el área de la tarjeta */
+/* Imagen de la tarjeta */
+.card-img {
+  width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
+  height: auto; /* Mantiene la proporción de la imagen */
+  max-height: 100%; /* Altura máxima para la imagen */
+  object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
 }
 
-.card-body {
-  padding: 15px; /* Relleno dentro de la tarjeta */
-}
 
 .card-title {
   font-size: 1.25rem; /* Tamaño de fuente del título */
