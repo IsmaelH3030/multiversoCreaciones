@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core'; // Importar ViewChild para manejar el campo de archivo
 import { TShirtService } from '../services/t-shirt.service';
 import { TShirt } from '../models/user.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage'; // Importar Firebase Storage
@@ -16,6 +16,8 @@ export class TShirtComponent implements OnInit {
   imageUrl: string | undefined; // URL de la imagen subida
   imageFile: File | undefined; // Archivo de la imagen seleccionado
 
+  @ViewChild('fileInput') fileInput: any; // Añadir referencia al campo de archivo
+
   constructor(private tShirtService: TShirtService, private storage: AngularFireStorage) { }
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class TShirtComponent implements OnInit {
   createOrUpdateTShirt() {
     if (this.selectedTShirt.id) {
       // Eliminar el producto existente antes de actualizar
-      this.tShirtService.deleteTShirt(this.selectedTShirt.id, this.selectedTShirt.imageUrl).then(() => {
+      this.tShirtService.deleteTShirt(this.selectedTShirt.id, this.selectedTShirt.imageUrl!).then(() => {
         // Después de eliminar, subimos la nueva imagen y creamos el nuevo producto
         if (this.imageFile) {
           this.uploadImageAndSaveTShirt(this.selectedTShirt, this.imageFile);
@@ -61,7 +63,7 @@ export class TShirtComponent implements OnInit {
 
   deleteTShirt(tshirt: TShirt) {
     if (confirm('¿Estás seguro de que deseas eliminar esta camiseta?')) {
-      this.tShirtService.deleteTShirt(tshirt.id, tshirt.imageUrl).then(() => {
+      this.tShirtService.deleteTShirt(tshirt.id, tshirt.imageUrl!).then(() => {
         this.loadTShirts(); // Recargar poleras después de eliminar
       }).catch(error => {
         console.error('Error al eliminar la camiseta:', error);
@@ -75,6 +77,11 @@ export class TShirtComponent implements OnInit {
     this.imageUrl = undefined; // Reiniciar la URL de la imagen
     this.imageFile = undefined; // Reiniciar el archivo de imagen
     this.uploadPercent = undefined; // Reiniciar el porcentaje de carga
+
+    // Limpiar el campo de archivo
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = ''; // Restablecer el campo input de archivo
+    }
   }
 
   // Método para subir la imagen a Firebase Storage y guardar la camiseta
