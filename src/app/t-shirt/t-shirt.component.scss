@@ -28,6 +28,15 @@ input[type="file"] {
     margin: 8px 0;
 }
 
+input[type="number"],
+textarea {
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
 button {
     padding: 10px;
     background-color: #6f42c1; /* Color morado */
