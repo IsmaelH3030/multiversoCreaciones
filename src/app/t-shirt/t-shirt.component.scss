@@ -13,28 +13,41 @@ form {
     display: flex;
     flex-direction: column;
     margin: 20px; /* Margen uniforme en todos los lados */
+    padding: 20px; /* padding uniforme en todos los lados */
+    border-radius: 10px;
+    border: 1px solid #6f42c1;
+    box-shadow: 0 4px 15px rgba(88, 9, 234, 0.4); /* Sombra */
 }
+
+
 
 input[type="text"],
 textarea {
     padding: 10px;
     margin: 8px 0;
-    border: 1px solid #ccc;
+    border: 1px solid #6f42c1;
     border-radius: 4px;
     font-size: 16px;
+    color: #747474;
+}
+
+.porcentaje{
+ color: black;
 }
 
 input[type="file"] {
     margin: 8px 0;
+    
 }
 
 input[type="number"],
 textarea {
     padding: 10px;
     margin: 8px 0;
-    border: 1px solid #ccc;
+    border: 1px solid #6f42c1;
     border-radius: 4px;
     font-size: 16px;
+    color: #747474;
 }
 
 button {

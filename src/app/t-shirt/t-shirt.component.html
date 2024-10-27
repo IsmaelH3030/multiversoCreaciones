@@ -28,7 +28,7 @@
           <input #fileInput type="file" (change)="uploadImage($event)" title="Selecciona una imagen para subir" />
 
           <!-- Mostrar el progreso de la subida si existe -->
-          <div *ngIf="uploadPercent as percent">Progreso de subida: {{ percent }}%</div>
+          <div class=""  *ngIf="uploadPercent as percent" style="color: blueviolet;">Progreso de subida: {{ percent }}%</div>
 
           <!-- Mostrar la imagen subida si está disponible -->
           <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa de la imagen" width="150" />

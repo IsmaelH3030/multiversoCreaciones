@@ -37,10 +37,12 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 
-// ion-content{
-//     --background: var(--ion-color-primary);
-//     --color: var(--ion-color-primary-contrast);
-// }
+ion-content {
+  --background: rgba(255, 255, 255, 0.5); /* Fondo blanco semitransparente */
+  --color: var(--ion-color-primary-contrast);
+
+}
+
 h1{
     font-size: 30px;
 }
@@ -87,7 +89,7 @@ ion-button{
     justify-content: center; /* Centra horizontalmente la imagen */
     align-items: center;     /* Centra verticalmente la imagen */
   }
-  
+
   // tamaño del logo
   .imgagen-logo {
     width: 50px;
