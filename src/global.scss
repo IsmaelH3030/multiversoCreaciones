@@ -40,7 +40,10 @@
 ion-content {
   --background: rgba(255, 255, 255, 0.5); /* Fondo blanco semitransparente */
   --color: var(--ion-color-primary-contrast);
-
+  background-image: url('assets/icon/Fondo.png');
+  background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repite la imagen */
 }
 
 h1{
