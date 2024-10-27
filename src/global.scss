@@ -65,8 +65,10 @@ h1{
     padding: 15px 0;
 }
 
-form{
-  background-color: white;
+form {
+  // background: rgba(255, 255, 255, 0.5); /* Fondo semitransparente */
+  backdrop-filter: blur(10px); /* Ajusta el nivel de desenfoque */
+
 }
 
 ion-item{
