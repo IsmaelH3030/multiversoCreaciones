@@ -46,6 +46,11 @@ ion-content {
   background-repeat: no-repeat; /* No repite la imagen */
 }
 
+/* Para textos específicos */
+h1, h2, h3, p{
+  color: black; /* Usa la variable */
+}
+
 h1{
     font-size: 30px;
 }
