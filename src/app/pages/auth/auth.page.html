@@ -1,68 +1,64 @@
-<ion-app>
+<ion-app> <!-- Contenedor principal de la aplicación Ionic -->
 
-<ion-split-pane>
+  <ion-split-pane> <!-- Componente que permite tener un diseño de panel dividido, útil en dispositivos con pantallas grandes -->
+  
+    <ion-content> <!-- Sección principal que contendrá el contenido de la página -->
+  
+      <!-- Encabezado de inicio -->
+      <ion-header> <!-- Componente para el encabezado de la página -->
+        <ion-toolbar> <!-- Barra de herramientas que contiene el contenido del encabezado -->
+          <ion-buttons slot="start"> <!-- Contenedor para los botones en la parte inicial del toolbar -->
+            <ion-menu-button></ion-menu-button> <!-- Botón que abre el menú lateral -->
+          </ion-buttons>
+          <ion-title> <!-- Título del encabezado -->
+            <div class="logo-principal"> <!-- Div que contiene el logo de la aplicación -->
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" /> <!-- Imagen del logo de la aplicación -->
+            </div>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <!-- Fin encabezado de inicio -->
 
-<ion-content>
+      <br><br> <!-- Espaciado adicional -->
 
+      <h2 class="ion-text-center ion-no-margin">Login</h2> <!-- Título de la página centrado, sin margen -->
+      <div class="content"> <!-- Contenedor para el contenido principal -->
+        <div class="d-flex-center"> <!-- Estilo para centrar el contenido -->
+          <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="ion-text-center"> <!-- Formulario que llama a la función submit() al presionar 'enter' o al enviarse -->
+  
+            <app-custom-input autocomplete="email" [control]="form.controls.email" type="email" label="Correo" icon="mail-outline"></app-custom-input> <!-- Campo de entrada personalizado para el correo electrónico -->
+            <div class="validators espacio" *ngIf="form.controls.email.errors && form.controls.email.dirty"> <!-- Mensajes de error para el campo de correo -->
+              <div *ngIf="form.controls.email.errors?.['required']">Ingresa tu email</div> <!-- Mensaje si el campo es requerido -->
+              <div *ngIf="form.controls.email.errors?.['email']">Ingresa un email valido</div> <!-- Mensaje si el correo no es válido -->
+            </div>
 
-    <!-- Encabezado de inicio -->
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>
-          <div class="logo-principal">
-            <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
-          </div>
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <!-- Fin encabezado de inicio -->
+            <app-custom-input [control]="form.controls.password" type="password" label="Contraseña" icon="lock-closed-outline"></app-custom-input> <!-- Campo de entrada para la contraseña -->
+  
+            <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.dirty"> <!-- Mensajes de error para el campo de contraseña -->
+              <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div> <!-- Mensaje si el campo es requerido -->
+            </div>
 
-    <br><br>
-  <h2 class="ion-text-center ion-no-margin">Login</h2>
-  <div class="content">
-    <div class="d-flex-center">
-      <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="ion-text-center">
+            <ion-button color="tertiary" class="ion-margin-vertical" [disabled]="form.invalid" type="submit" shape="round"> <!-- Botón de acceso que se desactiva si el formulario es inválido -->
+              Acceder <!-- Texto del botón -->
+              <ion-icon slot="end" name="log-in-outline"></ion-icon> <!-- Icono que aparece al final del botón -->
+            </ion-button>
+            <br><br> <!-- Espaciado adicional -->
 
-        <app-custom-input autocomplete="email" [control]="form.controls.email" type="email" label="Correo" icon="mail-outline"></app-custom-input>
-        <div class="validators espacio" *ngIf="form.controls.email.errors && form.controls.email.dirty">
-          <div *ngIf="form.controls.email.errors?.['required']">Ingresa tu email</div>
-          <div *ngIf="form.controls.email.errors?.['email']">Ingresa un email valido</div>
+            <div><a routerLink="recuperar-password" style="color: rgba(0, 0, 176, 0.915);">¿Olvidaste tu contraseña? </a></div> <!-- Enlace a la página de recuperación de contraseña -->
+            <br> <!-- Espaciado adicional -->
+            <div>¿No estas registrado?</div> <!-- Texto que invita a registrarse -->
 
+            <ion-button color="tertiary" routerLink="sign-up" class="ion-margin-vertical" shape="round"> <!-- Botón para ir a la página de registro -->
+              Registrate <!-- Texto del botón -->
+              <ion-icon slot="end" name="person-add-outline"></ion-icon> <!-- Icono que aparece al final del botón -->
+            </ion-button>
+
+          </form>
         </div>
-        <app-custom-input [control]="form.controls.password" type="password" label="Contraseña"
-          icon="lock-closed-outline"></app-custom-input>
 
-        <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.dirty">
-          <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div>
-        </div>
+      </div>
 
-        <ion-button color="tertiary" class="ion-margin-vertical" [disabled]="form.invalid" type="submit" shape="round">
-          Acceder
-          <ion-icon slot="end" name="log-in-outline"></ion-icon>
-        </ion-button>
-        <br><br>
-        <!-- <div>¿Olvidaste tu contraseña?</div> -->
-        <div><a routerLink="recuperar-password" style="color: rgba(0, 0, 176, 0.915);">¿Olvidaste tu contraseña? </a></div>
-        <br>
-        <div>¿No estas registrado?</div>
+    </ion-content>
 
-          <ion-button color="tertiary" routerLink="sign-up" class="ion-margin-vertical" shape="round">
-            Registrate
-            <ion-icon slot="end" name="person-add-outline"></ion-icon>
-          </ion-button>
-
-
-      </form>
-    </div>
-
-
-  </div>
-
-
-</ion-content>
-
-</ion-split-pane>
+  </ion-split-pane>
 </ion-app>

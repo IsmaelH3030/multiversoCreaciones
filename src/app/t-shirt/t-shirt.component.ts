@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core'; // Importar ViewChild para manejar el campo de archivo
-import { TShirtService } from '../services/t-shirt.service';
-import { TShirt } from '../models/user.model';
-import { AngularFireStorage } from '@angular/fire/compat/storage'; // Importar Firebase Storage
-import { finalize } from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core'; // Importa los módulos necesarios
+import { TShirtService } from '../services/t-shirt.service'; // Importa el servicio TShirtService
+import { TShirt } from '../models/user.model'; // Importa el modelo TShirt
+import { AngularFireStorage } from '@angular/fire/compat/storage'; // Importa Firebase Storage
+import { finalize } from 'rxjs/operators'; // Importa el operador finalize para completar el observable
 
 @Component({
-  selector: 'app-t-shirt',
-  templateUrl: './t-shirt.component.html',
-  styleUrls: ['./t-shirt.component.scss']
+  selector: 'app-t-shirt', // Selector del componente
+  templateUrl: './t-shirt.component.html', // Ruta de la plantilla HTML
+  styleUrls: ['./t-shirt.component.scss'] // Ruta de los estilos SCSS
 })
 export class TShirtComponent implements OnInit {
-  tshirts: TShirt[] = [];
+  tshirts: TShirt[] = []; // Arreglo para almacenar las camisetas
   selectedTShirt: TShirt = { material: '', size: '' }; // Inicializar polera
   uploadPercent: number | undefined; // Para mostrar el progreso de la subida
   imageUrl: string | undefined; // URL de la imagen subida
@@ -21,15 +21,17 @@ export class TShirtComponent implements OnInit {
   constructor(private tShirtService: TShirtService, private storage: AngularFireStorage) { }
 
   ngOnInit() {
-    this.loadTShirts();
+    this.loadTShirts(); // Cargar camisetas al inicializar el componente
   }
 
+  // Método para cargar las camisetas desde el servicio
   loadTShirts() {
     this.tShirtService.getTShirts().subscribe(tshirts => {
-      this.tshirts = tshirts;
+      this.tshirts = tshirts; // Asignar las camisetas a la propiedad
     });
   }
 
+  // Método para crear o actualizar una camiseta
   createOrUpdateTShirt() {
     if (this.selectedTShirt.id) {
       // Eliminar el producto existente antes de actualizar
@@ -56,15 +58,17 @@ export class TShirtComponent implements OnInit {
     }
   }
 
+  // Método para editar una camiseta
   editTShirt(tshirt: TShirt) {
     this.selectedTShirt = { ...tshirt }; // Clonar la polera seleccionada
     this.imageUrl = tshirt.imageUrl; // Mostrar la imagen existente para edición
   }
 
+  // Método para eliminar una camiseta
   deleteTShirt(tshirt: TShirt) {
     if (confirm('¿Estás seguro de que deseas eliminar esta camiseta?')) {
       this.tShirtService.deleteTShirt(tshirt.id, tshirt.imageUrl!).then(() => {
-        this.loadTShirts(); // Recargar poleras después de eliminar
+        this.loadTShirts(); // Recargar camisetas después de eliminar
       }).catch(error => {
         console.error('Error al eliminar la camiseta:', error);
         alert('Ocurrió un error al intentar eliminar la camiseta. Por favor, inténtalo de nuevo.');
@@ -72,8 +76,9 @@ export class TShirtComponent implements OnInit {
     }
   }
 
+  // Método para reiniciar el formulario
   resetForm() {
-    this.selectedTShirt = { material: '', size: '' };
+    this.selectedTShirt = { material: '', size: '' }; // Reiniciar la selección de la camiseta
     this.imageUrl = undefined; // Reiniciar la URL de la imagen
     this.imageFile = undefined; // Reiniciar el archivo de imagen
     this.uploadPercent = undefined; // Reiniciar el porcentaje de carga
@@ -103,7 +108,7 @@ export class TShirtComponent implements OnInit {
           tshirt.imageUrl = url; // Asigna la URL de la imagen al objeto TShirt
           // Crear el nuevo objeto en Firestore
           this.tShirtService.createTShirt({ ...tshirt, id }).then(() => {
-            this.resetForm();
+            this.resetForm(); // Reiniciar el formulario después de guardar
           }).catch(error => {
             console.error('Error al crear la camiseta:', error);
             alert('Ocurrió un error al crear la camiseta.');
@@ -115,7 +120,7 @@ export class TShirtComponent implements OnInit {
 
   // Método para manejar la selección de imagen
   uploadImage(event: any) {
-    const file = event.target.files[0];
+    const file = event.target.files[0]; // Obtener el archivo seleccionado
     if (file) {
       this.imageFile = file; // Guardar el archivo seleccionado
       this.imageUrl = URL.createObjectURL(file); // Crear URL para vista previa

@@ -1,25 +1,25 @@
-
-.sign-up{
-    padding: 50px;
+.sign-up { /* Clase para el contenedor del formulario de registro */
+    padding: 50px; /* Añade un relleno de 50 píxeles alrededor del contenedor */
 }
 
-ion-button{
-    width: 170px;
+ion-button { /* Estilo para los botones de Ionic */
+    width: 170px; /* Establece un ancho fijo de 170 píxeles para los botones */
 }
 
-@media (min-width: 769px){
-    form{
-        width: 500px;
-        padding: 50px 10px;
+/* Media query que aplica estilos cuando el ancho de la pantalla es de al menos 769 píxeles */
+@media (min-width: 769px) { 
+    form { /* Estilos aplicados al formulario dentro de la media query */
+        width: 500px; /* Establece un ancho fijo de 500 píxeles para el formulario */
+        padding: 50px 10px; /* Añade un relleno de 50 píxeles en la parte superior e inferior y 10 píxeles a los lados */
     }
 }
 
-form{
-    border-radius: 20px 20px 20px 20px;
-    box-shadow: 0px 0px 8px 0px #3c10cb;
-    padding: 0px 30px 0px 20px;
+form { /* Estilo para todos los formularios */
+    border-radius: 20px 20px 20px 20px; /* Bordes redondeados de 20 píxeles en todos los rincones */
+    box-shadow: 0px 0px 8px 0px #3c10cb; /* Sombra alrededor del formulario con un desplazamiento de 0 píxeles y un color específico */
+    padding: 0px 30px 0px 20px; /* Añade un relleno de 0 píxeles en la parte superior e inferior, 30 píxeles a la derecha y 20 píxeles a la izquierda */
 }
 
-a{
-    text-decoration: none;
+a { /* Estilo para todos los enlaces */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
 }

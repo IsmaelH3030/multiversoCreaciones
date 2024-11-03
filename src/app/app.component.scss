@@ -1,26 +1,29 @@
+/* Estilo para el fondo del menú cuando está abierto */
 ion-menu::part(backdrop) {
-  background-color: rgba(69, 69, 69, 0.748);
+  background-color: rgba(69, 69, 69, 0.748); /* Color de fondo con opacidad para el backdrop */
 }
 
+/* Estilo para el contenedor del menú */
 ion-menu::part(container) {
-  border-radius: 0 20px 20px 0;
-  box-shadow: 1px 0px 16px rgba(60, 55, 55, 0.852);
+  border-radius: 0 20px 20px 0; /* Bordes redondeados solo en la parte derecha */
+  box-shadow: 1px 0px 16px rgba(60, 55, 55, 0.852); /* Sombra sutil en el lado derecho del menú */
 }
 
-.color-toolbar{
-  --background:#3c10cb;
-  --color:#ffffffff ;
+/* Estilo para la barra de herramientas del menú */
+.color-toolbar {
+  --background: #3c10cb; /* Color de fondo de la barra de herramientas */
+  --color: #ffffffff; /* Color del texto en la barra de herramientas */
 }
 
-
-.inicio-logo{
-  display: flex; 
-  align-items: center; 
-  width: 50px;  
+/* Estilo para el logo en el menú */
+.inicio-logo {
+  display: flex; /* Usar flexbox para alinear elementos */
+  align-items: center; /* Centrar verticalmente el contenido */
+  width: 50px; /* Ancho fijo para el contenedor del logo */
 }
 
-.toggle{
-margin: 10px 10px 10px 10px;
-padding: 0px 0px 1000px 0px;
+/* Estilo para el espaciado de los botones en el menú */
+.toggle {
+  margin: 10px; /* Margen uniforme de 10px alrededor */
+  padding: 0px 0px 1000px 0px; /* Padding vertical 0 y padding horizontal a la derecha muy grande (puede necesitar ajuste) */
 }
-

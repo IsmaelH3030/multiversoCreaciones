@@ -1,34 +1,36 @@
-<ion-app>
-  <ion-split-pane>
-    <ion-content [fullscreen]="true">
+<ion-app> <!-- Contenedor principal de la aplicación Ionic -->
+  <ion-split-pane> <!-- Permite mostrar el contenido en un diseño de panel dividido -->
+    <ion-content [fullscreen]="true"> <!-- Contenido de la página, ocupa toda la pantalla -->
+
       <!-- Encabezado de inicio -->
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
+      <ion-header> <!-- Sección de encabezado de la aplicación -->
+        <ion-toolbar> <!-- Barra de herramientas del encabezado -->
+          <ion-buttons slot="start"> <!-- Espacio para botones en el inicio de la barra -->
+            <ion-menu-button></ion-menu-button> <!-- Botón para abrir el menú lateral -->
           </ion-buttons>
-          <ion-title>
-            <div class="logo-principal">
-              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
+          <ion-title> <!-- Título del encabezado -->
+            <div class="logo-principal"> <!-- Contenedor para el logo -->
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" /> <!-- Imagen del logo -->
             </div>
           </ion-title>
         </ion-toolbar>
       </ion-header>
       <!-- Fin encabezado de inicio -->
 
-      <br>
-      <div class="ion">
-        <h2>{{ user?.name }}</h2> <!-- Uso del operador de encadenamiento opcional -->
-        <p>Datos del Usuario</p>
-        <p>Email: {{ user?.email }}</p> <!-- Muestra el email del usuario -->
-        <br><br>
-        <h2>¡Gracias por estar en Multiverso Creaciones! </h2>
-        <h2>Estamos encantados de que elijas nuestras poleras para acompañarte. </h2>
-        <h2>Cada prenda que diseñamos está hecha con pasión y creatividad, y nos alegra que formes parte de nuestra comunidad que celebra la autenticidad. </h2>
-        <h2>¡Esperamos que disfrutes al máximo tus poleras y que cuenten una historia única contigo!</h2>
+      <br> <!-- Espacio en blanco -->
+
+      <div class="ion"> <!-- Contenedor adicional para los datos del usuario -->
+        <h2>{{ user?.name }}</h2> <!-- Muestra el nombre del usuario, usa el operador de encadenamiento opcional para evitar errores si user es null -->
+        <p>Datos del Usuario</p> <!-- Título para la sección de datos del usuario -->
+        <p>Email: {{ user?.email }}</p> <!-- Muestra el email del usuario, con encadenamiento opcional -->
+        <br><br> <!-- Espacios en blanco -->
+
+        <h2>¡Gracias por estar en Multiverso Creaciones! </h2> <!-- Mensaje de agradecimiento -->
+        <h2>Estamos encantados de que elijas nuestras poleras para acompañarte. </h2> <!-- Mensaje sobre el producto -->
+        <h2>Cada prenda que diseñamos está hecha con pasión y creatividad, y nos alegra que formes parte de nuestra comunidad que celebra la autenticidad. </h2> <!-- Mensaje sobre el enfoque de diseño -->
+        <h2>¡Esperamos que disfrutes al máximo tus poleras y que cuenten una historia única contigo!</h2> <!-- Mensaje de deseo para el usuario -->
       </div>
 
-
-    </ion-content>
-  </ion-split-pane>
-</ion-app>
+    </ion-content> <!-- Fin del contenido de la página -->
+  </ion-split-pane> <!-- Fin del panel dividido -->
+</ion-app> <!-- Fin del contenedor principal de la aplicación -->

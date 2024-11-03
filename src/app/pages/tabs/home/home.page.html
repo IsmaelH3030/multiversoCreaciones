@@ -1,74 +1,68 @@
-<ion-app>
+<ion-app> <!-- Elemento raíz de la aplicación Ionic -->
 
-  <ion-split-pane>
+  <ion-split-pane> <!-- Componente que permite mostrar un diseño de panel dividido para pantallas más grandes -->
 
-    <ion-content [fullscreen]="true" class="ion">
+    <ion-content [fullscreen]="true" class="ion"> <!-- Contenido de la página que ocupa toda la pantalla -->
 
       <!-- Encabezado de inicio -->
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
+      <ion-header> <!-- Componente de encabezado de la aplicación -->
+        <ion-toolbar> <!-- Barra de herramientas que contiene elementos de navegación -->
+          <ion-buttons slot="start"> <!-- Contenedor de botones en la posición inicial (izquierda) -->
+            <ion-menu-button></ion-menu-button> <!-- Botón para abrir el menú lateral -->
           </ion-buttons>
-          <ion-title>
-            <div class="logo-principal">
-              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
+          <ion-title> <!-- Título de la página -->
+            <div class="logo-principal"> <!-- Contenedor para el logo -->
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" /> <!-- Logo de la aplicación -->
             </div>
           </ion-title>
         </ion-toolbar>
       </ion-header>
       <!-- Fin encabezado de inicio -->
 
-      <br>
+      <br> <!-- Espacio en blanco -->
 
-        <h2>Multiverso Creaciones </h2>
+      <h2>Multiverso Creaciones </h2> <!-- Título principal de la página -->
 
-        <div class="nombreUsuario">
-          <h2>Bienvenido <!--{{user.name}}--></h2>
-          <h2  *ngIf="isAuthenticated">{{user.name}}</h2>
-        </div>
+      <div class="nombreUsuario"> <!-- Contenedor para mostrar el nombre del usuario -->
+        <h2>Bienvenido <!-- Mensaje de bienvenida -->
+          <!--{{user.name}}--> <!-- Comentario que indica dónde se mostraría el nombre del usuario, actualmente deshabilitado -->
+        </h2>
+        <h2 *ngIf="isAuthenticated">{{user.name}}</h2> <!-- Muestra el nombre del usuario si está autenticado -->
+      </div>
 
+      <div class="container carrusel"> <!-- Contenedor para el carrusel de imágenes -->
 
-
-        <div class="container carrusel">
-
-            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="3000">
-                  <img src="assets\icon\carrusel 1.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="3000">
-                  <img src="assets\icon\carrusel 2.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="3000">
-                  <img src="assets\icon\carrusel 3.jpg" class="d-block w-100" alt="...">
-                </div>
-              </div>
-
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel"> <!-- Componente de carrusel utilizando Bootstrap -->
+          <div class="carousel-inner"> <!-- Contenedor para las imágenes del carrusel -->
+            <div class="carousel-item active" data-bs-interval="3000"> <!-- Primera imagen activa del carrusel -->
+              <img src="assets/icon/carrusel 1.jpg" class="d-block w-100" alt="..."> <!-- Imagen del carrusel -->
             </div>
+            <div class="carousel-item" data-bs-interval="3000"> <!-- Segunda imagen del carrusel -->
+              <img src="assets/icon/carrusel 2.jpg" class="d-block w-100" alt="..."> <!-- Imagen del carrusel -->
+            </div>
+            <div class="carousel-item" data-bs-interval="3000"> <!-- Tercera imagen del carrusel -->
+              <img src="assets/icon/carrusel 3.jpg" class="d-block w-100" alt="..."> <!-- Imagen del carrusel -->
+            </div>
+          </div>
 
-            <br>
-        <div class="nombreUsuario">
-          <h2>Bienvenido a Multiverso Creaciones, donde la moda se encuentra con la autenticidad. Somos una PYME apasionada por diseñar poleras que no solo son cómodas, sino que también cuentan historias. Cada prenda que ofrecemos es una celebración de la individualidad, con diseños vibrantes y creativos que reflejan tu personalidad única.</h2>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev"> <!-- Botón para pasar a la imagen anterior -->
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span> <!-- Icono del botón anterior -->
+            <span class="visually-hidden">Previous</span> <!-- Texto oculto para accesibilidad -->
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next"> <!-- Botón para pasar a la siguiente imagen -->
+            <span class="carousel-control-next-icon" aria-hidden="true"></span> <!-- Icono del botón siguiente -->
+            <span class="visually-hidden">Next</span> <!-- Texto oculto para accesibilidad -->
+          </button>
         </div>
 
+        <br> <!-- Espacio en blanco -->
+        <div class="nombreUsuario"> <!-- Contenedor para el mensaje de bienvenida -->
+          <h2>Bienvenido a Multiverso Creaciones, donde la moda se encuentra con la autenticidad. Somos una PYME apasionada por diseñar poleras que no solo son cómodas, sino que también cuentan historias. Cada prenda que ofrecemos es una celebración de la individualidad, con diseños vibrantes y creativos que reflejan tu personalidad única.</h2> <!-- Descripción de la empresa y sus productos -->
+        </div>
 
-    
-        </div><!-- container -->
+      </div><!-- container --> <!-- Fin del contenedor del carrusel -->
 
+    </ion-content> <!-- Fin del contenido de la página -->
 
-
-
-
-    </ion-content>
-
-  </ion-split-pane>
-</ion-app>
+  </ion-split-pane> <!-- Fin del componente de panel dividido -->
+</ion-app> <!-- Fin del elemento raíz de la aplicación -->

@@ -1,20 +1,22 @@
-
- <ion-app>
+<ion-app>
+  <!-- Componente del menú lateral -->
   <ion-menu side="start" menuId="m1" contentId="main-content">
     <ion-header>
       <ion-toolbar class="color-toolbar">
         <ion-title>
           <div class="inicio-logo">
             <img class="logo-menu" src="assets/icon/1611770034484.png" alt="logo" />
-            <span style="margin-left: 8px;">INICIO</span>
+            <span style="margin-left: 8px;">INICIO</span> <!-- Título del menú -->
           </div>
         </ion-title>
       </ion-toolbar>
     </ion-header>
 
+    <!-- Contenido del menú -->
     <ion-menu-toggle class="toggle">
-      
+      <!-- Botón de navegación a la página de Inicio -->
       <ion-button [routerLink]="['./tabs/home']" expand="block" color="tertiary" class="abrir-menu">Inicio</ion-button>
+      <!-- Botón de navegación a la página de Productos -->
       <ion-button [routerLink]="['./tabs/productos']" expand="block" color="tertiary" class="abrir-menu">Productos</ion-button>
 
       <!-- Mostrar solo si el usuario ESTÁ autenticado -->
@@ -23,14 +25,14 @@
       <!-- Mostrar solo si el usuario NO está autenticado -->
       <ion-button *ngIf="!isAuthenticated" [routerLink]="['/auth']" expand="block" color="tertiary" class="abrir-menu">Iniciar sesión</ion-button>
       
-      <!-- Mostrar solo si el usuario ESTÁ autenticado -->
+      <!-- Botón de cerrar sesión, visible solo si el usuario está autenticado -->
       <ion-button *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary" (click)="signOut()">Cerrar sesión</ion-button>
       
-            <!-- Mostrar solo si el usuario ESTÁ autenticado -->
-            <ion-button [routerLink]="['./t-shirts']" *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary">CRUD POLERAS</ion-button>
+      <!-- Botón para CRUD de Poleras, visible solo si el usuario está autenticado -->
+      <ion-button [routerLink]="['./t-shirts']" *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary">CRUD POLERAS</ion-button>
     </ion-menu-toggle>
   </ion-menu>
   
-
+  <!-- Contenedor principal para el enrutador -->
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>

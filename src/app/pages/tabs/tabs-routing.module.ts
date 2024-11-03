@@ -1,32 +1,31 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'; // Importa el decorador NgModule desde Angular core
+import { Routes, RouterModule } from '@angular/router'; // Importa las interfaces Routes y RouterModule para la configuración de rutas
 
-import { TabsPage } from './tabs.page';
+import { TabsPage } from './tabs.page'; // Importa el componente TabsPage desde su archivo correspondiente
 
+// Define las rutas para la aplicación
 const routes: Routes = [
   {
-    path: '',
-    component: TabsPage,
+    path: '', // Ruta raíz del módulo
+    component: TabsPage, // Asocia la ruta con el componente TabsPage
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'home', // Ruta para la página de inicio
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule) // Carga perezosamente el módulo HomePageModule
   },
   {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },  {
-    path: 'productos',
-    loadChildren: () => import('./productos/productos.module').then( m => m.ProductosPageModule)
+    path: 'profile', // Ruta para la página de perfil
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule) // Carga perezosamente el módulo ProfilePageModule
+  },
+  {
+    path: 'productos', // Ruta para la página de productos
+    loadChildren: () => import('./productos/productos.module').then( m => m.ProductosPageModule) // Carga perezosamente el módulo ProductosPageModule
   }
-
-
 ];
 
+// Configuración del módulo de rutas
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)], // Importa RouterModule y configura las rutas definidas
+  exports: [RouterModule], // Exporta RouterModule para que esté disponible en otros módulos
 })
-export class TabsPageRoutingModule {}
-
-
+export class TabsPageRoutingModule {} // Declara la clase TabsPageRoutingModule que gestiona las rutas del módulo Tabs

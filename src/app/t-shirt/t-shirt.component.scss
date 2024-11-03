@@ -1,74 +1,77 @@
+/* Estilos generales para el contenedor .ion */
 .ion {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: flex-start; /* Alinea al inicio verticalmente */
-    flex-direction: column;  /* Alinea los elementos verticalmente */
-    height: auto;           /* Cambia a auto para ajustar según el contenido */
-    text-align: center;      /* Centra el texto dentro de los <h1> */
-    padding: 16px
- }
-
-/* Formulario */
-form {
-    display: flex;
-    flex-direction: column;
-    margin: 20px; /* Margen uniforme en todos los lados */
-    padding: 20px; /* padding uniforme en todos los lados */
-    border-radius: 10px;
-    border: 1px solid #6f42c1;
-    box-shadow: 0 4px 15px rgba(88, 9, 234, 0.4); /* Sombra */
+    display: flex; /* Utiliza flexbox para el diseño */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: flex-start; /* Alinea los elementos al inicio verticalmente */
+    flex-direction: column; /* Organiza los elementos en columna */
+    height: auto; /* Ajusta la altura según el contenido */
+    text-align: center; /* Centra el texto dentro de los elementos */
+    padding: 16px; /* Espaciado interno de 16px */
 }
 
+/* Estilos para el formulario */
+form {
+    display: flex; /* Utiliza flexbox para el diseño del formulario */
+    flex-direction: column; /* Organiza los elementos del formulario en columna */
+    margin: 20px; /* Margen uniforme en todos los lados */
+    padding: 20px; /* Espaciado interno uniforme de 20px */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 1px solid #6f42c1; /* Borde morado */
+    box-shadow: 0 4px 15px rgba(88, 9, 234, 0.4); /* Sombra para el formulario */
+}
 
-
+/* Estilos para inputs y textareas */
 input[type="text"],
 textarea {
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #6f42c1;
-    border-radius: 4px;
-    font-size: 16px;
-    color: #747474;
+    padding: 10px; /* Espaciado interno de 10px */
+    margin: 8px 0; /* Margen superior e inferior de 8px */
+    border: 1px solid #6f42c1; /* Borde morado */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    color: #747474; /* Color de texto */
 }
 
-.porcentaje{
- color: black;
+/* Clase para porcentaje */
+.porcentaje {
+    color: black; /* Color del texto para porcentaje */
 }
 
+/* Estilos para input de tipo archivo */
 input[type="file"] {
-    margin: 8px 0;
-    
+    margin: 8px 0; /* Margen superior e inferior de 8px */
 }
 
+/* Estilos para input de tipo número y textareas */
 input[type="number"],
 textarea {
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #6f42c1;
-    border-radius: 4px;
-    font-size: 16px;
-    color: #747474;
+    padding: 10px; /* Espaciado interno de 10px */
+    margin: 8px 0; /* Margen superior e inferior de 8px */
+    border: 1px solid #6f42c1; /* Borde morado */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    color: #747474; /* Color de texto */
 }
 
+/* Estilos para botones */
 button {
-    padding: 10px;
-    background-color: #6f42c1; /* Color morado */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+    padding: 10px; /* Espaciado interno de 10px */
+    background-color: #6f42c1; /* Color de fondo morado */
+    color: white; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño de fuente */
     margin-top: 10px; /* Espacio superior para los botones */
 }
 
+/* Efecto hover para botones */
 button:hover {
     background-color: #5a32a1; /* Color morado más oscuro al pasar el mouse */
 }
 
-
-/* Contenedor de tarjetas */
+/* Estilos para el contenedor de tarjetas */
 .card-container {
-    display: flex;
+    display: flex; /* Utiliza flexbox para alinear tarjetas */
     flex-wrap: wrap; /* Permite que las tarjetas se ajusten en múltiples filas */
     justify-content: center; /* Centra las tarjetas horizontalmente */
     margin: 10px; /* Margen uniforme en todos los lados */
@@ -77,46 +80,47 @@ button:hover {
 /* Estilos para las tarjetas */
 .card {
     width: calc(24% - 15px); /* Ancho de las tarjetas para que quepan 4 en una fila */
-    max-width: 250px; /* Puedes ajustar el ancho máximo según tu diseño */
+    max-width: 250px; /* Ancho máximo de la tarjeta */
     margin: 10px; /* Espacio entre tarjetas */
     border-radius: 10px; /* Bordes redondeados */
     transition: transform 0.2s; /* Efecto suave al pasar el mouse */
 }
 
+/* Efecto hover para tarjetas */
 .card:hover {
     transform: scale(1.05); /* Aumenta ligeramente la tarjeta al pasar el mouse */
 }
 
-/* Imagen de la tarjeta */
+/* Estilos para la imagen de la tarjeta */
 .card-img {
     width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
     height: auto; /* Mantiene la proporción de la imagen */
     max-height: 100%; /* Altura máxima para la imagen */
     object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
-
 }
 
-/* Contenedor de botones en la tarjeta */
+/* Estilos para el contenedor de botones en la tarjeta */
 .button-container {
-    display: flex; /* Flex para alinear botones */
+    display: flex; /* Utiliza flexbox para alinear botones */
     justify-content: space-between; /* Espacio entre botones */
-    margin: 15px 30px 15px 30px;
-    
+    margin: 15px 30px; /* Margen en los lados */
 }
 
-/* Responsividad */
+/* Responsividad para pantallas pequeñas */
 @media (max-width: 576px) {
     .card {
         width: 100%; /* Tarjetas ocupan todo el ancho en pantallas pequeñas */
     }
 }
 
+/* Responsividad para pantallas medianas */
 @media (min-width: 576px) and (max-width: 768px) {
     .card {
         width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
     }
 }
 
+/* Responsividad para pantallas grandes */
 @media (min-width: 768px) {
     .card {
         width: calc(33.33% - 20px); /* Tres tarjetas por fila en pantallas grandes */

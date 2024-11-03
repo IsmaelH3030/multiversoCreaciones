@@ -1,6 +1,16 @@
+<!-- Item de formulario con margen vertical -->
 <ion-item class="ion-margin-vertical">
-  <ion-icon *ngIf= "icon" slot="start" [name]= "icon"></ion-icon>
-  <ion-label position= "floating" >{{label}}</ion-label>
+  <!-- Icono que se muestra al inicio si la variable 'icon' está definida -->
+  <ion-icon *ngIf="icon" slot="start" [name]="icon"></ion-icon>
+  
+  <!-- Etiqueta del campo de entrada, con posición flotante -->
+  <ion-label position="floating">{{label}}</ion-label>
+  
+  <!-- Campo de entrada con características configurables -->
   <ion-input debounce="500" [autocomplete]= "autocomplete" [type]= "type" [formControl]= "control"></ion-input>
 
+    <!-- debounce="500" Espera 500 ms antes de enviar la entrada para reducir la cantidad de eventos emitidos -->
+    <!-- [autocomplete]="autocomplete" Asocia el atributo 'autocomplete' con la variable de entrada -->
+    <!-- [type]="type" Establece el tipo de entrada según la variable proporcionada (text, password, etc.) -->
+    <!-- [formControl]="control" Vincula el campo de entrada a un control de formulario en Angular -->
 </ion-item>
