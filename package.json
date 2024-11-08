@@ -29,8 +29,10 @@
     "@capacitor/keyboard": "6.0.2",
     "@capacitor/status-bar": "6.0.1",
     "@ionic/angular": "^8.0.0",
+    "@mercadopago/sdk-js": "^0.0.3",
     "firebase": "^10.13.0",
     "ionicons": "^7.0.0",
+    "mercadopago": "^2.0.15",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"

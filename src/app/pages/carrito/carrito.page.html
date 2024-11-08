@@ -17,11 +17,11 @@
       <!-- Fin encabezado de inicio -->
 
       <br> <!-- Espaciador -->
-      <h2>PRODUCTOS</h2> <!-- Título de la sección de productos -->
+      <h2>CARRITO</h2> <!-- Título de la sección de productos -->
 
       <div class="container"><!-- Inicio del contenedor -->
         <div class="row"> <!-- Fila para organizar las tarjetas de productos -->
-          <div class="tarjetas col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3" *ngFor="let producto of productos">
+          <div class="tarjetas col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3" *ngFor="let producto of carrito">
             <!-- Itera sobre la lista de productos y define el tamaño de la columna según el dispositivo -->
             <div class="card" style="width: 18rem;"> <!-- Tarjeta para mostrar los detalles del producto -->
               <img [src]="producto.imageUrl" class="card-img-top" alt="{{ producto.description }}">
@@ -32,15 +32,25 @@
                 <p class="card-text">Tamaño: {{ producto.size }}</p> <!-- Tamaño del producto -->
                 <p class="card-text">Precio: {{ producto.price | currency:'CLP':'symbol':'1.0-0':'es' }}</p>
                 <!-- Precio del producto formateado como moneda chilena sin decimales y con punto -->
-                <!-- Botón para agregar el producto al carrito -->
-                <a class="btn btn-primary" (click)="agregarAlCarrito(producto)">AGREGAR AL CARRITO</a>
-
+                <ion-button color="danger" (click)="eliminarDelCarrito(producto.id)">
+                  Eliminar
+                </ion-button>
               </div>
             </div>
           </div>
         </div> <!-- Fin de la fila -->
-      </div><!-- Fin del contenedor -->
 
+        <!-- Muestra el total del carrito -->
+        <div class="total-container">
+          <h4>Total: {{ totalPrecio | currency:'CLP':'symbol':'1.0-0':'es' }}</h4> <!-- Muestra el total del carrito -->
+        </div>
+
+        <!-- Botón para vaciar el carrito -->
+        <ion-button expand="full" color="danger" (click)="vaciarCarrito()">Vaciar Carrito</ion-button>
+
+        <!-- Botón para proceder al pago -->
+        <ion-button expand="full" color="primary" (click)="pagar()">Pagar</ion-button>
+      </div><!-- Fin del contenedor -->
     </ion-content> <!-- Fin del contenido completo -->
   </ion-split-pane>
 </ion-app>
