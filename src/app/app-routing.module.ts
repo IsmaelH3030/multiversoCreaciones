@@ -6,7 +6,7 @@ import { NoAuthGuard } from './guards/no-auth.guard';
 import { AuthGuard } from './guards/auth.guard';
 // Importa el componente TShirt
 import { TShirtComponent } from './t-shirt/t-shirt.component';
-
+import { ErrorComponent } from './pages/error/error.component';
 // Define las rutas de la aplicación
 const routes: Routes = [
   {
@@ -27,6 +27,10 @@ const routes: Routes = [
     component: TShirtComponent, // Asocia el componente TShirt a esta ruta
     canActivate: [AuthGuard] // Protege la ruta para que solo usuarios autenticados puedan acceder
   },
+  {
+    path: '**', // Ruta comodín para capturar cualquier ruta desconocida
+    component: ErrorComponent // Redirige al componente de error
+  }
 ];
 
 // Declara el módulo de enrutamiento

@@ -19,12 +19,14 @@ import { TShirtComponent } from './t-shirt/t-shirt.component'; // Importa el com
 import { registerLocaleData } from '@angular/common'; // Importa función para registrar datos locales
 import localeEs from '@angular/common/locales/es'; // Importa los datos locales para español
 
+import { ErrorComponent } from './pages/error/error.component';
 registerLocaleData(localeEs, 'es'); // Registra el locale español para la aplicación
 
 @NgModule({
   declarations: [
     AppComponent, // Declara el componente raíz de la aplicación
-    TShirtComponent // Declara el componente TShirt
+    TShirtComponent, // Declara el componente TShirt
+    ErrorComponent, // Declara el componente Error
   ],
   imports: [
     BrowserModule, // Importa el módulo del navegador
