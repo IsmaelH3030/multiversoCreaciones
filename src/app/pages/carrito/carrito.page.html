@@ -1,56 +1,54 @@
 <ion-app>
   <ion-split-pane>
-    <ion-content [fullscreen]="true" class="ion"> <!-- Establece el contenido para ocupar toda la pantalla -->
-      <!-- Encabezado de inicio -->
+    <ion-content [fullscreen]="true" class="ion">
       <ion-header>
         <ion-toolbar>
-          <ion-buttons slot="start"> <!-- Botones que aparecen al inicio del toolbar -->
-            <ion-menu-button></ion-menu-button> <!-- Botón para abrir el menú lateral -->
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
           </ion-buttons>
           <ion-title>
-            <div class="logo-principal"> <!-- Contenedor para el logo -->
-              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" /> <!-- Imagen del logo -->
+            <div class="logo-principal">
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
             </div>
           </ion-title>
         </ion-toolbar>
       </ion-header>
-      <!-- Fin encabezado de inicio -->
 
-      <br> <!-- Espaciador -->
-      <h2>CARRITO</h2> <!-- Título de la sección de productos -->
+      <br>
+      <h2>CARRITO</h2>
 
-      <div class="container"><!-- Inicio del contenedor -->
-        <div class="row"> <!-- Fila para organizar las tarjetas de productos -->
+      <div class="container">
+        <div class="row">
           <div class="tarjetas col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3" *ngFor="let producto of carrito">
-            <!-- Itera sobre la lista de productos y define el tamaño de la columna según el dispositivo -->
-            <div class="card" style="width: 18rem;"> <!-- Tarjeta para mostrar los detalles del producto -->
+            <div class="card" style="width: 18rem;">
               <img [src]="producto.imageUrl" class="card-img-top" alt="{{ producto.description }}">
-              <!-- Imagen del producto -->
-              <div class="card-body"> <!-- Contenido de la tarjeta -->
-                <h5 class="card-title">{{ producto.description }}</h5> <!-- Descripción del producto -->
-                <p class="card-text">Material: {{ producto.material }}</p> <!-- Material del producto -->
-                <p class="card-text">Tamaño: {{ producto.size }}</p> <!-- Tamaño del producto -->
+              <div class="card-body">
+                <h5 class="card-title">{{ producto.description }}</h5>
+                <p class="card-text">Material: {{ producto.material }}</p>
+                <p class="card-text">Tamaño: {{ producto.size }}</p>
                 <p class="card-text">Precio: {{ producto.price | currency:'CLP':'symbol':'1.0-0':'es' }}</p>
-                <!-- Precio del producto formateado como moneda chilena sin decimales y con punto -->
+
+                <div class="quantity-controls">
+                  <ion-button size="small" (click)="disminuirCantidad(producto)">-</ion-button>
+                  <span>{{ producto.quantity || 1 }}</span>
+                  <ion-button size="small" (click)="aumentarCantidad(producto)">+</ion-button>
+                </div>
+
                 <ion-button color="danger" (click)="eliminarDelCarrito(producto.id)">
                   Eliminar
                 </ion-button>
               </div>
             </div>
           </div>
-        </div> <!-- Fin de la fila -->
-
-        <!-- Muestra el total del carrito -->
-        <div class="total-container">
-          <h4>Total: {{ totalPrecio | currency:'CLP':'symbol':'1.0-0':'es' }}</h4> <!-- Muestra el total del carrito -->
         </div>
 
-        <!-- Botón para vaciar el carrito -->
-        <ion-button expand="full" color="danger" (click)="vaciarCarrito()">Vaciar Carrito</ion-button>
+        <div class="total-container">
+          <h4>Total: {{ totalPrecio | currency:'CLP':'symbol':'1.0-0':'es' }}</h4>
+        </div>
 
-        <!-- Botón para proceder al pago -->
+        <ion-button expand="full" color="danger" (click)="vaciarCarrito()">Vaciar Carrito</ion-button>
         <ion-button expand="full" color="primary" (click)="pagar()">Pagar</ion-button>
-      </div><!-- Fin del contenedor -->
-    </ion-content> <!-- Fin del contenido completo -->
+      </div>
+    </ion-content>
   </ion-split-pane>
 </ion-app>
