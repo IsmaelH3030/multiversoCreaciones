@@ -7,8 +7,26 @@ import { Component, OnInit } from '@angular/core'; // Importa el decorador Compo
 })
 export class TabsPage implements OnInit { // Declara la clase TabsPage que implementa la interfaz OnInit
 
+  // Definición de la propiedad contactMessage
+  contactMessage = {
+    name: '',
+    email: '',
+    message: ''
+  };
+
   constructor() { } // Constructor del componente, se utiliza para inyectar servicios si es necesario
 
   ngOnInit() { // Método del ciclo de vida que se ejecuta al inicializar el componente
-  } // Este método está vacío, se puede utilizar para inicializar datos o ejecutar lógica al cargar el componente
+    // Se pueden inicializar datos o ejecutar lógica adicional aquí
+  }
+  
+  // Método para manejar el envío del formulario
+  sendContactMessage() {
+    console.log('Formulario enviado:', this.contactMessage);
+  }
+
+  // Método para manejar la carga de imagen
+  uploadImage(event: any) {
+    console.log(event.target.files[0]); // Aquí puedes manejar la carga de la imagen
+  }
 }

@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore'; // Importa An
 import { User } from '../models/user.model'; // Importa el modelo User desde su archivo correspondiente
 import { getAuth, updateProfile } from "firebase/auth"; // Importa funciones de Firebase para obtener la autenticación y actualizar el perfil
 import { UtilsService } from './utils.service'; // Importa el servicio UtilsService para utilizar funciones utilitarias
+import { Observable } from 'rxjs';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 // Marca la clase como un servicio inyectable
 @Injectable({
@@ -13,9 +15,10 @@ export class FirebaseService {
 
   // Constructor del servicio que inyecta las dependencias necesarias
   constructor(
-    private auth: AngularFireAuth, // Inyección de AngularFireAuth para autenticación
-    private db: AngularFirestore, // Inyección de AngularFirestore para acceso a la base de datos
-    private utilsSvc: UtilsService, // Inyección del servicio utilitario
+    private auth: AngularFireAuth, 
+    private db: AngularFirestore, 
+    private utilsSvc: UtilsService,
+    private functions: AngularFireFunctions // Asegúrate de inyectar AngularFireFunctions
   ) { }
 
   //====== Autenticacion =========
@@ -52,4 +55,11 @@ export class FirebaseService {
   resetPassword(email: string) {
     return this.auth.sendPasswordResetEmail(email); // Envía un correo para restablecer la contraseña
   }
+
+    // Método para enviar el formulario de contacto
+    sendContactForm(contactData: any): Observable<any> {
+      // Llama a la función de Firebase que envía el correo
+      const sendEmail = this.functions.httpsCallable('sendContactForm');
+      return sendEmail(contactData);
+    }
 }

@@ -1,0 +1,21 @@
+<form (ngSubmit)="sendContactMessage()">
+  <!-- Campo para el nombre -->
+  <input type="text" [(ngModel)]="contactMessage.name" name="name" placeholder="Nombre" required />
+  
+  <!-- Campo para el correo electrónico -->
+  <input type="email" [(ngModel)]="contactMessage.email" name="email" placeholder="Correo electrónico" required />
+  
+  <!-- Campo para el mensaje -->
+  <textarea [(ngModel)]="contactMessage.message" name="message" placeholder="Mensaje" required></textarea>
+  
+  <!-- Input para subir una imagen -->
+  <input type="file" (change)="uploadImage($event)" title="Selecciona una imagen para subir" />
+  
+  <!-- Mostrar el progreso de la subida -->
+  <div *ngIf="uploadPercent as percent" style="color: blueviolet;">Progreso de subida: {{ percent }}%</div>
+  
+  <!-- Mostrar la imagen subida si está disponible -->
+  <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa de la imagen" width="150" />
+  
+  <button type="submit">Enviar mensaje</button>
+</form>

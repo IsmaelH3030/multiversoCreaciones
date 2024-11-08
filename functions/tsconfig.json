@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2020", 
+    "esModuleInterop": true,  // Permite importaciones más fáciles de módulos comunes
+    "skipLibCheck": true      // A veces ayuda a evitar errores de compilación con las dependencias
+  },
+  "compileOnSave": true,
+  "include": [
+    "src",
+    "node_modules"
+  ]
+}

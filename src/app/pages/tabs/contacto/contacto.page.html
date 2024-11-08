@@ -1,0 +1,58 @@
+<ion-app> <!-- Elemento raíz de la aplicación Ionic -->
+
+  <ion-split-pane> <!-- Componente que permite mostrar un diseño de panel dividido para pantallas más grandes -->
+
+    <ion-content [fullscreen]="true" class="ion"> <!-- Contenido de la página que ocupa toda la pantalla -->
+
+      <!-- Encabezado de inicio -->
+      <ion-header> <!-- Componente de encabezado de la aplicación -->
+        <ion-toolbar> <!-- Barra de herramientas que contiene elementos de navegación -->
+          <ion-buttons slot="start"> <!-- Contenedor de botones en la posición inicial (izquierda) -->
+            <ion-menu-button></ion-menu-button> <!-- Botón para abrir el menú lateral -->
+          </ion-buttons>
+          <ion-title> <!-- Título de la página -->
+            <div class="logo-principal"> <!-- Contenedor para el logo -->
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" /> <!-- Logo de la aplicación -->
+            </div>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <!-- Fin encabezado de inicio -->
+
+      <br> <!-- Espacio en blanco -->
+
+      <h2>Multiverso Creaciones </h2> <!-- Título principal de la página -->
+
+
+        <br> <!-- Espacio en blanco -->
+
+        <!-- contacto.component.html -->
+<div>
+  <form (ngSubmit)="sendContactMessage()">
+    <!-- Campo para el nombre -->
+    <input type="text" [(ngModel)]="contactMessage.name" name="name" placeholder="Nombre" required />
+    
+    <!-- Campo para el correo electrónico -->
+    <input type="email" [(ngModel)]="contactMessage.email" name="email" placeholder="Correo electrónico" required />
+    
+    <!-- Campo para el mensaje -->
+    <textarea [(ngModel)]="contactMessage.message" name="message" placeholder="Mensaje" required></textarea>
+    
+    <!-- Input para subir una imagen -->
+    <input type="file" (change)="uploadImage($event)" title="Selecciona una imagen para subir" />
+    
+    <!-- Mostrar el progreso de la subida -->
+    <div *ngIf="uploadPercent as percent" style="color: blueviolet;">Progreso de subida: {{ percent }}%</div>
+    
+    <!-- Mostrar la imagen subida si está disponible -->
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa de la imagen" width="150" />
+    
+    <button type="submit">Enviar mensaje</button>
+  </form>
+</div>
+
+
+    </ion-content> <!-- Fin del contenido de la página -->
+
+  </ion-split-pane> <!-- Fin del componente de panel dividido -->
+</ion-app> <!-- Fin del elemento raíz de la aplicación -->

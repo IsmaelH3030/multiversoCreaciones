@@ -16,3 +16,9 @@ export interface TShirt {
     price?: number;       // Precio de la polera (opcional).
 }
 
+export interface ContactForm {
+    name: string;
+    email: string;
+    message: string;
+    imageUrl: string;
+  }

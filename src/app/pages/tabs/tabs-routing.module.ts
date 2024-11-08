@@ -20,7 +20,16 @@ const routes: Routes = [
   {
     path: 'productos', // Ruta para la página de productos
     loadChildren: () => import('./productos/productos.module').then( m => m.ProductosPageModule) // Carga perezosamente el módulo ProductosPageModule
+  },
+  {
+    path: 'contacto',
+    loadChildren: () => import('./contacto/contacto.module').then( m => m.ContactoPageModule)
+  },
+  {
+    path: '',
+    component: TabsPage,
   }
+
 ];
 
 // Configuración del módulo de rutas
