@@ -19,8 +19,14 @@ import { TShirtComponent } from './t-shirt/t-shirt.component'; // Importa el com
 import { registerLocaleData } from '@angular/common'; // Importa función para registrar datos locales
 import localeEs from '@angular/common/locales/es'; // Importa los datos locales para español
 import { ErrorComponent } from './pages/error/error.component';
+
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
+
+
 // import { ErrorComponent } from './pages/error/error.component';
 registerLocaleData(localeEs, 'es'); // Registra el locale español para la aplicación
+
+
 
 @NgModule({
   declarations: [
@@ -37,7 +43,7 @@ registerLocaleData(localeEs, 'es'); // Registra el locale español para la aplic
     AngularFirestoreModule, // Importa el módulo de Firestore de Firebase
     FormsModule // Importa el módulo de formularios
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }], // Proveedores de estrategias de reutilización de rutas
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy, EmailComposer }], // Proveedores de estrategias de reutilización de rutas
   bootstrap: [AppComponent], // Componente raíz que se iniciará al arrancar la aplicación
 })
 export class AppModule {} // Exporta el módulo principal de la aplicación

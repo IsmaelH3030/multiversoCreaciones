@@ -52,4 +52,17 @@ export class FirebaseService {
   resetPassword(email: string) {
     return this.auth.sendPasswordResetEmail(email); // Envía un correo para restablecer la contraseña
   }
+
+
+    // Método para obtener el correo del usuario autenticado
+    getUserEmail() {
+      const user = this.auth.currentUser; // Obtenemos el usuario autenticado
+      return user ? user.email : null; // Retorna el correo del usuario si está autenticado
+    }
+  
+    // Método para obtener los datos del usuario desde Firestore
+    getUserData(userId: string) {
+      return this.db.collection('users').doc(userId).get();
+    }
+
 }

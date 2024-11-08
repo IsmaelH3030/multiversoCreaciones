@@ -35,7 +35,11 @@ const routes: Routes = [
   {
     path: '**', // Ruta comodín para capturar cualquier ruta desconocida
     component: ErrorComponent // Redirige al componente de error
+  },  {
+    path: 'consulta-personalizada',
+    loadChildren: () => import('./pages/consulta-personalizada/consulta-personalizada.module').then( m => m.ConsultaPersonalizadaPageModule)
   }
+
 
 ];
 

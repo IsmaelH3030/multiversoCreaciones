@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Consulta Personalizada</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="consultaForm" (ngSubmit)="onSubmit()">
+    <!-- Campo Talla de la Polera -->
+    <ion-item>
+      <ion-label position="floating">Talla de la Polera</ion-label>
+      <ion-input formControlName="talla"></ion-input>
+    </ion-item>
+
+    <!-- Campo Material de la Polera -->
+    <ion-item>
+      <ion-label position="floating">Material de la Polera</ion-label>
+      <ion-input formControlName="material"></ion-input>
+    </ion-item>
+
+    <!-- Campo Texto Sugerencia -->
+    <ion-item>
+      <ion-label position="floating">Texto de Sugerencia</ion-label>
+      <ion-textarea formControlName="sugerencia"></ion-textarea>
+    </ion-item>
+
+    <!-- Campo de carga de imagen -->
+    <ion-item>
+      <ion-label>Subir Imagen</ion-label>
+      <input type="file" (change)="onImageSelected($event)" />
+    </ion-item>
+
+    <!-- Botón para enviar -->
+    <ion-button expand="full" type="submit" [disabled]="consultaForm.invalid">Enviar Sugerencia</ion-button>
+  </form>
+</ion-content>
