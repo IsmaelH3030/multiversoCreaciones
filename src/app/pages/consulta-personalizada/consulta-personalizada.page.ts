@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx'; // Asegúrate de tener el plugin de email configurado en tu proyecto
-import { FirebaseService } from 'src/app/services/firebase.service'; // Servicio que te devuelve los datos del usuario (si lo tienes configurado)
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { Subscription } from 'rxjs';  // Necesitamos importar Subscription
 
 @Component({
   selector: 'app-consulta-personalizada',
@@ -12,23 +13,33 @@ export class ConsultaPersonalizadaPage implements OnInit {
   consultaForm: FormGroup;
   selectedImage: File = null;
   userEmail: string;
+  userEmailSubscription: Subscription;  // Para gestionar la suscripción
 
   constructor(
     private fb: FormBuilder,
     private emailComposer: EmailComposer,
-    private firebaseService: FirebaseService // Asegúrate de tener un servicio de usuario
+    private firebaseService: FirebaseService // Asegúrate de que este servicio esté bien configurado
   ) {}
 
   ngOnInit() {
-    // Crea el formulario reactivo
+    // Crea el formulario reactivo con validaciones
     this.consultaForm = this.fb.group({
       talla: ['', Validators.required],
       material: ['', Validators.required],
       sugerencia: ['', Validators.required],
     });
 
-    // Obtén el correo del usuario (si lo tienes en un servicio)
-    this.userEmail = this.firebaseService.getUserEmail(); // Asegúrate de tener este método en tu servicio
+    // Suscríbete al Observable para obtener el correo del usuario
+    this.userEmailSubscription = this.firebaseService.getUserEmail().subscribe(email => {
+      this.userEmail = email;  // Asignar el correo del usuario cuando se reciba
+    });
+  }
+
+  ngOnDestroy() {
+    // Asegúrate de cancelar la suscripción cuando el componente se destruya
+    if (this.userEmailSubscription) {
+      this.userEmailSubscription.unsubscribe();
+    }
   }
 
   // Manejo de la imagen seleccionada
@@ -41,7 +52,8 @@ export class ConsultaPersonalizadaPage implements OnInit {
 
   // Enviar el formulario por correo
   onSubmit() {
-    if (this.consultaForm.valid) {
+    // Verifica que el formulario sea válido y que haya una imagen adjunta
+    if (this.consultaForm.valid && this.selectedImage) {
       const { talla, material, sugerencia } = this.consultaForm.value;
 
       // Crear el cuerpo del mensaje con los datos del formulario
@@ -58,30 +70,28 @@ export class ConsultaPersonalizadaPage implements OnInit {
         subject: 'Consulta Personalizada de Polera',
         body: emailBody,
         isHtml: true,
-        attachments: []  // Asegúrate de inicializar 'attachments' como un array vacío
+        attachments: []  // Inicializa 'attachments' como un array vacío
       };
 
-      // Si hay una imagen seleccionada, adjuntarla al correo
-      if (this.selectedImage) {
-        // Usar FileReader para convertir la imagen en base64 o subirla a tu servidor y obtener el enlace
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const base64Image = e.target.result;
-          email.attachments = [
-            {
-              fileName: this.selectedImage.name,
-              base64: base64Image,
-            },
-          ];
+      // Usar FileReader para convertir la imagen en base64
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const base64Image = e.target.result;
+        email.attachments = [
+          {
+            fileName: this.selectedImage.name,
+            base64: base64Image,
+          },
+        ];
 
-          // Enviar el correo
-          this.emailComposer.open(email);
-        };
-        reader.readAsDataURL(this.selectedImage);
-      } else {
-        // Enviar el correo sin imagen
+        // Enviar el correo
         this.emailComposer.open(email);
-      }
+      };
+      reader.readAsDataURL(this.selectedImage);
+    } else {
+      // Si el formulario no es válido o falta la imagen, muestra un mensaje
+      console.log('Por favor, completa todos los campos y adjunta una imagen.');
+      alert('Por favor, completa todos los campos y adjunta una imagen.');
     }
   }
 }
