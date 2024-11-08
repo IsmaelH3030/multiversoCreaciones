@@ -46,8 +46,8 @@
           <h4>Total: {{ totalPrecio | currency:'CLP':'symbol':'1.0-0':'es' }}</h4>
         </div>
 
-        <ion-button expand="full" color="danger" (click)="vaciarCarrito()">Vaciar Carrito</ion-button>
-        <ion-button expand="full" color="primary" (click)="pagar()">Pagar</ion-button>
+        <ion-button class="btn-primary" expand="full" color="danger" (click)="vaciarCarrito()">Vaciar Carrito</ion-button>
+        <ion-button class="btn-primary" expand="full" color="primary" (click)="pagar()">Pagar</ion-button>
       </div>
     </ion-content>
   </ion-split-pane>

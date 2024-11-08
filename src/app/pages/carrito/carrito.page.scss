@@ -53,11 +53,10 @@
   }
   
   .btn-primary {
-    background-color: #6f42c1; /* Color de fondo morado */
     border: none; /* Sin borde */
-    padding: 10px 20px; /* Relleno del botón */
     transition: background-color 0.3s; /* Transición suave del color de fondo */
     color: white; /* Color del texto en el botón */
+    margin: 20px;
   }
   
   .btn-primary:hover {
