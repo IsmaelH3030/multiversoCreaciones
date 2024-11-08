@@ -11,6 +11,6 @@ export class ErrorComponent {
   constructor(private router: Router) {}
 
   goHome() {
-    this.router.navigate(['/']); // Navega a la página principal
+    this.router.navigate(['./tabs/home']); // Navega a la página principal
   }
 }
