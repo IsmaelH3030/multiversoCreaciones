@@ -6,7 +6,7 @@ import { NoAuthGuard } from './guards/no-auth.guard';
 import { AuthGuard } from './guards/auth.guard';
 // Importa el componente TShirt
 import { TShirtComponent } from './t-shirt/t-shirt.component';
-// import { ErrorComponent } from './pages/error/error.component';
+import { ErrorComponent } from './pages/error/error.component';
 import { CarritoPage } from './pages/carrito/carrito.page'; // Importa la nueva página
 // Define las rutas de la aplicación
 const routes: Routes = [
@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'carrito',
     loadChildren: () => import('./pages/carrito/carrito.module').then( m => m.CarritoPageModule)
+  },
+  {
+    path: '**', // Ruta comodín para capturar cualquier ruta desconocida
+    component: ErrorComponent // Redirige al componente de error
   }
 
 ];
