@@ -72,6 +72,7 @@ export class ConsultaPersonalizadaPage implements OnInit {
         isHtml: true,
         attachments: []  // Inicializa 'attachments' como un array vacío
       };
+      
 
       // Usar FileReader para convertir la imagen en base64
       const reader = new FileReader();

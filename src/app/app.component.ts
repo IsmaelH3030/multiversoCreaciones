@@ -50,4 +50,5 @@ export class AppComponent implements OnInit { // Clase principal del componente 
   goToCarrito() {
   this.router.navigate(['/carrito']); // Navega a la vista del carrito
 }
+
 }

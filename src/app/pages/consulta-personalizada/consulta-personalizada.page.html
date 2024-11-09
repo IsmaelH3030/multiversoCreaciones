@@ -1,36 +1,60 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Consulta Personalizada</ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- Contenedor principal de la aplicación Ionic -->
+<ion-app>
+  <!-- Panel dividido para diseño responsive -->
+  <ion-split-pane>
+    <!-- Contenido principal de la aplicación -->
+    <ion-content [fullscreen]="true" class="ion">
+      <!-- Encabezado de la aplicación -->
+      <ion-header>
+        <ion-toolbar>
+          <!-- Botón de menú que aparece en la esquina izquierda -->
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <!-- Título de la aplicación -->
+          <ion-title>
+            <div class="logo-principal">
+              <!-- Logo de la aplicación -->
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
+            </div>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
 
-<ion-content>
-  <form [formGroup]="consultaForm" (ngSubmit)="onSubmit()">
-    <!-- Campo Talla de la Polera -->
-    <ion-item>
-      <ion-label position="floating">Talla de la Polera</ion-label>
-      <ion-input formControlName="talla"></ion-input>
-    </ion-item>
+      <br>
+      <!-- Título de la sección -->
+      <h2>CONSULTA PERSONALIZADA</h2>
 
-    <!-- Campo Material de la Polera -->
-    <ion-item>
-      <ion-label position="floating">Material de la Polera</ion-label>
-      <ion-input formControlName="material"></ion-input>
-    </ion-item>
+      <form [formGroup]="consultaForm" (ngSubmit)="onSubmit()">
+        <!-- Campo Talla de la Polera -->
+        <ion-item>
+          <ion-label position="floating">Talla de la Polera</ion-label>
+          <ion-input formControlName="talla"></ion-input>
+        </ion-item>
+    
+        <!-- Campo Material de la Polera -->
+        <ion-item>
+          <ion-label position="floating">Material de la Polera</ion-label>
+          <ion-input formControlName="material"></ion-input>
+        </ion-item>
+    
+        <!-- Campo Texto Sugerencia -->
+        <ion-item>
+          <ion-label position="floating">Texto de Sugerencia</ion-label>
+          <ion-textarea formControlName="sugerencia"></ion-textarea>
+        </ion-item>
+    
+        <!-- Campo de carga de imagen -->
+        <ion-item>
+          <ion-label>Subir Imagen</ion-label>
+          <input type="file" (change)="onImageSelected($event)" />
+        </ion-item>
+    
+        <!-- Botón para enviar -->
+        <ion-button expand="full" [disabled]="consultaForm.invalid">Enviar Sugerencia</ion-button>
+      </form>
+    
 
-    <!-- Campo Texto Sugerencia -->
-    <ion-item>
-      <ion-label position="floating">Texto de Sugerencia</ion-label>
-      <ion-textarea formControlName="sugerencia"></ion-textarea>
-    </ion-item>
-
-    <!-- Campo de carga de imagen -->
-    <ion-item>
-      <ion-label>Subir Imagen</ion-label>
-      <input type="file" (change)="onImageSelected($event)" />
-    </ion-item>
-
-    <!-- Botón para enviar -->
-    <ion-button expand="full" type="submit" [disabled]="consultaForm.invalid">Enviar Sugerencia</ion-button>
-  </form>
-</ion-content>
+    </ion-content>
+  </ion-split-pane>
+</ion-app>

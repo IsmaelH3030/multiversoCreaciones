@@ -24,6 +24,9 @@
       <ion-button [routerLink]="['./tabs/profile']" *ngIf="isAuthenticated" class="abrir-menu" expand="block"
         color="tertiary">Perfil</ion-button>
 
+        <ion-button [routerLink]="['/consulta-personalizada']" *ngIf="isAuthenticated" class="abrir-menu" expand="block"
+          color="tertiary">Consulta Personalizada</ion-button>
+
       <!-- Mostrar solo si el usuario NO está autenticado -->
       <ion-button *ngIf="!isAuthenticated" [routerLink]="['/auth']" expand="block" color="tertiary"
         class="abrir-menu">Iniciar sesión</ion-button>

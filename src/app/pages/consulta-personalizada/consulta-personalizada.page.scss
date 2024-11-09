@@ -1,0 +1,64 @@
+/* Estilos para el contenedor del formulario */
+form {
+    display: flex; /* Utiliza flexbox para organizar los elementos del formulario */
+    flex-direction: column; /* Organiza los elementos en columna */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 500px; /* Establece un ancho máximo */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 1px solid #6f42c1; /* Borde morado */
+    box-shadow: 0 4px 15px rgba(88, 9, 234, 0.4); /* Sombra */
+}
+
+/* Estilos para el título */
+h2 {
+    text-align: center; /* Centra el título */
+}
+
+/* Estilos para los campos del formulario */
+ion-item {
+    margin-bottom: 15px; /* Espaciado entre los campos */
+}
+
+
+
+/* Estilos para inputs y textareas */
+ion-input,
+ion-textarea {
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Estilos para el input de tipo archivo */
+input[type="file"] {
+    padding: 10px; /* Espaciado interno */
+    margin-left: 40px;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+/* Estilos para el botón de envío */
+ion-button {
+    --background: #6a3eba; /* Color de fondo de la barra de herramientas */
+    --color: #ffffffff; /* Color del texto en la barra de herramientas */
+    margin-top: 20px; /* Espaciado superior */
+    background-color: #6f42c1; /* Fondo morado */
+    color: white; /* Texto blanco */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Efecto hover para el botón */
+ion-button:hover {
+    background-color: #5a32a1; /* Color más oscuro cuando se pasa el ratón */
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 576px) {
+    form {
+        padding: 15px; /* Menos espacio en pantallas pequeñas */
+    }
+
+    h2 {
+        font-size: 1.2em; /* Ajusta el tamaño del título */
+    }
+}

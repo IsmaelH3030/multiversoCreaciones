@@ -14,4 +14,5 @@ describe('ConsultaPersonalizadaPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });
