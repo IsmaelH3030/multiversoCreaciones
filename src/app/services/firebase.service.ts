@@ -52,4 +52,15 @@ export class FirebaseService {
   resetPassword(email: string) {
     return this.auth.sendPasswordResetEmail(email); // Envía un correo para restablecer la contraseña
   }
+
+   // Nuevo método para guardar órdenes
+   async guardarPedido(order: any) {
+    try {
+      // Guardar la orden en la colección "orders"
+      await this.db.collection('pedidos').add(order);
+    } catch (error) {
+      console.error('Error al guardar el pedido:', error);
+      throw error; // Re-lanzamos el error para que lo maneje el componente
+    }
+  }
 }
