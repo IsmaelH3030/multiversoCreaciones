@@ -14,5 +14,6 @@ export interface TShirt {
     description?: string; // Descripción de la polera (opcional).
     imageUrl?: string;    // URL de la imagen de la polera (opcional).
     price?: number;       // Precio de la polera (opcional).
+    quantity?: number;
 }
 

@@ -1,0 +1,53 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-content [fullscreen]="true" class="ion">
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            <div class="logo-principal">
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
+            </div>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <br>
+      <h2>CARRITO</h2>
+
+      <div class="container">
+        <div class="row">
+          <div class="tarjetas col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3" *ngFor="let producto of carrito">
+            <div class="card" style="width: 18rem;">
+              <img [src]="producto.imageUrl" class="card-img-top" alt="{{ producto.description }}">
+              <div class="card-body">
+                <h5 class="card-title">{{ producto.description }}</h5>
+                <p class="card-text">Material: {{ producto.material }}</p>
+                <p class="card-text">Tamaño: {{ producto.size }}</p>
+                <p class="card-text">Precio: {{ producto.price | currency:'CLP':'symbol':'1.0-0':'es' }}</p>
+
+                <div class="quantity-controls">
+                  <ion-button class="botonMas" size="small" (click)="disminuirCantidad(producto)">-</ion-button>
+                  <span>{{ producto.quantity || 1 }}</span>
+                  <ion-button class="botonMenos" size="small" (click)="aumentarCantidad(producto)">+</ion-button>
+                </div>
+
+                <ion-button class="botonEliminar" (click)="eliminarDelCarrito(producto.id)">
+                  Eliminar
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="total-container">
+          <h4>Total: {{ totalPrecio | currency:'CLP':'symbol':'1.0-0':'es' }}</h4>
+        </div>
+
+        <ion-button class="botonVaciar" expand="full" (click)="vaciarCarrito()">Vaciar Carrito</ion-button>
+        <ion-button class="botonPagar" expand="full" (click)="pagar()">Pagar</ion-button>
+      </div>
+    </ion-content>
+  </ion-split-pane>
+</ion-app>
