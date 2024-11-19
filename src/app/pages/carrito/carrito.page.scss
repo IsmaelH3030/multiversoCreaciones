@@ -63,28 +63,31 @@
     background-color: #5a3e9a; /* Color de fondo al pasar el mouse (más oscuro) */
   }
   
-  /* Responsividad */
-  @media (max-width: 576px) {
-    .card {
-        width: 100%; /* Tarjetas ocupan todo el ancho en pantallas pequeñas */
-    }
+  h4{
+    color: black;
   }
+  // /* Responsividad */
+  // @media (max-width: 576px) {
+  //   .card {
+  //       width: 100%; /* Tarjetas ocupan todo el ancho en pantallas pequeñas */
+  //   }
+  // }
   
-  @media (min-width: 576px) and (max-width: 768px) {
-    .card {
-        width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
-    }
-  }
+  // @media (min-width: 576px) and (max-width: 768px) {
+  //   .card {
+  //       width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
+  //   }
+  // }
   
-  @media (min-width: 768px) {
-    .card {
-        width: calc(33.33% - 20px); /* Tres tarjetas por fila en pantallas grandes */
-    }
-  }
+  // @media (min-width: 768px) {
+  //   .card {
+  //       width: calc(33.33% - 20px); /* Tres tarjetas por fila en pantallas grandes */
+  //   }
+  // }
   
-  @media (min-width: 992px) {
-    .card {
-        width: calc(25% - 20px); /* Cuatro tarjetas por fila en pantallas extra grandes */
-    }
-  }
+  // @media (min-width: 992px) {
+  //   .card {
+  //       width: calc(25% - 20px); /* Cuatro tarjetas por fila en pantallas extra grandes */
+  //   }
+  // }
   

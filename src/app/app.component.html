@@ -42,6 +42,9 @@
         <ion-icon name="cart"></ion-icon>
         <span *ngIf="carritoCount > 0">{{ carritoCount }}</span>
       </ion-button>
+
+      <ion-button [routerLink]="['/contacto']" *ngIf="isAuthenticated" class="abrir-menu" expand="block"
+      color="tertiary">Contactanos</ion-button>
     </ion-menu-toggle>
   </ion-menu>
 

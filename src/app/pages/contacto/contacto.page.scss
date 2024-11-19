@@ -1,0 +1,32 @@
+.btn-primary {
+    display: flex;
+    color: #6f42c1;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary ion-icon {
+    font-size: 50px;
+    margin-left: 15px;
+}
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    margin: 50px 0 80px 0;
+
+}
+
+.map {
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+h5{
+    color: black;
+}

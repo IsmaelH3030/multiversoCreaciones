@@ -32,10 +32,15 @@ const routes: Routes = [
     path: 'carrito',
     loadChildren: () => import('./pages/carrito/carrito.module').then( m => m.CarritoPageModule)
   },
+ 
+  {
+    path: 'contacto',
+    loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
+  },
   {
     path: '**', // Ruta comodín para capturar cualquier ruta desconocida
     component: ErrorComponent // Redirige al componente de error
-  }
+  },
 
 ];
 

@@ -1,0 +1,82 @@
+<ion-app> <!-- Contenedor principal de la aplicación Ionic -->
+
+  <ion-split-pane> <!-- Permite mostrar el contenido en un diseño de panel dividido -->
+    <ion-content [fullscreen]="true"> <!-- Contenido de la página, ocupa toda la pantalla -->
+
+      <!-- Encabezado de inicio -->
+      <ion-header> <!-- Sección de encabezado de la aplicación -->
+
+        <ion-toolbar> <!-- Barra de herramientas del encabezado -->
+          <ion-buttons slot="start"> <!-- Espacio para botones en el inicio de la barra -->
+            <ion-menu-button></ion-menu-button> <!-- Botón para abrir el menú lateral -->
+          </ion-buttons>
+          <ion-title> <!-- Título del encabezado -->
+
+            <div class="logo-principal"> <!-- Contenedor para el logo -->
+
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" /> <!-- Imagen del logo -->
+            </div>
+
+          </ion-title>
+        </ion-toolbar>
+
+      </ion-header>
+      <!-- Fin encabezado de inicio -->
+
+      <br> <!-- Espacio en blanco -->
+
+      <div class="container">
+        <div class="ion"> <!-- Contenedor adicional para los datos del usuario -->
+          <ion-title>
+            <h1>CONTACTO</h1>
+          </ion-title>
+
+
+          <h2>¡Hola! 👋
+
+            Gracias por elegirnos. Sabemos que, a veces, pueden surgir dudas o necesitas ayuda con algún detalle, ¡y estamos aquí para asistirte de la mejor manera posible! No importa la consulta que tengas, estamos listos para ayudarte a que tu experiencia sea la mejor.</h2>
+          <h2>¿Tienes alguna duda o necesitas ayuda?</h2>
+          <h3>¡Estamos aquí para ayudarte! Puedes contactarnos a través de los siguientes medios:</h3>
+          <br>
+          <div class="contact-icons">
+            <!-- Instagram -->
+            <h5>Síguenos en Instagram y envíanos un mensaje directo. Nuestro equipo de atención al cliente responderá con gusto a todas tus consultas y te brindará la información que necesitas.</h5>
+            <ion-button class="btn-primary" href="https://www.instagram.com/multiverso_creaciones2?igsh=YXEyNHh6MHI2ZTF6"  fill="clear">
+              <ion-icon slot="start" name="logo-instagram"></ion-icon>
+            </ion-button>
+          </div>
+          <div>
+            <!-- Correo -->
+            <h5>Si prefieres escribirnos por correo, envía tu mensaje. Nos aseguramos de responderte lo antes posible con la información más detallada y clara.</h5>
+            <ion-button class="btn-primary" href="mailto:Multiverso_creaciones2@hotmail.com"  fill="clear">
+              <ion-icon slot="start" name="mail-outline"></ion-icon>
+            </ion-button>
+          </div>
+          <div>
+            <!-- WhatsApp -->
+            <h5>Si necesitas una respuesta rápida y personalizada, no dudes en escribirnos por WhatsApp al +56995183811. Estamos disponibles para atenderte de manera ágil y eficaz.</h5>
+            <ion-button class="btn-primary" href="https://wa.me/56995183811" fill="clear">
+              <ion-icon slot="start" name="logo-whatsapp" we></ion-icon>
+            </ion-button>
+
+          </div>
+
+          <h2>¡Gracias por confiar en nosotros! Estamos comprometidos en brindarte el mejor servicio posible. Si tienes cualquier consulta, no dudes en comunicarte a través de cualquiera de estos canales. ¡Estaremos encantados de ayudarte!
+
+            ¡No dudes en escribirnos, estamos para ti!
+            ¡Te esperamos! 🙌
+          </h2>
+          
+          <h2>Nuestra ubicacion es:</h2>
+          <div class="map-container">
+            <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d742.5505938400973!2d12.477158976017956!3d41.888504593567916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f6035fc45eb9d%3A0x9e91ab0edb9064ff!2sVia%20Pietro%20Peretti%2C%2034%2C%2000153%20Roma%20RM%2C%20Italia!5e0!3m2!1ses-419!2scl!4v1731979101263!5m2!1ses-419!2scl" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          
+        </div>
+      </div>
+
+
+
+    </ion-content> <!-- Fin del contenido de la página -->
+  </ion-split-pane> <!-- Fin del panel dividido -->
+</ion-app> <!-- Fin del contenedor principal de la aplicación -->
