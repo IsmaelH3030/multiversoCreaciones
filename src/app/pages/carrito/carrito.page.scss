@@ -1,93 +1,165 @@
 /* Centrar texto */
 .ion {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: flex-start; /* Alinea al inicio verticalmente */
-    flex-direction: column;  /* Alinea los elementos verticalmente */
-    height: auto;           /* Cambia a auto para ajustar según el contenido */
-    text-align: center;      /* Centra el texto dentro de los <h1> */
-  }
-  
-  .container {
-    margin-bottom: 10vh; /* Espacio en la parte inferior del contenedor */
-  }
-  
-  .tarjetas {
-    display: flex;
-    justify-content: center; /* Centra las tarjetas horizontalmente */
-    flex-wrap: wrap; /* Permite que las tarjetas se ajusten en múltiples filas */
-    max-width: 1200px; /* Ancho máximo del contenedor (ajusta según tu diseño) */
-  }
-  
-  /* Estilos para las tarjetas */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: flex-start; /* Alinea al inicio verticalmente */
+  flex-direction: column;  /* Alinea los elementos verticalmente */
+  height: auto;           /* Cambia a auto para ajustar según el contenido */
+  text-align: center;      /* Centra el texto dentro de los <h1> */
+}
+
+.container {
+  margin-bottom: 10vh; /* Espacio en la parte inferior del contenedor */
+}
+
+.tarjetas {
+  display: flex;
+  justify-content: center; /* Centra las tarjetas horizontalmente */
+  flex-wrap: wrap; /* Permite que las tarjetas se ajusten en múltiples filas */
+  max-width: 1200px; /* Ancho máximo del contenedor (ajusta según tu diseño) */
+}
+
+/* Estilos para las tarjetas */
+.card {
+  width: calc(24% - 15px); /* Ancho de las tarjetas para que quepan 4 en una fila */
+  max-width: 250px; /* Puedes ajustar el ancho máximo según tu diseño */
+  margin: 10px; /* Espacio entre tarjetas */
+  border-radius: 10px; /* Bordes redondeados */
+  transition: transform 0.2s; /* Efecto suave al pasar el mouse */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Aumenta el tamaño de la tarjeta al pasar el mouse */
+}
+
+/* Imagen de la tarjeta */
+.card-img {
+  width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
+  height: auto; /* Mantiene la proporción de la imagen */
+  max-height: 100%; /* Altura máxima para la imagen */
+  object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+}
+
+
+.card-title {
+  font-size: 1.25rem; /* Tamaño de fuente del título */
+  font-weight: bold; /* Negrita */
+  color: #333; /* Color del texto */
+}
+
+.card-text {
+  font-size: 0.9rem; /* Tamaño de fuente del texto */
+  color: #555; /* Color del texto */
+}
+
+/* Responsividad */
+@media (max-width: 576px) {
   .card {
-    width: calc(24% - 15px); /* Ancho de las tarjetas para que quepan 4 en una fila */
-    max-width: 250px; /* Puedes ajustar el ancho máximo según tu diseño */
-    margin: 10px; /* Espacio entre tarjetas */
-    border-radius: 10px; /* Bordes redondeados */
-    transition: transform 0.2s; /* Efecto suave al pasar el mouse */
+      width: 100%; /* Tarjetas ocupan todo el ancho en pantallas pequeñas */
   }
-  
-  .card:hover {
-    transform: scale(1.05); /* Aumenta el tamaño de la tarjeta al pasar el mouse */
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .card {
+      width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
   }
-  
-  /* Imagen de la tarjeta */
-  .card-img {
-    width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
-    height: auto; /* Mantiene la proporción de la imagen */
-    max-height: 100%; /* Altura máxima para la imagen */
-    object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+}
+
+@media (min-width: 768px) {
+  .card {
+      width: calc(33.33% - 20px); /* Tres tarjetas por fila en pantallas grandes */
   }
-  
-  
-  .card-title {
-    font-size: 1.25rem; /* Tamaño de fuente del título */
-    font-weight: bold; /* Negrita */
-    color: #333; /* Color del texto */
+}
+
+@media (min-width: 992px) {
+  .card {
+      width: calc(25% - 20px); /* Cuatro tarjetas por fila en pantallas extra grandes */
   }
-  
-  .card-text {
-    font-size: 0.9rem; /* Tamaño de fuente del texto */
-    color: #555; /* Color del texto */
-  }
-  
-  .btn-primary {
-    border: none; /* Sin borde */
-    transition: background-color 0.3s; /* Transición suave del color de fondo */
-    color: white; /* Color del texto en el botón */
-    margin: 20px;
-  }
-  
-  .btn-primary:hover {
-    background-color: #5a3e9a; /* Color de fondo al pasar el mouse (más oscuro) */
-  }
-  
-  h4{
-    color: black;
-  }
-  // /* Responsividad */
-  // @media (max-width: 576px) {
-  //   .card {
-  //       width: 100%; /* Tarjetas ocupan todo el ancho en pantallas pequeñas */
-  //   }
-  // }
-  
-  // @media (min-width: 576px) and (max-width: 768px) {
-  //   .card {
-  //       width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
-  //   }
-  // }
-  
-  // @media (min-width: 768px) {
-  //   .card {
-  //       width: calc(33.33% - 20px); /* Tres tarjetas por fila en pantallas grandes */
-  //   }
-  // }
-  
-  // @media (min-width: 992px) {
-  //   .card {
-  //       width: calc(25% - 20px); /* Cuatro tarjetas por fila en pantallas extra grandes */
-  //   }
-  // }
-  
+}
+
+/* Contenedor de los controles de cantidad */
+.quantity-controls {
+display: flex;                 /* Alinea los elementos en fila */
+align-items: center;           /* Centra verticalmente los elementos */
+justify-content: center;       /* Centra horizontalmente los elementos */
+gap: 40px;                     /* Espacio entre los elementos */
+font-size: 1rem;               /* Tamaño de fuente para el texto de cantidad */
+padding: 10px;                 /* Espaciado interno */
+border-radius: 8px;            /* Bordes redondeados */
+}
+
+/* Estilo para los botones de aumentar y disminuir */
+.quantity-controls ion-button {
+--background: #6c5ce7;         /* Color de fondo */
+--color: #fff;                 /* Color del texto */
+font-size: 1.2rem;             /* Tamaño de fuente de los botones */
+width: 36px;                   /* Ancho fijo */
+height: 36px;                  /* Alto fijo */
+transition: transform 0.2s;    /* Efecto de escala suave */
+}
+
+/* Efecto hover para los botones */
+.quantity-controls ion-button:hover {
+transform: scale(1.1);         /* Aumenta ligeramente el tamaño al pasar el mouse */
+}
+
+/* Texto de cantidad */
+.quantity-controls span {
+font-weight: bold;             /* Texto en negrita */
+color: #333;                   /* Color del texto */
+}
+
+/* Estilo para el botón de eliminar */
+.botonEliminar{
+--background: #e74c3c;         /* Color de fondo rojo */
+--color: #ffffff;                 /* Color del texto */
+width: 80px;                   /* Ancho fijo */
+height: 36px;                  /* Alto fijo */
+align-items: center;
+justify-content: center;
+transition: transform 0.2s, background-color 0.3s; /* Efecto de escala y color suave */
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+margin: 10px;
+}
+
+/* Efecto hover para el botón de eliminar */
+.botonEliminar:hover {
+transform: scale(1.1);         /* Aumenta ligeramente el tamaño al pasar el mouse */
+}
+
+/* Estilo para el botón de Vaciar Carrito (similar a Eliminar) */
+.botonVaciar {
+--background: #ff4d4f;           /* Rojo intenso */
+--color: #ffffff;                   /* Texto blanco */
+padding: 3px;                 /* Relleno */
+border-radius: 8px;              /* Bordes redondeados */
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+transition: background-color 0.3s, transform 0.2s; /* Transición suave */
+margin: 10px;
+font-weight: bold;             /* Texto en negrita */
+}
+
+.botonVaciar:hover {
+background-color: #d9373f;       /* Oscurece al pasar el mouse */
+transform: scale(1.02);          /* Aumenta ligeramente el tamaño al pasar el mouse */
+}
+
+/* Estilo para el botón de Pagar (morado) */
+.botonPagar {
+--background: #6c5ce7;           /* Morado como los botones de cantidad */
+--color: #ffffff;                   /* Texto blanco */
+padding: 3px;                 /* Relleno */
+border-radius: 8px;              /* Bordes redondeados */
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+margin: 10px;
+font-weight: bold;             /* Texto en negrita */
+}
+
+.botonPagar:hover {
+background-color: #5a3e9a;       /* Oscurece el morado al pasar el mouse */
+transform: scale(1.02);          /* Aumenta ligeramente el tamaño al pasar el mouse */
+}
+
+h4{
+  color: black;
+}
