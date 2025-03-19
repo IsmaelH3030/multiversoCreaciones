@@ -1,53 +1,105 @@
+<!-- Define el componente principal de la aplicación -->
 <ion-app>
+  
+  <!-- Configuración para diseño dividido (split-pane) que permite tener un menú lateral en pantallas grandes -->
   <ion-split-pane>
+
+    <!-- Contenido principal de la página -->
     <ion-content [fullscreen]="true" class="ion">
+
+      <!-- Encabezado de la página -->
       <ion-header>
-        <ion-toolbar>
+        <ion-toolbar> <!-- Barra de herramientas dentro del encabezado -->
+
+          <!-- Botón de menú en la parte izquierda del toolbar -->
           <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
+            <ion-menu-button></ion-menu-button> <!-- Botón para abrir el menú lateral -->
           </ion-buttons>
+
+          <!-- Título de la página con el logo -->
           <ion-title>
             <div class="logo-principal">
               <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
             </div>
           </ion-title>
+
         </ion-toolbar>
       </ion-header>
 
+      <!-- Espacio en blanco -->
       <br>
+
+      <!-- Título de la sección del carrito -->
       <h2>CARRITO</h2>
 
+      <!-- Contenedor principal del contenido -->
       <div class="container">
+        
+        <!-- Fila donde se mostrarán los productos del carrito -->
         <div class="row">
+
+          <!-- Itera sobre los productos del carrito y genera una tarjeta para cada uno -->
           <div class="tarjetas col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3" *ngFor="let producto of carrito">
+            
+            <!-- Tarjeta para cada producto -->
             <div class="card" style="width: 18rem;">
+              
+              <!-- Imagen del producto -->
               <img [src]="producto.imageUrl" class="card-img-top" alt="{{ producto.description }}">
+
+              <!-- Cuerpo de la tarjeta con la información del producto -->
               <div class="card-body">
+                
+                <!-- Nombre o descripción del producto -->
                 <h5 class="card-title">{{ producto.description }}</h5>
+
+                <!-- Material del producto -->
                 <p class="card-text">Material: {{ producto.material }}</p>
+
+                <!-- Tamaño del producto -->
                 <p class="card-text">Tamaño: {{ producto.size }}</p>
+
+                <!-- Precio del producto, formateado como moneda en pesos chilenos -->
                 <p class="card-text">Precio: {{ producto.price | currency:'CLP':'symbol':'1.0-0':'es' }}</p>
 
+                <!-- Controles para aumentar o disminuir la cantidad del producto -->
                 <div class="quantity-controls">
+                  <!-- Botón para disminuir la cantidad del producto -->
                   <ion-button class="botonMas" size="small" (click)="disminuirCantidad(producto)">-</ion-button>
+
+                  <!-- Muestra la cantidad del producto (por defecto 1 si no está definida) -->
                   <span>{{ producto.quantity || 1 }}</span>
+
+                  <!-- Botón para aumentar la cantidad del producto -->
                   <ion-button class="botonMenos" size="small" (click)="aumentarCantidad(producto)">+</ion-button>
                 </div>
 
+                <!-- Botón para eliminar el producto del carrito -->
                 <ion-button class="botonEliminar" (click)="eliminarDelCarrito(producto.id)">
                   Eliminar
                 </ion-button>
-              </div>
-            </div>
-          </div>
-        </div>
+
+              </div> <!-- Fin del cuerpo de la tarjeta -->
+            </div> <!-- Fin de la tarjeta -->
+          </div> <!-- Fin de la columna de la tarjeta -->
+        </div> <!-- Fin de la fila -->
+
+        <!-- Contenedor donde se muestra el total del carrito -->
         <div class="total-container">
+          <!-- Total del carrito, formateado como moneda en pesos chilenos -->
           <h4>Total: {{ totalPrecio | currency:'CLP':'symbol':'1.0-0':'es' }}</h4>
         </div>
 
+        <!-- Botón para vaciar el carrito completamente -->
         <ion-button class="botonVaciar" expand="full" (click)="vaciarCarrito()">Vaciar Carrito</ion-button>
+
+        <!-- Botón para proceder al pago -->
         <ion-button class="botonPagar" expand="full" (click)="pagar()">Pagar</ion-button>
-      </div>
-    </ion-content>
-  </ion-split-pane>
-</ion-app>
+
+      </div> <!-- Fin del contenedor principal -->
+
+    </ion-content> <!-- Fin del contenido principal -->
+
+  </ion-split-pane> <!-- Fin del diseño de panel dividido -->
+
+</ion-app> <!-- Fin del componente principal -->

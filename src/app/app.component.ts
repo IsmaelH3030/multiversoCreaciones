@@ -1,53 +1,61 @@
-import { Component, OnInit } from '@angular/core'; // Importa los decoradores y la interfaz necesarios de Angular
-import { FirebaseService } from 'src/app/services/firebase.service'; // Servicio para manejar autenticación de Firebase
-import { UtilsService } from './services/utils.service'; // Servicio utilitario para operaciones comunes
-import { User } from 'src/app/models/user.model'; // Modelo de usuario para tipado
-import { CarritoService } from 'src/app/services/carrito.service'; // Importa el servicio del carrito
-import { Router } from '@angular/router'; // Asegúrate de importar Router
+import { Component, OnInit } from '@angular/core'; // Importa las dependencias necesarias
+import { FirebaseService } from 'src/app/services/firebase.service'; // Servicio para manejar Firebase
+import { UtilsService } from './services/utils.service'; // Servicio para utilidades generales
+import { User } from 'src/app/models/user.model'; // Modelo de usuario
+import { CarritoService } from 'src/app/services/carrito.service'; // Servicio para manejar el carrito de compras
+import { Router } from '@angular/router'; // Servicio para manejar la navegación en la aplicación
+
 @Component({
-  selector: 'app-root', // Selector que se usará en la plantilla principal
-  templateUrl: 'app.component.html', // Archivo de plantilla HTML asociado
-  styleUrls: ['app.component.scss'], // Estilos SCSS asociados a este componente
+  selector: 'app-root', // Define el selector del componente
+  templateUrl: 'app.component.html', // Especifica el archivo HTML asociado
+  styleUrls: ['app.component.scss'], // Especifica el archivo de estilos asociado
 })
-export class AppComponent implements OnInit { // Clase principal del componente que implementa OnInit
-  public user: User = {} as User; // Propiedad para almacenar información del usuario, inicializada como un objeto vacío
-  public isAuthenticated: boolean = false; // Propiedad para verificar si el usuario está autenticado
-  carritoCount: number = 0; // Para mostrar la cantidad de productos en el carrito
+export class AppComponent implements OnInit {
+  public user: User = {} as User; // Objeto para almacenar la información del usuario
+  public isAuthenticated: boolean = false; // Estado de autenticación del usuario
+  public isAdmin: boolean = false; // Estado para saber si el usuario es administrador
+  carritoCount: number = 0; // Contador de productos en el carrito
 
   constructor(
-    private firebaseSvc: FirebaseService, // Inyección del servicio de Firebase
-    private utilsSvc: UtilsService, // Inyección del servicio utilitario
-    private carritoSvc: CarritoService, // Inyección del servicio de carrito
-    private router: Router // Inyección de Router
+    private firebaseSvc: FirebaseService, // Inyección del servicio Firebase
+    private utilsSvc: UtilsService, // Inyección del servicio de utilidades
+    private carritoSvc: CarritoService, // Inyección del servicio del carrito
+    private router: Router // Inyección del servicio de enrutamiento
   ) {}
 
-  ngOnInit() { // Método que se ejecuta al inicializar el componente
-    // Suscripción al estado de autenticación
-    this.firebaseSvc.getAuthState().subscribe(user => {
-      this.isAuthenticated = !!user; // Establece isAuthenticated en true si hay un usuario
-      if (this.isAuthenticated) {
-        this.getUser(); // Llama a getUser si el usuario está autenticado
+  async ngOnInit() {
+    // Suscribirse al estado de autenticación del usuario en Firebase
+    this.firebaseSvc.getAuthState().subscribe(async user => {
+      this.isAuthenticated = !!user; // Verifica si el usuario está autenticado
+      if (this.isAuthenticated && user?.uid) {
+        await this.getUser(user.uid); // Si está autenticado, obtiene la información del usuario
+      } else {
+        this.isAdmin = false; // Si no está autenticado, establece isAdmin en falso
       }
     });
-    
-    // Suscripción a los cambios del carrito
+
+    // Suscribirse a los cambios en el carrito y actualizar el contador
     this.carritoSvc.carrito$.subscribe(carrito => {
-      this.carritoCount = carrito.length; // Actualiza la cantidad de productos en el carrito
+      this.carritoCount = carrito.length; // Actualiza el número de productos en el carrito
     });
   }
 
-  ionViewWillEnter() { // Ciclo de vida que se ejecuta antes de que la vista se muestre
-    this.getUser(); // Obtiene datos del usuario cada vez que la vista está a punto de entrar
+  async getUser(uid: string) {
+    // Obtiene la información del usuario desde el almacenamiento local
+    this.user = this.utilsSvc.getElementFromLocalStorage('user') || {} as User;
+    
+    // Obtiene el rol del usuario desde Firebase y lo asigna
+    this.user.role = await this.firebaseSvc.getUserRole(uid).toPromise();
+    
+    // Define si el usuario es administrador
+    this.isAdmin = this.user.role === 'admin';
   }
 
-  signOut() { // Método para cerrar sesión
-    this.firebaseSvc.signOut(); // Llama al método de cierre de sesión en el servicio de Firebase
+  signOut() {
+    this.firebaseSvc.signOut(); // Cierra la sesión del usuario en Firebase
   }
 
-  getUser() { // Método para obtener datos del usuario del almacenamiento local
-    this.user = this.utilsSvc.getElementFromLocalStorage('user') || {} as User; // Obtiene el usuario desde el almacenamiento local o inicializa como objeto vacío
-  }
   goToCarrito() {
-  this.router.navigate(['/carrito']); // Navega a la vista del carrito
-}
+    this.router.navigate(['/carrito']); // Navega a la página del carrito de compras
+  }
 }

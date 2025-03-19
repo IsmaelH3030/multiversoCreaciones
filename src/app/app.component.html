@@ -2,9 +2,11 @@
   <!-- Componente del menú lateral -->
   <ion-menu side="start" menuId="m1" contentId="main-content">
     <ion-header>
+      <!-- Barra de herramientas con un título y un logo -->
       <ion-toolbar class="color-toolbar">
         <ion-title>
           <div class="inicio-logo">
+            <!-- Logo dentro del menú -->
             <img class="logo-menu" src="assets/icon/1611770034484.png" alt="logo" />
             <span style="margin-left: 8px;">INICIO</span> <!-- Título del menú -->
           </div>
@@ -14,42 +16,40 @@
 
     <!-- Contenido del menú -->
     <ion-menu-toggle class="toggle">
-      <!-- Botón de navegación a la página de Inicio -->
+      <!-- Botón para ir a la página de inicio -->
       <ion-button [routerLink]="['./tabs/home']" expand="block" color="tertiary" class="abrir-menu">Inicio</ion-button>
-      <!-- Botón de navegación a la página de Productos -->
-      <ion-button [routerLink]="['./tabs/productos']" expand="block" color="tertiary"
-        class="abrir-menu">Productos</ion-button>
-
-      <!-- Mostrar solo si el usuario ESTÁ autenticado -->
-      <ion-button [routerLink]="['./tabs/profile']" *ngIf="isAuthenticated" class="abrir-menu" expand="block"
-        color="tertiary">Perfil</ion-button>
-
-      <!-- Mostrar solo si el usuario NO está autenticado -->
-      <ion-button *ngIf="!isAuthenticated" [routerLink]="['/auth']" expand="block" color="tertiary"
-        class="abrir-menu">Iniciar sesión</ion-button>
-
-      <!-- Botón de cerrar sesión, visible solo si el usuario está autenticado -->
-      <ion-button *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary" (click)="signOut()">Cerrar
-        sesión</ion-button>
-
-      <!-- Botón para CRUD de Poleras, visible solo si el usuario está autenticado -->
-      <ion-button [routerLink]="['./t-shirts']" *ngIf="isAuthenticated" class="abrir-menu" expand="block"
-        color="tertiary">CRUD POLERAS</ion-button>
       
-      <!-- Botón del carrito en el menú lateral -->
-      <ion-button [routerLink]="['/carrito']" *ngIf="isAuthenticated" class="abrir-menu" expand="block"
-      color="tertiary">
+      <!-- Botón para ir a la sección de productos -->
+      <ion-button [routerLink]="['./tabs/productos']" expand="block" color="tertiary" class="abrir-menu">Productos</ion-button>
+      
+      <!-- Botón para acceder al perfil, solo visible si el usuario está autenticado -->
+      <ion-button [routerLink]="['./tabs/profile']" *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary">Perfil</ion-button>
+      
+      <!-- Botón para iniciar sesión, solo visible si el usuario no está autenticado -->
+      <ion-button *ngIf="!isAuthenticated" [routerLink]="['/auth']" expand="block" color="tertiary" class="abrir-menu">Iniciar sesión</ion-button>
+     
+      <!-- Botón para acceder al CRUD de poleras, solo visible para administradores -->
+      <ion-button [routerLink]="['./t-shirts']" *ngIf="isAdmin" class="abrir-menu" expand="block" color="tertiary">
+        CRUD POLERAS
+      </ion-button>
+      
+      <!-- Botón para ir al carrito de compras, solo visible si el usuario está autenticado -->
+      <ion-button [routerLink]="['/carrito']" *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary">
         <ion-icon name="cart"></ion-icon>
+        <!-- Muestra el número de elementos en el carrito si hay productos -->
         <span *ngIf="carritoCount > 0">{{ carritoCount }}</span>
       </ion-button>
+      
+      <!-- Botón para ir a la página de contacto, solo visible si el usuario está autenticado -->
+      <ion-button [routerLink]="['/contacto']" *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="tertiary">Contactanos</ion-button>
 
-      <ion-button [routerLink]="['/contacto']" *ngIf="isAuthenticated" class="abrir-menu" expand="block"
-      color="tertiary">Contactanos</ion-button>
+      <!-- Botón para cerrar sesión, solo visible si el usuario está autenticado -->
+      <div class="cerrar-sesion">
+        <ion-button *ngIf="isAuthenticated" class="abrir-menu" expand="block" color="danger" (click)="signOut()">Cerrar sesión</ion-button>
+      </div>
     </ion-menu-toggle>
   </ion-menu>
 
-  
-
-  <!-- Contenedor principal para el enrutador -->
+  <!-- Contenedor principal para el enrutador, donde se cargarán las páginas -->
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>

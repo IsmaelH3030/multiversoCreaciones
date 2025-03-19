@@ -28,7 +28,9 @@ export class ProfilePage implements OnInit { // Declara la clase ProfilePage que
     this.firebaseSvc.signOut(); // Llama al método signOut del servicio de Firebase para desconectar al usuario
   }
 
-  getUser() { // Método para obtener los datos del usuario
-    return this.user = this.utilsScv.getElementFromLocalStorage('user'); // Obtiene el usuario almacenado en localStorage y lo asigna a la propiedad user
+  getUser() {
+    const storedUser = this.utilsScv.getElementFromLocalStorage('user');
+    this.user = storedUser ? storedUser : { uid: '', name: '', email: '', role: 'cliente' };
   }
+  
 }

@@ -71,7 +71,7 @@ export class TShirtComponent implements OnInit {
         this.loadTShirts(); // Recargar camisetas después de eliminar
       }).catch(error => {
         console.error('Error al eliminar la camiseta:', error);
-        alert('Ocurrió un error al intentar eliminar la camiseta. Por favor, inténtalo de nuevo.');
+        alert(`Error al guardar la camiseta: ${error.message}`);
       });
     }
   }
@@ -111,7 +111,8 @@ export class TShirtComponent implements OnInit {
             this.resetForm(); // Reiniciar el formulario después de guardar
           }).catch(error => {
             console.error('Error al crear la camiseta:', error);
-            alert('Ocurrió un error al crear la camiseta.');
+            alert(`Error al guardar la camiseta: ${error.message}`);
+            
           });
         });
       })
