@@ -4,6 +4,7 @@ export interface User {
     name: string,        // Nombre del usuario.
     email: string,       // Correo electrónico del usuario.
     password?: string    // Contraseña del usuario (opcional).
+    role?: 'admin' | 'cliente'; // Definimos los roles permitidos
 }
 
 // Definimos una interfaz llamada TShirt que describe las propiedades de una polera en la aplicación.

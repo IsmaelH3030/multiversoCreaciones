@@ -1,20 +1,20 @@
 <!-- Contenedor principal de la aplicación Ionic -->
 <ion-app>
-  <!-- Panel dividido para diseño responsive -->
+  <!-- Contenedor de diseño dividido para dispositivos grandes -->
   <ion-split-pane>
     <!-- Contenido principal de la aplicación -->
     <ion-content [fullscreen]="true" class="ion">
       <!-- Encabezado de la aplicación -->
       <ion-header>
         <ion-toolbar>
-          <!-- Botón de menú que aparece en la esquina izquierda -->
+          <!-- Botón de menú para abrir el menú lateral -->
           <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
           </ion-buttons>
-          <!-- Título de la aplicación -->
+          
+          <!-- Título de la aplicación con el logo -->
           <ion-title>
             <div class="logo-principal">
-              <!-- Logo de la aplicación -->
               <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
             </div>
           </ion-title>
@@ -23,51 +23,56 @@
 
       <br>
       <!-- Título de la sección -->
-      <h2>GESTION DE PRODUCTOS</h2>
+      <h2>GESTIÓN DE PRODUCTOS</h2>
 
-      <div>
-        <!-- Formulario para crear o actualizar una camiseta -->
+      <!-- Sección visible solo si el usuario es administrador -->
+      <div *ngIf="isAdmin">
+        <!-- Formulario para crear o actualizar camisetas -->
         <form (ngSubmit)="createOrUpdateTShirt()">
-          <!-- Campo para el material de la camiseta -->
+          <!-- Campo de entrada para el material de la camiseta -->
           <input type="text" [(ngModel)]="selectedTShirt.material" name="material" placeholder="Material" required />
-          <!-- Campo para la talla de la camiseta -->
+          
+          <!-- Campo de entrada para la talla de la camiseta -->
           <input type="text" [(ngModel)]="selectedTShirt.size" name="size" placeholder="Talla" required />
-          <!-- Campo para la descripción de la camiseta -->
+          
+          <!-- Campo de texto para la descripción de la camiseta -->
           <textarea [(ngModel)]="selectedTShirt.description" name="description" placeholder="Descripción" required></textarea>
-          <!-- Campo para el precio de la camiseta -->
+          
+          <!-- Campo numérico para el precio de la camiseta -->
           <input type="number" [(ngModel)]="selectedTShirt.price" name="price" placeholder="Precio" required />
-          <!-- Input para subir una imagen de referencia local -->
+          
+          <!-- Entrada de archivo para subir imágenes -->
           <input #fileInput type="file" (change)="uploadImage($event)" title="Selecciona una imagen para subir" />
 
-          <!-- Mostrar el progreso de la subida si existe -->
-          <div class="" *ngIf="uploadPercent as percent" style="color: blueviolet;">Progreso de subida: {{ percent }}%</div>
-
-          <!-- Mostrar la imagen subida si está disponible -->
-          <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa de la imagen" width="150" />
-
-          <!-- Botón para enviar el formulario -->
+          <!-- Botón para crear o actualizar la camiseta, dependiendo de si tiene ID -->
           <button type="submit">{{ selectedTShirt.id ? 'Actualizar' : 'Crear' }}</button>
         </form>
+      </div>
 
-        <!-- Contenedor para mostrar las camisetas disponibles -->
-        <div class="card-container">
-          <!-- Iterar sobre cada camiseta y mostrar sus detalles -->
-          <div class="card" *ngFor="let tshirt of tshirts">
-              <!-- Imagen de la camiseta -->
-              <img class="card-img" *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" alt="Imagen de camiseta" />
-              <div class="card-body">
-                  <!-- Detalles de la camiseta -->
-                  <h3>{{ tshirt.material }}</h3>
-                  <p>Talla: {{ tshirt.size }}</p>
-                  <p>{{ tshirt.description }}</p>
-                  <p>Precio: {{ tshirt.price | currency:'CLP':'symbol':'1.0-0':'es' }}</p>
+      <!-- Contenedor de tarjetas para mostrar las camisetas -->
+      <div class="card-container">
+        <!-- Iterar sobre la lista de camisetas -->
+        <div class="card" *ngFor="let tshirt of tshirts">
+          <!-- Imagen de la camiseta si tiene URL de imagen -->
+          <img class="card-img" *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" alt="Imagen de camiseta" />
+          
+          <!-- Cuerpo de la tarjeta con detalles de la camiseta -->
+          <div class="card-body">
+            <h3>{{ tshirt.material }}</h3> <!-- Mostrar el material de la camiseta -->
+            <p>Talla: {{ tshirt.size }}</p> <!-- Mostrar la talla de la camiseta -->
+            <p>{{ tshirt.description }}</p> <!-- Mostrar la descripción de la camiseta -->
+            
+            <!-- Mostrar el precio de la camiseta con formato de moneda chilena -->
+            <p>Precio: {{ tshirt.price | currency:'CLP':'symbol':'1.0-0':'es' }}</p>
 
-                  <!-- Contenedor de botones para editar y eliminar la camiseta -->
-                  <div class="button-container">
-                      <button (click)="editTShirt(tshirt)">Editar</button>
-                      <button (click)="deleteTShirt(tshirt)">Eliminar</button>
-                  </div>
-              </div>
+            <!-- Mostrar botones solo si el usuario es administrador -->
+            <div class="button-container" *ngIf="isAdmin">
+              <!-- Botón para editar la camiseta -->
+              <button (click)="editTShirt(tshirt)">Editar</button>
+              
+              <!-- Botón para eliminar la camiseta -->
+              <button (click)="deleteTShirt(tshirt)">Eliminar</button>
+            </div>
           </div>
         </div>
       </div>
