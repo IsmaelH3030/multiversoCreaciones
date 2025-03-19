@@ -105,7 +105,7 @@ export class CarritoPage implements OnInit, OnDestroy {
     } catch (error) {
       // Captura cualquier error que ocurra al intentar procesar el pago
       console.error('Error al procesar el pago:', error); // Muestra el error en la consola
-      alert('Hubo un problema al procesar el pago. Por favor, inténtalo nuevamente.'); // Muestra una alerta al usuario
+      alert(`Error al guardar la camiseta: ${error.message}`); // Muestra una alerta al usuario
     }
   }
 }

@@ -1,134 +1,130 @@
-import { Component, OnInit, ViewChild } from '@angular/core'; // Importa los decoradores y la interfaz necesarios de Angular
-import { TShirtService } from '../services/t-shirt.service'; // Importa el servicio para gestionar camisetas
-import { FirebaseService } from '../services/firebase.service'; // Importa el servicio de Firebase para autenticación y permisos
-import { TShirt } from '../models/user.model'; // Importa el modelo de datos de camiseta
-import { AngularFireStorage } from '@angular/fire/compat/storage'; // Importa el servicio de almacenamiento de Firebase
-import { finalize } from 'rxjs/operators'; // Importa el operador finalize para manejar la subida de imágenes
+import { Component, OnInit, ViewChild } from '@angular/core'; // Importa los módulos necesarios
+import { TShirtService } from '../services/t-shirt.service'; // Importa el servicio TShirtService
+import { TShirt } from '../models/user.model'; // Importa el modelo TShirt
+import { AngularFireStorage } from '@angular/fire/compat/storage'; // Importa Firebase Storage
+import { finalize } from 'rxjs/operators'; // Importa el operador finalize para completar el observable
 
 @Component({
-  selector: 'app-t-shirt', // Define el selector del componente
-  templateUrl: './t-shirt.component.html', // Especifica la plantilla HTML del componente
-  styleUrls: ['./t-shirt.component.scss'] // Especifica los estilos CSS/SCSS del componente
+  selector: 'app-t-shirt', // Selector del componente
+  templateUrl: './t-shirt.component.html', // Ruta de la plantilla HTML
+  styleUrls: ['./t-shirt.component.scss'] // Ruta de los estilos SCSS
 })
-export class TShirtComponent implements OnInit { // Declara la clase del componente e implementa OnInit
-  tshirts: TShirt[] = []; // Define un array para almacenar la lista de camisetas
-  selectedTShirt: TShirt = { material: '', size: '' }; // Define una camiseta seleccionada con valores vacíos por defecto
-  uploadPercent: number | undefined; // Almacena el porcentaje de subida de una imagen
-  imageUrl: string | undefined; // Almacena la URL de la imagen subida
-  imageFile: File | undefined; // Almacena el archivo de imagen seleccionado
-  isAdmin: boolean = false; // Define si el usuario es administrador o no
+export class TShirtComponent implements OnInit {
+  tshirts: TShirt[] = []; // Arreglo para almacenar las camisetas
+  selectedTShirt: TShirt = { material: '', size: '' }; // Inicializar polera
+  uploadPercent: number | undefined; // Para mostrar el progreso de la subida
+  imageUrl: string | undefined; // URL de la imagen subida
+  imageFile: File | undefined; // Archivo de la imagen seleccionado
 
-  @ViewChild('fileInput') fileInput: any; // Obtiene una referencia al input de archivos en la plantilla
+  @ViewChild('fileInput') fileInput: any; // Añadir referencia al campo de archivo
 
-  constructor(
-    private tShirtService: TShirtService, // Inyecta el servicio de camisetas
-    private storage: AngularFireStorage, // Inyecta el servicio de almacenamiento de Firebase
-    private firebaseService: FirebaseService // Inyecta el servicio de Firebase para autenticación
-  ) {}
+  constructor(private tShirtService: TShirtService, private storage: AngularFireStorage) { }
 
-  async ngOnInit() { // Método que se ejecuta al inicializar el componente
-    this.loadTShirts(); // Carga la lista de camisetas desde el servicio
-    this.isAdmin = await this.firebaseService.isAdmin(); // Verifica si el usuario tiene permisos de administrador
+  ngOnInit() {
+    this.loadTShirts(); // Cargar camisetas al inicializar el componente
   }
 
-  loadTShirts() { // Método para cargar la lista de camisetas desde el servicio
+  // Método para cargar las camisetas desde el servicio
+  loadTShirts() {
     this.tShirtService.getTShirts().subscribe(tshirts => {
-      this.tshirts = tshirts; // Asigna la lista de camisetas obtenidas al array local
+      this.tshirts = tshirts; // Asignar las camisetas a la propiedad
     });
   }
 
-  createOrUpdateTShirt() { // Método para crear o actualizar una camiseta
-    if (!this.isAdmin) { // Verifica si el usuario es administrador
-      alert('No tienes permisos para realizar esta acción.'); // Muestra una alerta si no tiene permisos
-      return; // Sale del método
-    }
-    
-    if (this.selectedTShirt.id) { // Si la camiseta tiene un ID, significa que se está editando
+  // Método para crear o actualizar una camiseta
+  createOrUpdateTShirt() {
+    if (this.selectedTShirt.id) {
+      // Eliminar el producto existente antes de actualizar
       this.tShirtService.deleteTShirt(this.selectedTShirt.id, this.selectedTShirt.imageUrl!).then(() => {
-        if (this.imageFile) { // Si hay una imagen nueva seleccionada
-          this.uploadImageAndSaveTShirt(this.selectedTShirt, this.imageFile); // Sube la nueva imagen y guarda la camiseta
+        // Después de eliminar, subimos la nueva imagen y creamos el nuevo producto
+        if (this.imageFile) {
+          this.uploadImageAndSaveTShirt(this.selectedTShirt, this.imageFile);
         } else {
-          alert("Por favor, selecciona una imagen."); // Muestra una alerta si no hay imagen seleccionada
+          // Si no hay archivo de imagen, muestra un mensaje de advertencia
+          alert("Por favor, selecciona una imagen.");
         }
       }).catch(error => {
-        console.error('Error al eliminar la camiseta:', error); // Muestra el error en consola
-        alert('Ocurrió un error al intentar eliminar la camiseta.'); // Muestra una alerta de error
+        console.error('Error al eliminar la camiseta:', error);
+        alert('Ocurrió un error al intentar eliminar la camiseta.');
       });
-    } else { // Si no hay un ID, significa que se está creando una nueva camiseta
-      if (this.imageFile) { // Si hay una imagen seleccionada
-        this.uploadImageAndSaveTShirt(this.selectedTShirt, this.imageFile); // Sube la imagen y guarda la camiseta
+    } else {
+      // Crear nueva camiseta
+      if (this.imageFile) {
+        this.uploadImageAndSaveTShirt(this.selectedTShirt, this.imageFile);
       } else {
-        alert("Por favor, selecciona una imagen."); // Muestra una alerta si no hay imagen
+        // Si no hay archivo, no se puede crear sin imagen
+        alert("Por favor, selecciona una imagen.");
       }
     }
   }
 
-  editTShirt(tshirt: TShirt) { // Método para editar una camiseta
-    if (!this.isAdmin) { // Verifica si el usuario es administrador
-      alert('No tienes permisos para editar.'); // Muestra una alerta si no tiene permisos
-      return; // Sale del método
-    }
-    this.selectedTShirt = { ...tshirt }; // Clona la camiseta seleccionada
-    this.imageUrl = tshirt.imageUrl; // Asigna la URL de la imagen actual
+  // Método para editar una camiseta
+  editTShirt(tshirt: TShirt) {
+    this.selectedTShirt = { ...tshirt }; // Clonar la polera seleccionada
+    this.imageUrl = tshirt.imageUrl; // Mostrar la imagen existente para edición
   }
 
-  deleteTShirt(tshirt: TShirt) { // Método para eliminar una camiseta
-    if (!this.isAdmin) { // Verifica si el usuario es administrador
-      alert('No tienes permisos para eliminar.'); // Muestra una alerta si no tiene permisos
-      return; // Sale del método
-    }
-    
-    if (confirm('¿Estás seguro de que deseas eliminar esta camiseta?')) { // Muestra una confirmación antes de eliminar
+  // Método para eliminar una camiseta
+  deleteTShirt(tshirt: TShirt) {
+    if (confirm('¿Estás seguro de que deseas eliminar esta camiseta?')) {
       this.tShirtService.deleteTShirt(tshirt.id, tshirt.imageUrl!).then(() => {
-        this.loadTShirts(); // Recarga la lista de camisetas tras eliminar
+        this.loadTShirts(); // Recargar camisetas después de eliminar
       }).catch(error => {
-        console.error('Error al eliminar la camiseta:', error); // Muestra el error en consola
-        alert('Ocurrió un error al intentar eliminar la camiseta. Por favor, inténtalo de nuevo.'); // Muestra una alerta de error
+        console.error('Error al eliminar la camiseta:', error);
+        alert(`Error al guardar la camiseta: ${error.message}`);
       });
     }
   }
 
-  resetForm() { // Método para reiniciar el formulario de camiseta
-    this.selectedTShirt = { material: '', size: '' }; // Restablece la camiseta seleccionada
-    this.imageUrl = undefined; // Restablece la URL de la imagen
-    this.imageFile = undefined; // Restablece el archivo de imagen
-    this.uploadPercent = undefined; // Restablece el porcentaje de subida
-    
-    if (this.fileInput) { // Si hay un input de archivos
-      this.fileInput.nativeElement.value = ''; // Restablece el input de archivos
+  // Método para reiniciar el formulario
+  resetForm() {
+    this.selectedTShirt = { material: '', size: '' }; // Reiniciar la selección de la camiseta
+    this.imageUrl = undefined; // Reiniciar la URL de la imagen
+    this.imageFile = undefined; // Reiniciar el archivo de imagen
+    this.uploadPercent = undefined; // Reiniciar el porcentaje de carga
+
+    // Limpiar el campo de archivo
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = ''; // Restablecer el campo input de archivo
     }
   }
 
-  uploadImageAndSaveTShirt(tshirt: TShirt, file: File) { // Método para subir una imagen y guardar la camiseta
-    const id = this.tShirtService.createId(); // Genera un ID único para la camiseta
-    const filePath = `tshirts/${id}`; // Define la ruta de almacenamiento en Firebase
-    const fileRef = this.storage.ref(filePath); // Obtiene la referencia del archivo en Firebase
-    const task = this.storage.upload(filePath, file); // Inicia la subida del archivo
+  // Método para subir la imagen a Firebase Storage y guardar la camiseta
+  uploadImageAndSaveTShirt(tshirt: TShirt, file: File) {
+    const id = this.tShirtService.createId(); // Crear un nuevo ID para la camiseta
+    const filePath = `tshirts/${id}`; // Define la ruta de la imagen en Firebase Storage
+    const fileRef = this.storage.ref(filePath); // Referencia al archivo en Firebase Storage
+    const task = this.storage.upload(filePath, file); // Sube el archivo a Firebase Storage
 
+    // Observar el progreso de la subida
     task.percentageChanges().subscribe((percentage) => {
-      this.uploadPercent = Math.floor(percentage!); // Actualiza el porcentaje de subida
+      this.uploadPercent = Math.floor(percentage!); // Redondea el porcentaje a un entero
     });
 
+    // Después de subir la imagen, obtener la URL y guardar la camiseta
     task.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe(url => {
-          tshirt.imageUrl = url; // Asigna la URL de la imagen subida
+          tshirt.imageUrl = url; // Asigna la URL de la imagen al objeto TShirt
+          // Crear el nuevo objeto en Firestore
           this.tShirtService.createTShirt({ ...tshirt, id }).then(() => {
-            this.resetForm(); // Reinicia el formulario tras guardar
+            this.resetForm(); // Reiniciar el formulario después de guardar
           }).catch(error => {
-            console.error('Error al crear la camiseta:', error); // Muestra el error en consola
-            alert('Ocurrió un error al crear la camiseta.'); // Muestra una alerta de error
+            console.error('Error al crear la camiseta:', error);
+            alert(`Error al guardar la camiseta: ${error.message}`);
+            
           });
         });
       })
     ).subscribe();
   }
 
-  uploadImage(event: any) { // Método para manejar la selección de imágenes
-    const file = event.target.files[0]; // Obtiene el archivo seleccionado
-    if (file) { // Si hay un archivo seleccionado
-      this.imageFile = file; // Asigna el archivo a la variable local
-      this.imageUrl = URL.createObjectURL(file); // Crea una URL temporal para previsualización
+  // Método para manejar la selección de imagen
+  uploadImage(event: any) {
+    const file = event.target.files[0]; // Obtener el archivo seleccionado
+    if (file) {
+      this.imageFile = file; // Guardar el archivo seleccionado
+      this.imageUrl = URL.createObjectURL(file); // Crear URL para vista previa
     }
   }
 }
