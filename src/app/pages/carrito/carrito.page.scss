@@ -163,3 +163,12 @@ transform: scale(1.02);          /* Aumenta ligeramente el tamaño al pasar el m
 h4{
   color: black;
 }
+
+#paypal-button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+}
