@@ -40,31 +40,43 @@
   margin-top: 25px;
 }
 
+// ESTILO CLIMA
+.clima_estilo {
+   text-align: center;
 
-#CLIMA
+  h1 {
+    margin-bottom: 20px;
+  }
 
-body {
-    font-family: Arial, sans-serif; //Fuente principal //
-    background: #f4f4f4; // Color de fondo gris claro //
-    text-align: center; // Alineación del texto al centro //
-    padding: 20px; // Espaciado interno alrededor del contenido //
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+
+  .result {
+    background: rgba(240, 240, 240, 0.4);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  }
+
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+
+    ion-item {
+      margin-bottom: 10px;
+    }
+  }
 }
 
-// Contenedor principal de la información del clima //
-.weather-content {
-    background: white; // Fondo blanco //
-    padding: 20px; // Espaciado interno //
-    border-radius: 8px; // Bordes redondeados //
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); // Sombra sutil para efecto elevado //
-    display: inline-block; // Permite que el contenido se ajuste a su tamaño //
-}
-
-// Sección donde se mostrará la información del clima //
-.result {
-    margin: 20px 0; // Margen superior e inferior de 20px //
-}
-
-// Estilo para los mensajes de error //
-.error {
-    color: red; // Texto en rojo para resaltar los errores //
-}
