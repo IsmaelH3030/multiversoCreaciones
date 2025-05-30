@@ -39,3 +39,32 @@
 .carrusel{
   margin-top: 25px;
 }
+
+
+#CLIMA
+
+body {
+    font-family: Arial, sans-serif; //Fuente principal //
+    background: #f4f4f4; // Color de fondo gris claro //
+    text-align: center; // Alineación del texto al centro //
+    padding: 20px; // Espaciado interno alrededor del contenido //
+}
+
+// Contenedor principal de la información del clima //
+.weather-content {
+    background: white; // Fondo blanco //
+    padding: 20px; // Espaciado interno //
+    border-radius: 8px; // Bordes redondeados //
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); // Sombra sutil para efecto elevado //
+    display: inline-block; // Permite que el contenido se ajuste a su tamaño //
+}
+
+// Sección donde se mostrará la información del clima //
+.result {
+    margin: 20px 0; // Margen superior e inferior de 20px //
+}
+
+// Estilo para los mensajes de error //
+.error {
+    color: red; // Texto en rojo para resaltar los errores //
+}

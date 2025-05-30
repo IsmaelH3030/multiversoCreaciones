@@ -19,6 +19,7 @@ import { TShirtComponent } from './t-shirt/t-shirt.component'; // Importa el com
 import { registerLocaleData } from '@angular/common'; // Importa función para registrar datos locales
 import localeEs from '@angular/common/locales/es'; // Importa los datos locales para español
 import { ErrorComponent } from './pages/error/error.component';
+import { HttpClientModule } from '@angular/common/http';
 // import { ErrorComponent } from './pages/error/error.component';
 registerLocaleData(localeEs, 'es'); // Registra el locale español para la aplicación
 
@@ -35,7 +36,8 @@ registerLocaleData(localeEs, 'es'); // Registra el locale español para la aplic
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicializa Firebase con la configuración del entorno
     AngularFireAuthModule, // Importa el módulo de autenticación de Firebase
     AngularFirestoreModule, // Importa el módulo de Firestore de Firebase
-    FormsModule // Importa el módulo de formularios
+    FormsModule, // Importa el módulo de formularios,
+    HttpClientModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }], // Proveedores de estrategias de reutilización de rutas
   bootstrap: [AppComponent], // Componente raíz que se iniciará al arrancar la aplicación
