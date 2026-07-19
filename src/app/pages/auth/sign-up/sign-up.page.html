@@ -41,13 +41,15 @@
         </div>
 
         <!-- Campo de contraseña -->
-        <app-custom-input [control]="form.controls.password" type="password" label="Contraseña" icon="lock-closed-outline"></app-custom-input> <!-- Entrada personalizada para la contraseña -->
+        <app-custom-input [control]="form.controls.password" autocomplete="new-password" [autocapitalize]="'off'" [spellcheck]="false" type="password" label="Contraseña" icon="lock-closed-outline"></app-custom-input> <!-- Entrada personalizada para la contraseña -->
         <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.dirty"> <!-- Validación del campo contraseña -->
           <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div> <!-- Mensaje si no se ingresa la contraseña -->
+          <div *ngIf="form.controls.password.errors?.['minlength']">Usa al menos 8 caracteres</div> <!-- Mensaje si la contraseña es muy corta -->
+          <div *ngIf="form.controls.password.errors?.['pattern']">Usa mayúsculas, minúsculas y números</div> <!-- Mensaje si la contraseña no cumple el formato recomendado -->
         </div>
 
         <!-- Campo de confirmación de contraseña -->
-        <app-custom-input [control]="form.controls.confirmPassword" type="password" label="Confirmar contraseña" icon="checkmark-circle-outline"></app-custom-input> <!-- Entrada para confirmar la contraseña -->
+        <app-custom-input [control]="form.controls.confirmPassword" autocomplete="new-password" [autocapitalize]="'off'" [spellcheck]="false" type="password" label="Confirmar contraseña" icon="checkmark-circle-outline"></app-custom-input> <!-- Entrada para confirmar la contraseña -->
         <div class="validators" *ngIf="form.controls.confirmPassword.errors && form.controls.password.dirty"> <!-- Validación de confirmación de contraseña -->
           <div *ngIf="form.controls.confirmPassword.errors?.['required']">Ingresa tu contraseña</div> <!-- Mensaje si no se ingresa la confirmación de contraseña -->
           <div *ngIf="form.controls.confirmPassword.errors?.['noMatch']">Las contraseñas no coinciden</div> <!-- Mensaje si las contraseñas no coinciden -->

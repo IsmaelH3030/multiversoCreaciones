@@ -12,6 +12,9 @@
     "lint": "ng lint"
   },
   "private": true,
+  "overrides": {
+    "undici": "^6.27.0"
+  },
   "dependencies": {
     "@angular/animations": "^18.0.0",
     "@angular/common": "^18.0.0",

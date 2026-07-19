@@ -26,15 +26,18 @@ export class UtilsService {
     return await this.loadingController.dismiss(); // Desvincula y oculta el componente de carga
   }
 
-  // Métodos para manejar localStorage
-  // Método para guardar un elemento en localStorage
+  // Métodos para manejar sessionStorage y reducir la exposición de datos de sesión
   setElementInLocalstorage(key: string, element: any){
-    return localStorage.setItem(key, JSON.stringify(element)); // Convierte el elemento en cadena JSON y lo guarda con la clave proporcionada
+    return sessionStorage.setItem(key, JSON.stringify(element));
   }
 
-  // Método para obtener un elemento de localStorage
   getElementFromLocalStorage(key: string){
-    return JSON.parse(localStorage.getItem(key)); // Obtiene el elemento de localStorage y lo convierte de vuelta a su forma original
+    const value = sessionStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+  }
+
+  removeElementFromLocalStorage(key: string){
+    return sessionStorage.removeItem(key);
   }
 
   // Método para presentar un mensaje de toast

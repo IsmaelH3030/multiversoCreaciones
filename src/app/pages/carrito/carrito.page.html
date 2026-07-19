@@ -75,7 +75,7 @@
                 </div>
 
                 <!-- Botón para eliminar el producto del carrito -->
-                <ion-button class="botonEliminar" (click)="eliminarDelCarrito(producto.id)">
+                <ion-button class="botonEliminar" (click)="eliminarDelCarrito(producto.id ?? '')">
                   Eliminar
                 </ion-button>
 

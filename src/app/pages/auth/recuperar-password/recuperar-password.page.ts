@@ -38,7 +38,7 @@ export class RecuperarPasswordPage implements OnInit {
       this.utilsSvc.presentLoading({ message: 'Enviando enlace de recuperación...' });
       
       // Llama al método resetPassword del servicio de Firebase para enviar el enlace.
-      this.FirebaseSvc.resetPassword(this.form.value.email).then(() => {
+      this.FirebaseSvc.resetPassword(this.form.value.email ?? '').then(() => {
         // Cierra el mensaje de carga cuando se envía el enlace correctamente.
         this.utilsSvc.dismissLoading();
         

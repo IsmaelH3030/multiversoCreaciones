@@ -8,11 +8,13 @@ import { FormControl } from '@angular/forms'; // Importa la clase FormControl pa
 })
 export class CustomInputComponent implements OnInit {
   // Propiedades de entrada que permiten recibir datos desde el componente padre
-  @Input() control: FormControl; // Control del formulario que se vinculará al input
-  @Input() label: string; // Etiqueta que se mostrará para el campo de entrada
-  @Input() icon: string; // Nombre del icono que se mostrará en el input (si se proporciona)
-  @Input() type: string; // Tipo del campo de entrada (por ejemplo, texto, contraseña)
-  @Input() autocomplete: string; // Atributo de autocompletado para el input
+  @Input() control!: FormControl; // Control del formulario que se vinculará al input
+  @Input() label!: string; // Etiqueta que se mostrará para el campo de entrada
+  @Input() icon!: string; // Nombre del icono que se mostrará en el input (si se proporciona)
+  @Input() type!: string; // Tipo del campo de entrada (por ejemplo, texto, contraseña)
+  @Input() autocomplete!: string; // Atributo de autocompletado para el input
+  @Input() autocapitalize: string = 'off';
+  @Input() spellcheck: boolean = false;
 
   constructor() { }
 

@@ -2,8 +2,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore'; // Importa An
 import { AngularFireStorage } from '@angular/fire/compat/storage'; // Importa AngularFireStorage para manejar la subida y almacenamiento de archivos
 import { Injectable } from '@angular/core'; // Importa el decorador Injectable para permitir la inyección de dependencias
 import { TShirt } from '../models/user.model'; // Importa el modelo TShirt desde su archivo correspondiente
-import { Observable } from 'rxjs'; // Importa Observable para trabajar con flujos de datos
-import { finalize } from 'rxjs/operators'; // Importa finalize para manejar la finalización de observables
+import { Observable, of } from 'rxjs'; // Importa Observable y of para trabajar con flujos de datos
+import { catchError, finalize, map } from 'rxjs/operators'; // Importa operadores para manejar finalización y errores
 
 // Marca la clase como un servicio inyectable
 @Injectable({
@@ -12,6 +12,24 @@ import { finalize } from 'rxjs/operators'; // Importa finalize para manejar la f
 export class TShirtService {
   public collectionName: string = 'tshirts'; // Nombre de la colección en Firestore para camisetas
   public db: AngularFirestore; // Inicializa la base de datos Firestore
+  private readonly fallbackProducts: TShirt[] = [
+    {
+      id: 'fallback-1',
+      description: 'Camiseta básica',
+      material: 'Algodón',
+      size: 'M',
+      price: 12990,
+      imageUrl: 'assets/icon/1611770034484.png'
+    },
+    {
+      id: 'fallback-2',
+      description: 'Camiseta estampada',
+      material: 'Poliéster',
+      size: 'L',
+      price: 14990,
+      imageUrl: 'assets/icon/1611770034484.png'
+    }
+  ];
 
   // Constructor del servicio que inyecta las dependencias necesarias
   constructor(private storage: AngularFireStorage, db: AngularFirestore) {
@@ -54,7 +72,17 @@ export class TShirtService {
 
   // Método para leer todas las camisetas desde Firestore
   getTShirts(): Observable<TShirt[]> {
-    return this.db.collection<TShirt>(this.collectionName).valueChanges(); // Devuelve un observable con los cambios en la colección
+    return this.db.collection<TShirt>(this.collectionName).valueChanges().pipe(
+      map(products => (products && products.length > 0 ? products : this.getFallbackProducts())),
+      catchError(error => {
+        console.warn('No se pudo leer Firestore, mostrando productos de respaldo.', error);
+        return of(this.getFallbackProducts());
+      })
+    );
+  }
+
+  private getFallbackProducts(): TShirt[] {
+    return this.fallbackProducts.map(product => ({ ...product }));
   }
 
   // Método para leer una camiseta específica por su ID

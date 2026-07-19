@@ -13,7 +13,7 @@ import { loadScript } from '@paypal/paypal-js';
 export class CarritoPage implements OnInit, OnDestroy {
   carrito: TShirt[] = [];
   totalPrecio: number = 0;
-  carritoSubscription: Subscription;
+  carritoSubscription!: Subscription;
 
   constructor(
     private carritoSvc: CarritoService,
@@ -42,12 +42,12 @@ export class CarritoPage implements OnInit, OnDestroy {
   }
 
   aumentarCantidad(producto: TShirt) {
-    this.carritoSvc.actualizarCantidad(producto.id, (producto.quantity || 1) + 1);
+    this.carritoSvc.actualizarCantidad(producto.id ?? '', (producto.quantity || 1) + 1);
     this.calcularTotal();
   }
 
   disminuirCantidad(producto: TShirt) {
-    this.carritoSvc.actualizarCantidad(producto.id, (producto.quantity || 1) - 1);
+    this.carritoSvc.actualizarCantidad(producto.id ?? '', (producto.quantity || 1) - 1);
     this.calcularTotal();
   }
 
@@ -68,7 +68,7 @@ export class CarritoPage implements OnInit, OnDestroy {
       currency: 'USD'
     });
 
-    if (paypal) {
+    if (paypal?.Buttons) {
       paypal.Buttons({
         createOrder: (data: any, actions: any) => {
           return actions.order.create({
@@ -85,7 +85,7 @@ export class CarritoPage implements OnInit, OnDestroy {
           // Guardar pedido en Firebase
           const orden = {
             articulos: this.carrito.map(producto => ({
-              id: producto.id,
+              id: producto.id ?? '',
               descripcion: producto.description,
               precio: producto.price,
               cantidad: producto.quantity || 1,

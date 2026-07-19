@@ -19,12 +19,13 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 // Clase del componente para la página de registro de usuario.
 export class SignUpPage implements OnInit {
+  private readonly passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   // Definimos el formulario de registro con los campos de nombre, correo, contraseña y confirmación de contraseña.
   form = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(4)]), // Campo de nombre, obligatorio y con longitud mínima.
     email: new FormControl('', [Validators.required, Validators.email]),       // Campo de correo, obligatorio y en formato de correo.
-    password: new FormControl('', [Validators.required]),                      // Campo de contraseña, obligatorio.
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(this.passwordPattern)]), // Campo de contraseña con política mínima recomendada.
     confirmPassword: new FormControl(''),                                      // Campo de confirmación de contraseña.
   })
 
@@ -62,14 +63,26 @@ export class SignUpPage implements OnInit {
       this.FirebaseSvc.signUp(this.form.value as User).then(async res => {
         console.log(res); // Imprime el resultado en la consola para ver los datos del usuario registrado.
 
+        const firebaseUser = res.user;
+        if (!firebaseUser) {
+          this.utilsSvc.dismissLoading();
+          this.utilsSvc.presentToast({
+            message: 'No se pudo crear la cuenta.',
+            duration: 5000,
+            color: 'warning',
+            icon: 'alert-circle-outline'
+          });
+          return;
+        }
+
         // Actualiza el nombre del usuario en Firebase.
-        await this.FirebaseSvc.updateUser({ displayName: this.form.value.name });
+        await this.FirebaseSvc.updateUser({ displayName: this.form.value.name ?? '' });
 
         // Crea un objeto User con los datos del usuario registrado.
-        let user: User = {
-          uid: res.user.uid,           // ID único del usuario.
-          name: res.user.displayName,   // Nombre del usuario.
-          email: res.user.email         // Correo electrónico del usuario.
+        const user: User = {
+          uid: firebaseUser.uid,           // ID único del usuario.
+          name: firebaseUser.displayName ?? '',   // Nombre del usuario.
+          email: firebaseUser.email ?? ''         // Correo electrónico del usuario.
         };
 
         // Guarda el usuario en el almacenamiento local.

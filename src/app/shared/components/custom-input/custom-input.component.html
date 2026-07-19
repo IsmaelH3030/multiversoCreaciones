@@ -7,7 +7,7 @@
   <ion-label position="floating">{{label}}</ion-label>
   
   <!-- Campo de entrada con características configurables -->
-  <ion-input debounce="500" [autocomplete]= "autocomplete" [type]= "type" [formControl]= "control"></ion-input>
+  <ion-input debounce="500" [autocomplete]="autocomplete" [autocapitalize]="autocapitalize" [spellcheck]="spellcheck" [type]="type" [formControl]="control"></ion-input>
 
     <!-- debounce="500" Espera 500 ms antes de enviar la entrada para reducir la cantidad de eventos emitidos -->
     <!-- [autocomplete]="autocomplete" Asocia el atributo 'autocomplete' con la variable de entrada -->

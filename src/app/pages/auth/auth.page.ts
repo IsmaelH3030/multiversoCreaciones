@@ -37,11 +37,23 @@ export class AuthPage implements OnInit {
       this.FirebaseSvc.login(this.form.value as User).then(async res => {
         console.log(res); // Muestra en consola la respuesta de la autenticación
 
+        const firebaseUser = res.user;
+        if (!firebaseUser) {
+          this.utilsSvc.dismissLoading();
+          this.utilsSvc.presentToast({
+            message: 'No se pudo completar la autenticación.',
+            duration: 5000,
+            color: 'warning',
+            icon: 'alert-circle-outline'
+          });
+          return;
+        }
+
         // Crea un objeto de usuario con los datos devueltos de la autenticación
-        let user: User = {
-          uid: res.user.uid, // ID de usuario de Firebase
-          name: res.user.displayName, // Nombre de usuario (puede estar vacío si no está configurado)
-          email: res.user.email // Email del usuario autenticado
+        const user: User = {
+          uid: firebaseUser.uid, // ID de usuario de Firebase
+          name: firebaseUser.displayName ?? '', // Nombre de usuario (puede estar vacío si no está configurado)
+          email: firebaseUser.email ?? '' // Email del usuario autenticado
         };
 
         // Guarda el usuario en el almacenamiento local

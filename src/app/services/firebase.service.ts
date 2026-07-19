@@ -24,7 +24,7 @@ export class FirebaseService {
    * @param user Objeto con email y password.
    */
   async login(user: User) {
-    return this.auth.signInWithEmailAndPassword(user.email, user.password); // Inicia sesión en Firebase con email y contraseña.
+    return this.auth.signInWithEmailAndPassword(user.email ?? '', user.password ?? ''); // Inicia sesión en Firebase con email y contraseña.
   }
 
   /**
@@ -33,7 +33,7 @@ export class FirebaseService {
    * @param isAdmin Indica si el usuario es administrador.
    */
   async signUp(user: User, isAdmin: boolean = false) {
-    const credenciales = await this.auth.createUserWithEmailAndPassword(user.email, user.password); // Crea una cuenta en Firebase Authentication.
+    const credenciales = await this.auth.createUserWithEmailAndPassword(user.email ?? '', user.password ?? ''); // Crea una cuenta en Firebase Authentication.
   
     if (credenciales.user) { // Verifica si el usuario fue creado correctamente.
       await this.db.collection('users').doc(credenciales.user.uid).set({ // Guarda el usuario en Firestore.
@@ -63,7 +63,7 @@ export class FirebaseService {
   async signOut() {
     await this.auth.signOut(); // Cierra sesión en Firebase Authentication.
     this.utilsSvc.routerLink('/auth'); // Redirige al usuario a la página de autenticación.
-    localStorage.removeItem('user'); // Elimina la información del usuario almacenada localmente.
+    this.utilsSvc.removeElementFromLocalStorage('user'); // Elimina la información de sesión del usuario.
   }
 
   /**

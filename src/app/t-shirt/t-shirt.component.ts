@@ -35,7 +35,7 @@ export class TShirtComponent implements OnInit {
   createOrUpdateTShirt() {
     if (this.selectedTShirt.id) {
       // Eliminar el producto existente antes de actualizar
-      this.tShirtService.deleteTShirt(this.selectedTShirt.id, this.selectedTShirt.imageUrl!).then(() => {
+      this.tShirtService.deleteTShirt(this.selectedTShirt.id ?? '', this.selectedTShirt.imageUrl ?? '').then(() => {
         // Después de eliminar, subimos la nueva imagen y creamos el nuevo producto
         if (this.imageFile) {
           this.uploadImageAndSaveTShirt(this.selectedTShirt, this.imageFile);
@@ -67,7 +67,7 @@ export class TShirtComponent implements OnInit {
   // Método para eliminar una camiseta
   deleteTShirt(tshirt: TShirt) {
     if (confirm('¿Estás seguro de que deseas eliminar esta camiseta?')) {
-      this.tShirtService.deleteTShirt(tshirt.id, tshirt.imageUrl!).then(() => {
+      this.tShirtService.deleteTShirt(tshirt.id ?? '', tshirt.imageUrl ?? '').then(() => {
         this.loadTShirts(); // Recargar camisetas después de eliminar
       }).catch(error => {
         console.error('Error al eliminar la camiseta:', error);

@@ -32,7 +32,7 @@
               <div *ngIf="form.controls.email.errors?.['email']">Ingresa un email valido</div> <!-- Mensaje si el correo no es válido -->
             </div>
 
-            <app-custom-input [control]="form.controls.password" type="password" label="Contraseña" icon="lock-closed-outline"></app-custom-input> <!-- Campo de entrada para la contraseña -->
+            <app-custom-input [control]="form.controls.password" autocomplete="current-password" [autocapitalize]="'off'" [spellcheck]="false" type="password" label="Contraseña" icon="lock-closed-outline"></app-custom-input> <!-- Campo de entrada para la contraseña -->
   
             <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.dirty"> <!-- Mensajes de error para el campo de contraseña -->
               <div *ngIf="form.controls.password.errors?.['required']">Ingresa tu contraseña</div> <!-- Mensaje si el campo es requerido -->
