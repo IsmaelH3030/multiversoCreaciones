@@ -3,6 +3,7 @@ import { CarritoService } from 'src/app/services/carrito.service';
 import { TShirt } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { TShirtService } from 'src/app/services/t-shirt.service'; // Importa tu servicio de camisetas
 import { loadScript } from '@paypal/paypal-js';
 
 @Component({
@@ -17,16 +18,46 @@ export class CarritoPage implements OnInit, OnDestroy {
 
   constructor(
     private carritoSvc: CarritoService,
-    private firebaseSvc: FirebaseService
+    private firebaseSvc: FirebaseService,
+    private tShirtSvc: TShirtService // Inyecta el servicio
   ) {}
 
   async ngOnInit() {
-    this.carritoSubscription = this.carritoSvc.carrito$.subscribe((productos) => {
-      this.carrito = productos;
-      this.calcularTotal();
-    });
+    await this.loadPayPalButton();
+  }
 
-    await this.loadPayPalButton(); // ✅ Cargar botón PayPal
+  // ✅ Se ejecuta cada vez que entras a la pestaña del carrito
+  ionViewWillEnter() {
+    this.obtenerYActualizarCarrito();
+  }
+
+  obtenerYActualizarCarrito() {
+    this.carritoSubscription = this.carritoSvc.carrito$.subscribe((productosGuardados) => {
+      // Si el carrito está vacío, no hace nada
+      if (!productosGuardados || productosGuardados.length === 0) {
+        this.carrito = [];
+        this.calcularTotal();
+        return;
+      }
+
+      // Consultar la base de datos para obtener las imágenes e información actualizada
+      this.tShirtSvc.getTShirts().subscribe((camisetasEnBD) => {
+        this.carrito = productosGuardados.map(itemGuardado => {
+          // Buscar si el producto del carrito sigue existiendo en Firestore
+          const productoActualizado = camisetasEnBD.find(c => c.id === itemGuardado.id);
+          
+          if (productoActualizado) {
+            return {
+              ...productoActualizado, // Trae la nueva imagen, precio, etc.
+              quantity: itemGuardado.quantity || 1 // Mantiene la cantidad elegida por el cliente
+            };
+          }
+          return itemGuardado;
+        });
+
+        this.calcularTotal();
+      });
+    });
   }
 
   ngOnDestroy() {
@@ -61,10 +92,9 @@ export class CarritoPage implements OnInit, OnDestroy {
     this.calcularTotal();
   }
 
-  // ✅ Método modificado para integrar PayPal
   async loadPayPalButton() {
     const paypal = await loadScript({
-      clientId: 'AVrRexaZH32FwFZ9bmgwMuI_G2cTnBtx6Hh6bPdIeYd5hCtb9TGTrozAkiECjM3VBQhhAn-nW2NrUYFt', // Reemplaza con tu client ID
+      clientId: 'AVrRexaZH32FwFZ9bmgwMuI_G2cTnBtx6Hh6bPdIeYd5hCtb9TGTrozAkiECjM3VBQhhAn-nW2NrUYFt',
       currency: 'USD'
     });
 
@@ -74,7 +104,7 @@ export class CarritoPage implements OnInit, OnDestroy {
           return actions.order.create({
             purchase_units: [{
               amount: {
-                value: this.totalPrecio.toFixed(2) // Usar total dinámico
+                value: this.totalPrecio.toFixed(2)
               }
             }]
           });
@@ -82,7 +112,6 @@ export class CarritoPage implements OnInit, OnDestroy {
         onApprove: async (data: any, actions: any) => {
           const details = await actions.order.capture();
 
-          // Guardar pedido en Firebase
           const orden = {
             articulos: this.carrito.map(producto => ({
               id: producto.id ?? '',

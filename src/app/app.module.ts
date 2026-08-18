@@ -7,20 +7,21 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular'; // Importa mó
 import { AppComponent } from './app.component'; // Importa el componente raíz de la aplicación
 import { AppRoutingModule } from './app-routing.module'; // Importa el módulo de enrutamiento de la aplicación
 
-// ======= fire base ========== //
+// ======= Firebase ========== //
 import { AngularFireModule } from '@angular/fire/compat'; // Importa AngularFire para Firebase
 import { environment } from 'src/environments/environment.prod'; // Importa la configuración de entorno para Firebase
-import { AngularFireAuthModule } from '@angular/fire/compat/auth'; // Importa el módulo de autenticación de Firebase
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore'; // Importa el módulo de Firestore de Firebase
+import { AngularFireAuthModule } from '@angular/fire/compat/auth'; // Importa el módulo de autenticación
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore'; // Importa el módulo de Firestore
+
 import { FormsModule } from '@angular/forms'; // Importa FormsModule para formularios
+import { HttpClientModule } from '@angular/common/http';
 
 import { TShirtComponent } from './t-shirt/t-shirt.component'; // Importa el componente TShirt
+import { ErrorComponent } from './pages/error/error.component';
 
 import { registerLocaleData } from '@angular/common'; // Importa función para registrar datos locales
 import localeEs from '@angular/common/locales/es'; // Importa los datos locales para español
-import { ErrorComponent } from './pages/error/error.component';
-import { HttpClientModule } from '@angular/common/http';
-// import { ErrorComponent } from './pages/error/error.component';
+
 registerLocaleData(localeEs, 'es'); // Registra el locale español para la aplicación
 
 @NgModule({
@@ -36,10 +37,10 @@ registerLocaleData(localeEs, 'es'); // Registra el locale español para la aplic
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicializa Firebase con la configuración del entorno
     AngularFireAuthModule, // Importa el módulo de autenticación de Firebase
     AngularFirestoreModule, // Importa el módulo de Firestore de Firebase
-    FormsModule, // Importa el módulo de formularios,
+    FormsModule, // Importa el módulo de formularios
     HttpClientModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }], // Proveedores de estrategias de reutilización de rutas
   bootstrap: [AppComponent], // Componente raíz que se iniciará al arrancar la aplicación
 })
-export class AppModule {} // Exporta el módulo principal de la aplicación
+export class AppModule {}
