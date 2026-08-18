@@ -67,6 +67,7 @@ h1{
 
 form {
   // background: rgba(255, 255, 255, 0.5); /* Fondo semitransparente */
+  -webkit-backdrop-filter: blur(10px); /* Soporte para Safari 9+ */
   backdrop-filter: blur(10px); /* Ajusta el nivel de desenfoque */
 
 }

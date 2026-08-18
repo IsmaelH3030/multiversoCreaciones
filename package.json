@@ -34,7 +34,7 @@
     "@ionic/angular": "^8.0.0",
     "@mercadopago/sdk-js": "^0.0.3",
     "@paypal/paypal-js": "^8.2.0",
-    "firebase": "^10.13.0",
+    "firebase": "^10.14.1",
     "ionicons": "^7.0.0",
     "mercadopago": "^2.0.15",
     "rxjs": "~7.8.0",

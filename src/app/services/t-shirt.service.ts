@@ -41,10 +41,10 @@ export class TShirtService {
     return this.db.createId(); // Genera y devuelve un ID único
   }
 
-  // Método para subir una imagen y crear una camiseta en Firestore
+  // Método para subir una imagen y crear/actualizar una camiseta en Firestore
   uploadImageAndSaveTShirt(tshirt: TShirt, file: File): Promise<void> {
     return new Promise((resolve, reject) => {
-      const id = this.db.createId(); // Genera un ID único para la camiseta
+      const id = tshirt.id || this.db.createId(); // Utiliza el ID existente o genera uno nuevo
       const filePath = `tshirts/${id}`; // Define la ruta de almacenamiento de la imagen en Firebase Storage
       const fileRef = this.storage.ref(filePath); // Crea una referencia al archivo en Firebase Storage
       const task = this.storage.upload(filePath, file); // Sube el archivo a Firebase Storage
@@ -54,8 +54,10 @@ export class TShirtService {
         finalize(() => { // Se ejecuta al completar la subida
           fileRef.getDownloadURL().subscribe(url => { // Obtiene la URL de descarga de la imagen
             tshirt.imageUrl = url; // Asigna la URL de la imagen al objeto TShirt
-            // Guarda la camiseta en Firestore, incluyendo el ID y la URL de la imagen
-            this.db.collection(this.collectionName).doc(id).set({ ...tshirt, id })
+            tshirt.id = id;
+            
+            // Guarda o actualiza la camiseta en Firestore
+            this.db.collection(this.collectionName).doc(id).set(tshirt, { merge: true })
               .then(() => resolve()) // Resuelve la promesa si se guarda correctamente
               .catch(error => reject(error)); // Rechaza la promesa si ocurre un error
           }, error => reject(error)); // Rechaza la promesa si hay un error al obtener la URL
@@ -64,10 +66,11 @@ export class TShirtService {
     });
   }
 
-  // Método para crear una camiseta sin subir una imagen
+  // Método para crear una camiseta con un ID explícito o autogenerado
   createTShirt(tshirt: TShirt): Promise<void> {
-    const id = this.db.createId(); // Genera un ID único
-    return this.db.collection(this.collectionName).doc(id).set({ ...tshirt, id }); // Guarda la camiseta en Firestore
+    const id = tshirt.id || this.db.createId(); // Respeta el ID existente si ya fue generado
+    tshirt.id = id;
+    return this.db.collection(this.collectionName).doc(id).set(tshirt); // Guarda la camiseta en Firestore
   }
 
   // Método para leer todas las camisetas desde Firestore
@@ -90,22 +93,38 @@ export class TShirtService {
     return this.db.collection(this.collectionName).doc<TShirt>(id).valueChanges(); // Devuelve un observable del documento correspondiente
   }
 
-  // Método para actualizar una camiseta existente
-  updateTShirt(tshirt: TShirt): Promise<void> {
-    return this.db.collection(this.collectionName).doc(tshirt.id).update(tshirt); // Actualiza el documento en Firestore
+  // Método sobrecargado para actualizar una camiseta aceptando (id, datos) o un objeto TShirt completo
+  updateTShirt(idOrTShirt: string | TShirt, data?: Partial<TShirt>): Promise<void> {
+    if (typeof idOrTShirt === 'string') {
+      const docId = idOrTShirt;
+      return this.db.collection(this.collectionName).doc(docId).update(data || {});
+    } else {
+      const docId = idOrTShirt.id;
+      if (!docId) return Promise.reject(new Error('No se proporcionó un ID para actualizar.'));
+      return this.db.collection(this.collectionName).doc(docId).update(idOrTShirt);
+    }
   }
 
-  // Método para eliminar una imagen del almacenamiento de Firebase
-  deleteImage(filePath: string): Promise<void> {
-    return this.storage.ref(filePath).delete().toPromise(); // Elimina el archivo y devuelve una promesa
+  // Método para eliminar una imagen del almacenamiento de Firebase de forma segura
+  deleteImage(filePathOrUrl: string): Promise<void> {
+    if (!filePathOrUrl || !filePathOrUrl.includes('firebasestorage')) {
+      return Promise.resolve(); // Omite la eliminación si no es una URL de Firebase Storage
+    }
+    return this.storage.refFromURL(filePathOrUrl).delete().toPromise().then(() => {});
   }
 
-  // Método para eliminar una camiseta y su imagen asociada
-  deleteTShirt(id: string, imageUrl: string): Promise<void> {
-    const fileRef = this.storage.refFromURL(imageUrl); // Obtiene una referencia al archivo usando la URL
-    return fileRef.delete().toPromise().then(() => { // Elimina la imagen del almacenamiento
-      // Luego, elimina el documento correspondiente en Firestore
-      return this.db.collection(this.collectionName).doc(id).delete();
-    });
+  // Método para eliminar una camiseta y su imagen asociada sin romper la ejecución si falla Storage
+  async deleteTShirt(id: string, imageUrl?: string): Promise<void> {
+    try {
+      // Intenta borrar la imagen únicamente si pertenece a Firebase Storage
+      if (imageUrl && imageUrl.includes('firebasestorage')) {
+        await this.storage.refFromURL(imageUrl).delete().toPromise().catch(err => {
+          console.warn('No se pudo eliminar la imagen de Storage:', err);
+        });
+      }
+    } final {
+      // Elimina el documento en Firestore independientemente del estado de la imagen
+      await this.db.collection(this.collectionName).doc(id).delete();
+    }
   }
 }
