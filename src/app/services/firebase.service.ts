@@ -20,6 +20,13 @@ export class FirebaseService {
   //====== Autenticación =========
 
   /**
+   * Obtiene la instancia de autenticación de Firebase.
+   */
+  getAuth() {
+    return this.auth;
+  }
+
+  /**
    * Inicia sesión con correo y contraseña.
    * @param user Objeto con email y password.
    */

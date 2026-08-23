@@ -31,12 +31,13 @@ export class AppComponent implements OnInit {
         await this.getUser(user.uid); // Si está autenticado, obtiene la información del usuario
       } else {
         this.isAdmin = false; // Si no está autenticado, establece isAdmin en falso
+        this.user = {} as User;
       }
     });
 
     // Suscribirse a los cambios en el carrito y actualizar el contador
     this.carritoSvc.carrito$.subscribe(carrito => {
-      this.carritoCount = carrito.length; // Actualiza el número de productos en el carrito
+      this.carritoCount = carrito ? carrito.length : 0; // Actualiza el número de productos en el carrito
     });
   }
 
@@ -51,8 +52,13 @@ export class AppComponent implements OnInit {
     this.isAdmin = this.user.role === 'admin';
   }
 
-  signOut() {
-    this.firebaseSvc.signOut(); // Cierra la sesión del usuario en Firebase
+  async signOut() {
+    await this.firebaseSvc.signOut(); // Cierra la sesión del usuario en Firebase
+    this.isAuthenticated = false;
+    this.isAdmin = false;
+    this.user = {} as User;
+    localStorage.removeItem('user'); // Limpia el usuario del LocalStorage
+    this.router.navigate(['/tabs/productos'], { replaceUrl: true }); // Navega a productos forzando recarga de ruta
   }
 
   goToCarrito() {

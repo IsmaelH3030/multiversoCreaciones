@@ -26,6 +26,7 @@
   margin: 10px; /* Espacio entre tarjetas */
   border-radius: 10px; /* Bordes redondeados */
   transition: transform 0.2s; /* Efecto suave al pasar el mouse */
+  overflow: hidden; /* Mantiene la imagen dentro de los bordes redondeados */
 }
 
 .card:hover {
@@ -35,11 +36,11 @@
 /* Imagen de la tarjeta */
 .card-img {
   width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
-  height: auto; /* Mantiene la proporción de la imagen */
-  max-height: 100%; /* Altura máxima para la imagen */
+  height: 200px; /* Altura fija para que todas las imágenes mantengan igual proporción */
   object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
-
 
 .card-title {
   font-size: 1.25rem; /* Tamaño de fuente del título */
@@ -63,6 +64,9 @@
 .btn-primary:hover {
   background-color: #5a3e9a; /* Color de fondo al pasar el mouse (más oscuro) */
 }
+
+
+
 
 // /* Responsividad */
 // @media (max-width: 576px) {

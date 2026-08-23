@@ -15,6 +15,7 @@ export class CarritoPage implements OnInit, OnDestroy {
   carrito: TShirt[] = [];
   totalPrecio: number = 0;
   carritoSubscription!: Subscription;
+  isLoading: boolean = true; // Variable para gestionar la animación de carga
 
   constructor(
     private carritoSvc: CarritoService,
@@ -32,30 +33,39 @@ export class CarritoPage implements OnInit, OnDestroy {
   }
 
   obtenerYActualizarCarrito() {
+    this.isLoading = true; // Activa la animación de carga al iniciar
     this.carritoSubscription = this.carritoSvc.carrito$.subscribe((productosGuardados) => {
       // Si el carrito está vacío, no hace nada
       if (!productosGuardados || productosGuardados.length === 0) {
         this.carrito = [];
         this.calcularTotal();
+        this.isLoading = false;
         return;
       }
 
       // Consultar la base de datos para obtener las imágenes e información actualizada
-      this.tShirtSvc.getTShirts().subscribe((camisetasEnBD) => {
-        this.carrito = productosGuardados.map(itemGuardado => {
-          // Buscar si el producto del carrito sigue existiendo en Firestore
-          const productoActualizado = camisetasEnBD.find(c => c.id === itemGuardado.id);
-          
-          if (productoActualizado) {
-            return {
-              ...productoActualizado, // Trae la nueva imagen, precio, etc.
-              quantity: itemGuardado.quantity || 1 // Mantiene la cantidad elegida por el cliente
-            };
-          }
-          return itemGuardado;
-        });
+      this.tShirtSvc.getTShirts().subscribe({
+        next: (camisetasEnBD) => {
+          this.carrito = productosGuardados.map(itemGuardado => {
+            // Buscar si el producto del carrito sigue existiendo en Firestore
+            const productoActualizado = camisetasEnBD.find(c => c.id === itemGuardado.id);
+            
+            if (productoActualizado) {
+              return {
+                ...productoActualizado, // Trae la nueva imagen, precio, etc.
+                quantity: itemGuardado.quantity || 1 // Mantiene la cantidad elegida por el cliente
+              };
+            }
+            return itemGuardado;
+          });
 
-        this.calcularTotal();
+          this.calcularTotal();
+          this.isLoading = false; // Desactiva la animación cuando la información está cargada
+        },
+        error: (err) => {
+          console.error(err);
+          this.isLoading = false;
+        }
       });
     });
   }
