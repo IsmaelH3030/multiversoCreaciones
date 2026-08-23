@@ -96,8 +96,12 @@ button:hover {
     width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
     height: auto; /* Mantiene la proporción de la imagen */
     max-height: 100%; /* Altura máxima para la imagen */
+      height: 300px; /* Altura fija para que todas las tarjetas mantengan la misma dimensión */
     object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+    border-top-left-radius: 10px; /* Alinea los bordes redondeados con la tarjeta */
+    border-top-right-radius: 10px;
 }
+  
 
 /* Estilos para el contenedor de botones en la tarjeta */
 .button-container {

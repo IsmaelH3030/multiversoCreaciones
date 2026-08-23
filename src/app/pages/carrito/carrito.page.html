@@ -19,7 +19,7 @@
           <!-- Título de la página con el logo -->
           <ion-title>
             <div class="logo-principal">
-              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
+              <img class="imgagen-logo" src="assets/icon/1611770034484.png" fetchpriority="high" decoding="async" alt="logo" />
             </div>
           </ion-title>
 
@@ -34,9 +34,25 @@
 
       <!-- Contenedor principal del contenido -->
       <div class="container">
+
+        <!-- Esqueleto de carga cuando isLoading está activo -->
+        <div class="row" *ngIf="isLoading">
+          <div class="tarjetas col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3" *ngFor="let item of [1,2]">
+            <div class="card" style="width: 18rem;">
+              <ion-skeleton-text animated style="width: 100%; height: 200px; margin: 0;"></ion-skeleton-text>
+              <div class="card-body">
+                <ion-skeleton-text animated style="width: 80%; height: 20px;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 50%; height: 15px;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%; height: 15px;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 60%; height: 18px;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 100%; height: 35px; margin-top: 10px;"></ion-skeleton-text>
+              </div>
+            </div>
+          </div>
+        </div>
         
-        <!-- Fila donde se mostrarán los productos del carrito -->
-        <div class="row">
+        <!-- Fila donde se mostrarán los productos del carrito cuando finalice la carga -->
+        <div class="row" *ngIf="!isLoading">
 
           <!-- Itera sobre los productos del carrito y genera una tarjeta para cada uno -->
           <div class="tarjetas col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3" *ngFor="let producto of carrito">
@@ -45,7 +61,14 @@
             <div class="card" style="width: 18rem;">
               
               <!-- Imagen del producto -->
-              <img [src]="producto.imageUrl" class="card-img-top" alt="{{ producto.description }}">
+              <img 
+                [src]="producto.imageUrl" 
+                class="card-img-top card-img" 
+                loading="lazy" 
+                fetchpriority="low" 
+                decoding="async" 
+                alt="{{ producto.description }}"
+              >
 
               <!-- Cuerpo de la tarjeta con la información del producto -->
               <div class="card-body">
@@ -85,18 +108,17 @@
         </div> <!-- Fin de la fila -->
 
         <!-- Contenedor donde se muestra el total del carrito -->
-        <div class="total-container">
+        <div class="total-container" *ngIf="!isLoading">
           <!-- Total del carrito, formateado como moneda en pesos chilenos -->
           <h4>Total: {{ totalPrecio | currency:'CLP':'symbol':'1.0-0':'es' }}</h4>
         </div>
 
         <!-- Botón para vaciar el carrito completamente -->
-        <ion-button class="botonVaciar" expand="full" (click)="vaciarCarrito()">Vaciar Carrito</ion-button>
+        <ion-button class="botonVaciar" expand="full" (click)="vaciarCarrito()" *ngIf="!isLoading && carrito.length > 0">Vaciar Carrito</ion-button>
 
         <!-- Botón oficial de PayPal -->
-        <!-- Botón oficial de PayPal -->
-        <div class="paypal">
-        <div id="paypal-button-container"></div>
+        <div class="paypal" *ngIf="!isLoading && carrito.length > 0">
+          <div id="paypal-button-container"></div>
         </div>
 
       </div> <!-- Fin del contenedor principal -->

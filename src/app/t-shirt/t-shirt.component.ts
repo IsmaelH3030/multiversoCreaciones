@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit, ViewChild } from '@angular/core'; 
+import { NgForm } from '@angular/forms';
 import { TShirtService } from '../services/t-shirt.service'; 
 import { TShirt } from '../models/user.model'; 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -9,8 +10,11 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./t-shirt.component.scss'] 
 })
 export class TShirtComponent implements OnInit {
+  @ViewChild('tShirtForm') tShirtForm!: NgForm;
+
   tshirts: TShirt[] = []; 
   selectedTShirt: TShirt = { material: '', size: '' }; 
+  isLoading: boolean = true; 
 
   constructor(
     private tShirtService: TShirtService, 
@@ -18,35 +22,75 @@ export class TShirtComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadTShirts(); 
+    this.loadTShirts();
+  }
+
+  ionViewWillEnter() {
+    this.loadTShirts();
   }
 
   loadTShirts() {
-    this.tShirtService.getTShirts().subscribe(tshirts => {
-      this.tshirts = tshirts; 
+    this.isLoading = true;
+    this.tShirtService.getTShirts().subscribe({
+      next: (tshirts) => {
+        this.tshirts = tshirts; 
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.isLoading = false;
+      }
     });
   }
 
-  // Convierte el archivo seleccionado del PC a Base64
+  // Carga de imagen optimizada al tamaño real de las tarjetas (400px máximo)
   uploadImage(event: any) {
     const file = event.target.files[0];
     if (file) {
-      // Validar que no supere 800 KB para no saturar Firestore
-      if (file.size > 800 * 1024) {
-        alert('La imagen es muy pesada. Selecciona una de menos de 800 KB.');
-        return;
-      }
-
       const reader = new FileReader();
-      reader.onload = () => {
-        // Asigna la cadena Base64 directamente a la propiedad imageUrl
-        this.selectedTShirt.imageUrl = reader.result as string;
+      reader.onload = (e: any) => {
+        const img = new Image();
+        img.src = e.target.result;
+
+        img.onload = () => {
+          // Ajustado a 400px para encajar con las tarjetas (250px max-width)
+          const maxWidth = 400;
+          const maxHeight = 400;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+
+          // Convierte a JPEG comprimido al 70% (~30 KB a 50 KB)
+          this.selectedTShirt.imageUrl = canvas.toDataURL('image/jpeg', 0.7);
+        };
       };
       reader.readAsDataURL(file);
     }
   }
 
   async createOrUpdateTShirt() {
+    if ((this.tShirtForm && this.tShirtForm.invalid) || !this.selectedTShirt.imageUrl) {
+      return;
+    }
+
     const user = await this.afAuth.currentUser;
     if (!user) {
       alert('Debes iniciar sesión para realizar esta operación.');
@@ -93,5 +137,8 @@ export class TShirtComponent implements OnInit {
 
   resetForm() {
     this.selectedTShirt = { material: '', size: '' }; 
+    if (this.tShirtForm) {
+      this.tShirtForm.resetForm();
+    }
   }
 }

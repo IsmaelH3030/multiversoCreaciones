@@ -35,13 +35,13 @@
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel"> <!-- Componente de carrusel utilizando Bootstrap -->
           <div class="carousel-inner"> <!-- Contenedor para las imágenes del carrusel -->
             <div class="carousel-item active" data-bs-interval="3000"> <!-- Primera imagen activa del carrusel -->
-              <img src="assets/icon/carrusel 1.jpg" class="d-block w-100" alt="..."> <!-- Imagen del carrusel -->
+              <img src="assets/icon/carrusel 1.jpg" class="d-block w-100" loading="lazy" fetchpriority="low" alt="Polera"> <!-- Imagen del carrusel -->
             </div>
             <div class="carousel-item" data-bs-interval="3000"> <!-- Segunda imagen del carrusel -->
-              <img src="assets/icon/carrusel 2.jpg" class="d-block w-100" alt="..."> <!-- Imagen del carrusel -->
+              <img src="assets/icon/carrusel 2.jpg" class="d-block w-100" loading="lazy" fetchpriority="low" alt="Polera"> <!-- Imagen del carrusel -->
             </div>
             <div class="carousel-item" data-bs-interval="3000"> <!-- Tercera imagen del carrusel -->
-              <img src="assets/icon/carrusel 3.jpg" class="d-block w-100" alt="..."> <!-- Imagen del carrusel -->
+              <img src="assets/icon/carrusel 3.jpg" class="d-block w-100" loading="lazy" fetchpriority="low" alt="Polera"> <!-- Imagen del carrusel -->
             </div>
           </div>
 
@@ -86,31 +86,21 @@
   <ion-item>
     <ion-label>Ciudad</ion-label>
     <ion-select [(ngModel)]="selectedCity" name="city" required>
-      <ion-select-option value="Buenos Aires,AR">Buenos Aires, Argentina</ion-select-option>
-      <ion-select-option value="La Paz,BO">La Paz, Bolivia</ion-select-option>
-      <ion-select-option value="Brasilia,BR">Brasilia, Brasil</ion-select-option>
       <ion-select-option value="Santiago,CL">Santiago, Chile</ion-select-option>
+      <ion-select-option value="Buenos Aires,AR">Buenos Aires, Argentina</ion-select-option>
+      <ion-select-option value="Brasilia,BR">Brasilia, Brasil</ion-select-option>
+      <ion-select-option value="La Paz,BO">La Paz, Bolivia</ion-select-option>
       <ion-select-option value="Bogota,CO">Bogotá, Colombia</ion-select-option>
-      <ion-select-option value="San Jose,CR">San José, Costa Rica</ion-select-option>
       <ion-select-option value="Havana,CU">La Habana, Cuba</ion-select-option>
       <ion-select-option value="Santo Domingo,DO">Santo Domingo, República Dominicana</ion-select-option>
       <ion-select-option value="Quito,EC">Quito, Ecuador</ion-select-option>
       <ion-select-option value="San Salvador,SV">San Salvador, El Salvador</ion-select-option>
-      <ion-select-option value="Guatemala City,GT">Guatemala City, Guatemala</ion-select-option>
-      <ion-select-option value="Tegucigalpa,HN">Tegucigalpa, Honduras</ion-select-option>
       <ion-select-option value="Mexico City,MX">Ciudad de México, México</ion-select-option>
       <ion-select-option value="Managua,NI">Managua, Nicaragua</ion-select-option>
       <ion-select-option value="Panama City,PA">Panamá, Panamá</ion-select-option>
       <ion-select-option value="Asuncion,PY">Asunción, Paraguay</ion-select-option>
       <ion-select-option value="Lima,PE">Lima, Perú</ion-select-option>
       <ion-select-option value="Madrid,ES">Madrid, España</ion-select-option>
-      <ion-select-option value="Chicago,US">Chicago, EE.UU.</ion-select-option>
-      <ion-select-option value="Montevideo,UY">Montevideo, Uruguay</ion-select-option>
-      <ion-select-option value="asdfg,CL">asdfg, Chile</ion-select-option>
-      <ion-select-option value=",CL">"", Chile</ion-select-option>
-      <ion-select-option value="SANTIAGO,CL">SANTIAGO, Chile</ion-select-option>
-      <ion-select-option value="    Santiago    ,CL">----    Santiago   ----, Chile</ion-select-option>
-      
     </ion-select>
   </ion-item>
 

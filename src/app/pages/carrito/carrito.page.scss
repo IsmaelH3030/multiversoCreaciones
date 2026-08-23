@@ -26,6 +26,7 @@
   margin: 10px; /* Espacio entre tarjetas */
   border-radius: 10px; /* Bordes redondeados */
   transition: transform 0.2s; /* Efecto suave al pasar el mouse */
+  overflow: hidden; /* Mantiene la imagen dentro de los bordes redondeados */
 }
 
 .card:hover {
@@ -35,9 +36,10 @@
 /* Imagen de la tarjeta */
 .card-img {
   width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
-  height: auto; /* Mantiene la proporción de la imagen */
-  max-height: 100%; /* Altura máxima para la imagen */
+  height: 200px; /* Altura fija para alineación uniforme de tarjetas */
   object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 
@@ -170,9 +172,8 @@ h4{
   justify-content: center;
   padding: 10px;
   border-radius: 8px;
-  width: 1000px;                   /* Ancho fijo */
-  padding-left: 200px;
-  padding-right: 200px;
+  width: 100%;                  /* Cambiado a 100% para fluidez en celulares y desktop */
+  max-width: 500px;             /* Ancho máximo recomendado para botones PayPal */
 }
 
 .paypal{
@@ -181,5 +182,6 @@ h4{
   align-items: center;
   background-color: #f8f0f0;
   border-radius: 8px;
-
+  width: 100%;
+  margin: 0 auto;
 }

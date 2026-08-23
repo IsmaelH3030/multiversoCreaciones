@@ -1,66 +1,129 @@
-<ion-app>
-  <ion-content [fullscreen]="true">
+
 <!-- Encabezado de la página -->
-      <ion-header>
-        <ion-toolbar> <!-- Barra de herramientas dentro del encabezado -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="logo-principal">
+        <img class="imgagen-logo" src="assets/icon/1611770034484.png" fetchpriority="high" alt="Logo">
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-          <!-- Botón de menú en la parte izquierda del toolbar -->
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button> <!-- Botón para abrir el menú lateral -->
-          </ion-buttons>
+<ion-content class="ion-padding">
+  <h2>GESTIÓN DE PRODUCTOS</h2>
 
-          <!-- Título de la página con el logo -->
-          <ion-title>
-            <div class="logo-principal">
-              <img class="imgagen-logo" src="assets/icon/1611770034484.png" alt="logo" />
-            </div>
-          </ion-title>
+<form #tShirtForm="ngForm" (ngSubmit)="createOrUpdateTShirt()">
+  
+  <input 
+    type="text" 
+    [value]="selectedTShirt.material" 
+    (input)="selectedTShirt.material = $any($event.target).value" 
+    [(ngModel)]="selectedTShirt.material"
+    name="material" 
+    #material="ngModel"
+    placeholder="Material" 
+    required 
+  />
+  <small style="color: red; display: block;" *ngIf="(material.invalid && material.touched) || (tShirtForm.submitted && material.invalid)">
+    El campo material es obligatorio.
+  </small>
 
-        </ion-toolbar>
-      </ion-header>
+  <input 
+    type="text" 
+    [(ngModel)]="selectedTShirt.size" 
+    name="size" 
+    #size="ngModel"
+    placeholder="Talla" 
+    required 
+  />
+  <small style="color: red; display: block;" *ngIf="(size.invalid && size.touched) || (tShirtForm.submitted && size.invalid)">
+    El campo talla es obligatorio.
+  </small>
 
-    <div class="ion-padding">
-      <h2>GESTIÓN DE PRODUCTOS</h2>
+  <textarea 
+    [(ngModel)]="selectedTShirt.description" 
+    name="description" 
+    #description="ngModel"
+    placeholder="Descripción" 
+    required
+  ></textarea>
+  <small style="color: red; display: block;" *ngIf="(description.invalid && description.touched) || (tShirtForm.submitted && description.invalid)">
+    El campo descripción es obligatorio.
+  </small>
 
-      <form (ngSubmit)="createOrUpdateTShirt()">
-        <input type="text" [value]="selectedTShirt.material" (input)="selectedTShirt.material = $any($event.target).value" name="material" placeholder="Material" required />
-        <input type="text" [(ngModel)]="selectedTShirt.size" name="size" placeholder="Talla" required />
-        <textarea [(ngModel)]="selectedTShirt.description" name="description" placeholder="Descripción" required></textarea>
-        <input type="number" [(ngModel)]="selectedTShirt.price" name="price" placeholder="Precio" required />
-        
-        <!-- Input para seleccionar imagen desde el PC -->
-        <input type="file" (change)="uploadImage($event)" accept="image/*" title="Selecciona una imagen desde tu equipo" />
+<input 
+  type="number" 
+  [(ngModel)]="selectedTShirt.price" 
+  name="price" 
+  #price="ngModel"
+  placeholder="Precio" 
+  step="1000"
+  min="0"
+  required 
+/>
+  <small style="color: red; display: block;" *ngIf="(price.invalid && price.touched) || (tShirtForm.submitted && price.invalid)">
+    El campo precio es obligatorio.
+  </small>
+  
+  <input 
+    type="file" 
+    (change)="uploadImage($event)" 
+    accept="image/*" 
+    title="Selecciona una imagen desde tu equipo" 
+  />
+  <small style="color: red; display: block;" *ngIf="tShirtForm.submitted && !selectedTShirt.imageUrl">
+    Debes seleccionar una imagen desde tu equipo.
+  </small>
 
-        <!-- Vista previa de la imagen cargada -->
-        <div *ngIf="selectedTShirt.imageUrl" class="ion-margin-top">
-          <img [src]="selectedTShirt.imageUrl" alt="Vista previa" width="150" />
-        </div>
+  <div *ngIf="selectedTShirt.imageUrl" class="ion-margin-top">
+    <img [src]="selectedTShirt.imageUrl" alt="Vista previa" width="150" />
+  </div>
 
-        <div class="button-container ion-margin-top">
-          <button type="submit">{{ selectedTShirt.id ? 'Actualizar' : 'Crear' }}</button>
-          <button type="button" *ngIf="selectedTShirt.id" (click)="resetForm()">Cancelar</button>
-        </div>
-      </form>
+  <div class="button-container ion-margin-top">
+    <button type="submit">{{ selectedTShirt.id ? 'Actualizar' : 'Crear' }}</button>
+    <button type="button" *ngIf="selectedTShirt.id" (click)="resetForm()">Cancelar</button>
+  </div>
+</form>
 
-      <hr class="ion-margin-vertical" />
 
-      <!-- Lista de camisetas -->
-      <div class="card-container">
-        <div class="card" *ngFor="let tshirt of tshirts">
-          <img class="card-img" *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" alt="Imagen de camiseta" />
-          <div class="card-body">
-            <h3>{{ tshirt.material }}</h3>
-            <p>Talla: {{ tshirt.size }}</p>
-            <p>{{ tshirt.description }}</p>
-            <p>Precio: ${{ tshirt.price }} CLP</p>
+  
+  <hr class="ion-margin-vertical" />
 
-            <div class="button-container">
-              <button (click)="editTShirt(tshirt)">Editar</button>
-              <button (click)="deleteTShirt(tshirt)">Eliminar</button>
-            </div>
-          </div>
+<!-- Esqueleto de carga (se muestra mientras isLoading es true) -->
+  <div class="card-container" *ngIf="isLoading">
+    <div class="card" *ngFor="let item of [1,2,3]">
+      <ion-skeleton-text animated style="width: 100%; height: 180px; margin: 0;"></ion-skeleton-text>
+      <div class="card-body">
+        <ion-skeleton-text animated style="width: 60%; height: 20px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 40%; height: 15px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 80%; height: 15px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 30%; height: 18px;"></ion-skeleton-text>
+      </div>
+    </div>
+  </div>
+
+
+ <!-- Lista de camisetas (se muestra cuando finaliza la carga) -->
+  <div class="card-container">
+    <div class="card" *ngFor="let tshirt of tshirts">
+      <!-- Carga floja y baja prioridad aplicada a las imágenes pesadas/dinámicas -->
+      <img class="card-img" *ngIf="tshirt.imageUrl" [src]="tshirt.imageUrl" loading="lazy" fetchpriority="low" alt="Imagen de camiseta" />
+      <div class="card-body">
+        <h3>{{ tshirt.material }}</h3>
+        <p>Talla: {{ tshirt.size }}</p>
+        <p>{{ tshirt.description }}</p>
+        <p>Precio: ${{ tshirt.price }} CLP</p>
+
+        <div class="button-container">
+          <button (click)="editTShirt(tshirt)">Editar</button>
+          <button (click)="deleteTShirt(tshirt)">Eliminar</button>
         </div>
       </div>
     </div>
-  </ion-content>
-</ion-app>
+  </div>
+  
+</ion-content>
