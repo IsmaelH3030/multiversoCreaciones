@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { TShirtService } from 'src/app/services/t-shirt.service'; // Importa tu servicio de camisetas
 import { loadScript } from '@paypal/paypal-js';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-carrito',
@@ -104,9 +106,9 @@ export class CarritoPage implements OnInit, OnDestroy {
 
   async loadPayPalButton() {
     const paypal = await loadScript({
-      clientId: 'AVrRexaZH32FwFZ9bmgwMuI_G2cTnBtx6Hh6bPdIeYd5hCtb9TGTrozAkiECjM3VBQhhAn-nW2NrUYFt',
-      currency: 'USD'
-    });
+          clientId: environment.paypal.clientId,
+          currency: environment.paypal.currency
+          });
 
     if (paypal?.Buttons) {
       paypal.Buttons({

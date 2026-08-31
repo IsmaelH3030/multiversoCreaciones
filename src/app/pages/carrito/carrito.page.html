@@ -117,8 +117,8 @@
         <ion-button class="botonVaciar" expand="full" (click)="vaciarCarrito()" *ngIf="!isLoading && carrito.length > 0">Vaciar Carrito</ion-button>
 
         <!-- Botón oficial de PayPal -->
-        <div class="paypal" *ngIf="!isLoading && carrito.length > 0">
-          <div id="paypal-button-container"></div>
+        <div class="paypal" [hidden]="isLoading || carrito.length === 0">
+         <div id="paypal-button-container"></div>
         </div>
 
       </div> <!-- Fin del contenedor principal -->
