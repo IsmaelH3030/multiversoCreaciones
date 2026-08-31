@@ -27,7 +27,7 @@
         <h2>Bienvenido <!-- Mensaje de bienvenida -->
           <!--{{user.name}}--> <!-- Comentario que indica dónde se mostraría el nombre del usuario, actualmente deshabilitado -->
         </h2>
-        <h2 *ngIf="isAuthenticated">{{user.name}}</h2> <!-- Muestra el nombre del usuario si está autenticado -->
+        <h2 *ngIf="isAuthenticated">{{user?.name}}</h2> <!-- Muestra el nombre del usuario si está autenticado -->
       </div>
 
       <div class="container carrusel"> <!-- Contenedor para el carrusel de imágenes -->
